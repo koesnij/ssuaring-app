@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/react-hooks';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import useInput from '../../hooks/useInput';
+import { useLogIn } from '../../AuthContext';
 
 const View = styled.View`
   justify-content: center;
@@ -17,6 +18,7 @@ const Text = styled.Text``;
 
 export default () => {
   const confirmInput = useInput('');
+  const logIn = useLogIn();
   const [loading, setLoading] = useState(false);
 
   const handleConfirm = async () => {
@@ -30,6 +32,7 @@ export default () => {
       //   data: { confirmSecret },
       // } = await confirmSecretMutation();
       // if (confirmSecret) {
+      logIn();
       //   logIn(confirmSecret);
       // } else {
       //   Alert.alert('Wrong Secret!');
