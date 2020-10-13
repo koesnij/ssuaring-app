@@ -5,7 +5,8 @@ const useInput = (initialValue) => {
   const onChange = (text) => {
     setValue(text);
   };
-  return { value, onChange };
+  const length = value.length;
+  return { value, onChange, length };
 };
 
 export default useInput;

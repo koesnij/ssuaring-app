@@ -10,7 +10,8 @@ const Touchable = styled.TouchableOpacity``;
 const Container = styled.View`
   height: 48px;
   width: ${constants.width - 100};
-  background-color: ${styles.blueColor};
+  background-color: ${(props) =>
+    props.disabled ? styles.darkGreyColor : styles.blueColor};
   align-items: center;
   justify-content: center;
   border-radius: 8px;
@@ -22,9 +23,9 @@ const Text = styled.Text`
   font-weight: 600;
 `;
 
-const Button = ({ text, onPress, loading = false }) => (
-  <Touchable disabled={loading} onPress={onPress}>
-    <Container>
+const Button = ({ text, onPress, disabled = false, loading = false }) => (
+  <Touchable disabled={disabled || loading} onPress={onPress}>
+    <Container disabled={disabled}>
       {loading ? <ActivityIndicator color={'white'} /> : <Text>{text}</Text>}
     </Container>
   </Touchable>

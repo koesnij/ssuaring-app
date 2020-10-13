@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/react-hooks';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import useInput from '../../hooks/useInput';
+import { LOG_IN } from './AuthQueries';
 
 const View = styled.View`
   justify-content: center;
@@ -18,19 +19,18 @@ const Text = styled.Text``;
 export default ({ navigation }) => {
   const phoneNumberInput = useInput('');
   const [loading, setLoading] = useState(false);
+  const [requestSecretMutation] = useMutation(LOG_IN, {
+    variables: { phoneNumber: phoneNumberInput.value },
+  });
 
   const handleLogin = async () => {
     const { value } = phoneNumberInput;
-    if (value === '') {
-      return Alert.alert('전화번호를 입력하세요.');
-    }
     try {
       setLoading(true);
-      // const {
-      //   data: { requestSecret },
-      // } = await requestSecretMutation();
-      // if (requestSecret) {
-      if (true) {
+      const {
+        data: { requestSecret },
+      } = await requestSecretMutation();
+      if (requestSecret) {
         navigation.navigate('Confirm');
         return;
       }
@@ -52,7 +52,14 @@ export default ({ navigation }) => {
           autoCorrect={false}
           keyboardType="numeric"
         />
-        <Button onPress={handleLogin} text="인증문자 받기" />
+        <Button
+          disabled={
+            phoneNumberInput.length < 10 || phoneNumberInput.length > 11
+          }
+          loading={loading}
+          onPress={handleLogin}
+          text="인증문자 받기"
+        />
       </View>
     </TouchableWithoutFeedback>
   );

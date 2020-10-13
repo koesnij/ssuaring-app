@@ -59,7 +59,12 @@ export default () => {
           keyboardType="numeric"
           autoCapitalize="none"
         />
-        <Button onPress={handleConfirm} text="시작하기" />
+        <Button
+          disabled={confirmInput.length < 6 || confirmInput.length > 7}
+          loading={loading}
+          onPress={handleConfirm}
+          text="시작하기"
+        />
       </View>
     </TouchableWithoutFeedback>
   );
