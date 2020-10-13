@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, AsyncStorage, TouchableOpacity } from 'react-native';
+import { AsyncStorage } from 'react-native';
 
 import { AppLoading } from 'expo';
 import * as Font from 'expo-font';
@@ -12,10 +12,15 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from '@apollo/react-hooks';
 import apolloClientOptions from './apollo';
 
+import styles from './styles';
+import { AuthProvider } from './AuthContext';
+import NavController from './components/NavController';
+
 export default function App() {
   const [loaded, setLoaded] = useState(false);
   const [client, setClient] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(null); // true: in / false: out / null: not checked
+
   const preLoad = async () => {
     try {
       // Ionicons, Asset preload
@@ -39,7 +44,7 @@ export default function App() {
       setClient(client);
 
       const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
-      if (isLoggedIn === null || isLoggedIn === 'false') {
+      if (!isLoggedIn || isLoggedIn === 'false') {
         setIsLoggedIn(false);
       } else {
         setIsLoggedIn(true);
@@ -56,37 +61,11 @@ export default function App() {
     preLoad();
   }, []);
 
-  const logUserIn = async () => {
-    try {
-      await AsyncStorage.setItem('isLoggedIn', 'true');
-      setIsLoggedIn(true);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const logUserOut = async () => {
-    try {
-      await AsyncStorage.setItem('isLoggedIn', 'false'); // only string
-      setIsLoggedIn(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  return client && loaded ? (
+  return client && loaded && isLoggedIn !== null ? (
     <ApolloProvider client={client}>
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        {isLoggedIn === true ? (
-          <TouchableOpacity onPress={logUserOut}>
-            <Text>Log Out</Text>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity onPress={logUserIn}>
-            <Text>Log In</Text>
-          </TouchableOpacity>
-        )}
-      </View>
+      <AuthProvider isLoggedIn={isLoggedIn}>
+        <NavController />
+      </AuthProvider>
     </ApolloProvider>
   ) : (
     <AppLoading />
