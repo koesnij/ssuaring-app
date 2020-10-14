@@ -38,8 +38,9 @@ const stackFactory = (initialRoute, customConfig) =>
     },
     {
       navigationOptions: ({ navigation }) => {
+        let { routeName } = navigation.state.routes[navigation.state.index];
         let tabBarVisible = true;
-        if (navigation.state.index > 0) {
+        if (routeName === 'Map') {
           tabBarVisible = false;
         }
         return {
