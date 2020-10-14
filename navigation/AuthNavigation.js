@@ -8,10 +8,10 @@ import SignUp from '../screens/Auth/SignUp';
 const AuthNavigation = createStackNavigator(
   {
     Login,
-    Confirm,
     SignUp,
+    Confirm,
   },
-  { initialRouteName: 'Login', headerMode: 'none' }
+  { headerMode: 'none' }
 );
 
 export default createAppContainer(AuthNavigation);
