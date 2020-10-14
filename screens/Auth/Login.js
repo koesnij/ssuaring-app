@@ -13,18 +13,30 @@ const View = styled.View`
   align-items: center;
   flex: 1;
 `;
-
-const Text = styled.Text``;
+const Title = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+`;
+const Form = styled.View`
+  flex: 2;
+  align-items: center;
+  justify-content: flex-start;
+`;
+const Text = styled.Text`
+  font-size: 24px;
+`;
 
 export default ({ navigation }) => {
-  const phoneNumberInput = useInput('');
+  const phoneInput = useInput('');
   const [loading, setLoading] = useState(false);
   const [requestSecretMutation] = useMutation(LOG_IN, {
-    variables: { phoneNumber: phoneNumberInput.value },
+    variables: { phoneNumber: phoneInput.value },
   });
 
   const handleLogin = async () => {
-    const { value } = phoneNumberInput;
+    const { value } = phoneInput;
     try {
       setLoading(true);
       const {
@@ -32,6 +44,7 @@ export default ({ navigation }) => {
       } = await requestSecretMutation();
       if (requestSecret) {
         navigation.navigate('Confirm');
+        // navigation.navigate('SignUp', { phone: value });
         return;
       }
     } catch (e) {
@@ -45,21 +58,23 @@ export default ({ navigation }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View>
-        <Input
-          {...phoneNumberInput} /*value랑 onChange를 리턴함*/
-          placeholder="전화번호 입력"
-          onSubmitEditing={handleLogin}
-          autoCorrect={false}
-          keyboardType="numeric"
-        />
-        <Button
-          disabled={
-            phoneNumberInput.length < 10 || phoneNumberInput.length > 11
-          }
-          loading={loading}
-          onPress={handleLogin}
-          text="인증문자 받기"
-        />
+        <Title>
+          <Text>전화번호를 인증하세요</Text>
+        </Title>
+        <Form>
+          <Input
+            {...phoneInput} /*value랑 onChange를 리턴함*/
+            placeholder="전화번호 입력"
+            autoCorrect={false}
+            keyboardType="numeric"
+          />
+          <Button
+            disabled={phoneInput.length < 10 || phoneInput.length > 11}
+            loading={loading}
+            onPress={handleLogin}
+            text="인증문자 받기"
+          />
+        </Form>
       </View>
     </TouchableWithoutFeedback>
   );

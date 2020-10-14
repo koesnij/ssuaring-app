@@ -13,8 +13,20 @@ const View = styled.View`
   align-items: center;
   flex: 1;
 `;
-
-const Text = styled.Text``;
+const Title = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+`;
+const Form = styled.View`
+  flex: 2;
+  align-items: center;
+  justify-content: flex-start;
+`;
+const Text = styled.Text`
+  font-size: 24px;
+`;
 
 export default () => {
   const confirmInput = useInput('');
@@ -27,7 +39,7 @@ export default () => {
       return Alert.alert('인증번호를 입력하세요.');
     }
     try {
-      // setLoading(true);
+      setLoading(true);
       // const {
       //   data: { confirmSecret },
       // } = await confirmSecretMutation();
@@ -52,19 +64,23 @@ export default () => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View>
-        <Input
-          {...confirmInput} /*value랑 onChange를 리턴함*/
-          placeholder="인증번호 입력"
-          onSubmitEditing={handleConfirm}
-          keyboardType="numeric"
-          autoCapitalize="none"
-        />
-        <Button
-          disabled={confirmInput.length < 6 || confirmInput.length > 7}
-          loading={loading}
-          onPress={handleConfirm}
-          text="시작하기"
-        />
+        <Title>
+          <Text>메시지를 확인하세요</Text>
+        </Title>
+        <Form>
+          <Input
+            {...confirmInput} /*value랑 onChange를 리턴함*/
+            placeholder="인증번호 입력"
+            keyboardType="numeric"
+            autoCapitalize="none"
+          />
+          <Button
+            disabled={confirmInput.length < 6 || confirmInput.length > 7}
+            loading={loading}
+            onPress={handleConfirm}
+            text="시작하기"
+          />
+        </Form>
       </View>
     </TouchableWithoutFeedback>
   );
