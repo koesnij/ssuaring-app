@@ -11,6 +11,6 @@ const Text = styled.Text``;
 
 export default () => (
   <View>
-    <Text>Home</Text>
+    <Text>New Post</Text>
   </View>
 );

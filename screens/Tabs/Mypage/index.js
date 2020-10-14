@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Button from '../../components/Button';
-import { useLogOut } from '../../AuthContext';
+import Button from '../../../components/Button';
+import { useLogOut } from '../../../AuthContext';
 
 const View = styled.View`
   justify-content: center;
