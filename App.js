@@ -12,7 +12,6 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from '@apollo/react-hooks';
 import apolloClientOptions from './apollo';
 
-import styles from './styles';
 import { AuthProvider } from './AuthContext';
 import NavController from './components/NavController';
 
