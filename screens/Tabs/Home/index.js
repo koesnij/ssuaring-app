@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
 import styled from 'styled-components';
+import { Header, HeaderLink } from '../../../components/HeaderItem';
 
 const View = styled.View`
   justify-content: center;
@@ -15,6 +16,26 @@ export default ({ navigation }) => {
     navigation.setParams({ area: '동작구' });
     console.log('filter:', navigation);
   }, []);
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerTitle: '동작구',
+      headerRight: () => {
+        return (
+          <Header>
+            <HeaderLink
+              str={'필터'}
+              onPress={() => navigation.navigate('Filter')}
+            />
+            <HeaderLink
+              str={'지도'}
+              onPress={() => navigation.navigate('Map')}
+            />
+          </Header>
+        );
+      },
+    });
+  }, [navigation]);
 
   return (
     <View>

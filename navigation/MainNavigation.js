@@ -1,27 +1,21 @@
 import React from 'react';
-import { createAppContainer } from 'react-navigation';
-import { createStackNavigator } from 'react-navigation-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
 import TabNavigation from './TabNavigation';
 import NewPost from '../screens/Tabs/NewPost';
 
-const MainNavigation = createStackNavigator(
-  {
-    TabNavigation: {
-      screen: TabNavigation,
-      navigationOptions: {
-        headerShown: false,
-      },
-    },
-    NewPost: {
-      screen: NewPost,
-      navigationOptions: {
-        title: '글쓰기',
-      },
-    },
-  },
-  {
-    headerMode: 'float',
-  }
-);
+const Stack = createStackNavigator();
 
-export default createAppContainer(MainNavigation);
+export default () => (
+  <NavigationContainer>
+    <Stack.Navigator headerMode={'float'}>
+      <Stack.Screen
+        name="TabNavigation"
+        component={TabNavigation}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="NewPost" component={NewPost} />
+    </Stack.Navigator>
+  </NavigationContainer>
+);

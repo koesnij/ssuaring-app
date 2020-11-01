@@ -1,8 +1,7 @@
 import React from 'react';
 import { View } from 'react-native';
-import { createAppContainer } from 'react-navigation';
-import { createBottomTabNavigator } from 'react-navigation-tabs';
-import { createStackNavigator } from 'react-navigation-stack';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Home from '../screens/Tabs/Home';
 import Search from '../screens/Tabs/Search';
@@ -12,113 +11,91 @@ import TabIcon from '../components/TabIcon';
 import Filter from '../screens/Tabs/Home/Filter';
 import Map from '../screens/Tabs/Home/Map';
 import styles from '../styles';
-import { Header, HeaderLink } from '../components/HeaderItem';
 
-const stackFactory = (initialRoute, customConfig) =>
-  createStackNavigator(
-    {
-      initialRoute: {
-        screen: initialRoute,
-        navigationOptions: {
-          ...customConfig,
-        },
-      },
-      Filter: {
-        screen: Filter,
-        navigationOptions: {
-          title: '필터',
-        },
-      },
-      Map: {
-        screen: Map,
-        navigationOptions: {
-          title: '지도',
-        },
-      },
-    },
-    {
-      navigationOptions: ({ navigation }) => {
-        let { routeName } = navigation.state.routes[navigation.state.index];
-        let tabBarVisible = true;
-        if (routeName === 'Map') {
-          tabBarVisible = false;
-        }
-        return {
-          tabBarVisible,
-        };
-      },
-      defaultNavigationOptions: {
-        headerBackTitle: ' ',
-        headerTintColor: styles.blackColor,
-      },
-    }
-  );
+const HomeStack = createStackNavigator();
+const HomeStackScreen = () => (
+  <HomeStack.Navigator
+    screenOptions={{
+      headerBackTitle: ' ',
+      headerTintColor: styles.blackColor,
+    }}
+  >
+    <HomeStack.Screen
+      name="Home"
+      component={Home}
+      options={{ title: '내 지역' }}
+    />
+    <HomeStack.Screen
+      name="Filter"
+      component={Filter}
+      options={{ title: '필터' }}
+    />
+    <HomeStack.Screen name="Map" component={Map} options={{ title: '지도' }} />
+  </HomeStack.Navigator>
+);
 
-const TabNavigation = createBottomTabNavigator(
-  {
-    Home: {
-      screen: stackFactory(Home, {
-        title: '동작구',
-        headerRight: () => {
-          return (
-            <Header style={{ flexDirection: 'row' }}>
-              <HeaderLink str={'필터'} to={'Filter'} />
-              <HeaderLink str={'지도'} to={'Map'} />
-            </Header>
-          );
-        },
-      }),
-      navigationOptions: {
-        title: '홈',
+const Tab = createBottomTabNavigator();
 
-        tabBarIcon: ({ focused }) => (
-          <TabIcon name={'home'} focused={focused} />
-        ),
-      },
-    },
-    Search: {
-      screen: Search,
-      navigationOptions: {
-        title: '검색',
-        tabBarIcon: ({ focused }) => (
-          <TabIcon name={'search'} focused={focused} />
-        ),
-      },
-    },
-    Add: {
-      screen: View,
-      navigationOptions: {
-        title: '글쓰기',
-        tabBarOnPress: ({ navigation }) => {
-          navigation.navigate('NewPost');
-        },
-        tabBarIcon: ({ focused }) => <TabIcon name={'add-circle-outline'} />,
-      },
-    },
-    Chats: {
-      screen: Chats,
-      navigationOptions: {
-        title: '채팅',
-        tabBarIcon: ({ focused }) => (
-          <TabIcon name={'chatbubbles'} focused={focused} />
-        ),
-      },
-    },
-    Mypage: {
-      screen: Mypage,
-      navigationOptions: {
-        title: '마이',
-        tabBarIcon: ({ focused }) => (
-          <TabIcon name={'person'} focused={focused} />
-        ),
-      },
-    },
-  },
-  {
-    tabBarOptions: {
+export default ({ navigation }) => (
+  <Tab.Navigator
+    tabBarOptions={{
       activeTintColor: `${styles.blueColor}`,
       inactiveTintColor: `${styles.blackColor}`,
-    },
-  }
+    }}
+  >
+    <Tab.Screen
+      name="Home"
+      component={HomeStackScreen}
+      options={{
+        tabBarLabel: '홈',
+        tabBarIcon: ({ focused }) => <TabIcon name="home" focused={focused} />,
+      }}
+    />
+    <Tab.Screen
+      name="Search"
+      component={Search}
+      options={{
+        tabBarLabel: '검색',
+        tabBarIcon: ({ focused }) => (
+          <TabIcon name="search" focused={focused} />
+        ),
+      }}
+    />
+    <Tab.Screen
+      name="Add"
+      component={View}
+      options={{
+        tabBarLabel: '글쓰기',
+        tabBarIcon: ({ focused }) => (
+          <TabIcon name="add-circle-outline" focused={focused} />
+        ),
+      }}
+      listeners={{
+        tabPress: (e) => {
+          e.preventDefault();
+          navigation.navigate('NewPost');
+        },
+      }}
+    />
+    <Tab.Screen
+      name="Chats"
+      component={Chats}
+      options={{
+        tabBarLabel: '채팅',
+        tabBarIcon: ({ focused }) => (
+          <TabIcon name="chatbubbles" focused={focused} />
+        ),
+      }}
+    />
+    <Tab.Screen
+      name="Mypage"
+      component={Mypage}
+      options={{
+        tabBarLabel: '마이',
+        tabBarIcon: ({ focused }) => (
+          <TabIcon name="person" focused={focused} />
+        ),
+      }}
+    />
+  </Tab.Navigator>
 );
-export default createAppContainer(TabNavigation);
