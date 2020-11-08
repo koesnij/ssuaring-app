@@ -2,6 +2,7 @@ import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { ScrollView } from 'react-native';
 import styled from 'styled-components';
 import { Header, HeaderLink } from '../../../components/HeaderItem';
+import { RecyclerListView, DataProvider, LayoutProvider } from "recyclerlistview";
 
 const View = styled.View`
   justify-content: center;
@@ -39,7 +40,7 @@ export default ({ navigation }) => {
 
   return (
     <View>
-      <Text>Home</Text>
+      <Text>Home Bitches!</Text>
     </View>
   );
 };
