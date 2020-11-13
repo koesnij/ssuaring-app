@@ -10,6 +10,7 @@ import Mypage from '../screens/Tabs/Mypage';
 import TabIcon from '../components/TabIcon';
 import Filter from '../screens/Tabs/Home/Filter';
 import Map from '../screens/Tabs/Home/Map';
+import PostDetail from '../screens/Tabs/PostDetail';
 import styles from '../styles';
 
 const HomeStack = createStackNavigator();
@@ -23,12 +24,19 @@ const HomeStackScreen = () => (
     <HomeStack.Screen
       name="Home"
       component={Home}
-      options={{ title: '내 지역' }}
+      options={{ title: '내 지역a',
+       headerTitle: '동작구', }}
     />
     <HomeStack.Screen
       name="Filter"
       component={Filter}
       options={{ title: '필터' }}
+    />
+
+      <HomeStack.Screen
+      name="PostDetail"
+      component={PostDetail}
+      options={{ title: '대여 상세 정보' }}
     />
     <HomeStack.Screen name="Map" component={Map} options={{ title: '지도' }} />
   </HomeStack.Navigator>
