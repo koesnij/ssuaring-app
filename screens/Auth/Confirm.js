@@ -7,6 +7,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import useInput from '../../hooks/useInput';
 import { useLogIn } from '../../AuthContext';
+import { CONFIRM_SECRET } from './AuthQueries';
 
 const View = styled.View`
   justify-content: center;
@@ -28,11 +29,16 @@ const Text = styled.Text`
   font-size: 24px;
 `;
 
-export default () => {
+export default ({ route, navigation }) => {
   const confirmInput = useInput('');
-  const logIn = useLogIn();
+  const phoneNumber = route.params?.phoneNumber;
+  console.log(phoneNumber);
   const [loading, setLoading] = useState(false);
+  const [confirmSecretMutation] = useMutation(CONFIRM_SECRET, {
+    variables: { phoneNumber, secret: confirmInput.value },
+  });
 
+  const logIn = useLogIn();
   const handleConfirm = async () => {
     const { value } = confirmInput;
     if (value === '') {
@@ -40,15 +46,20 @@ export default () => {
     }
     try {
       setLoading(true);
-      // const {
-      //   data: { confirmSecret },
-      // } = await confirmSecretMutation();
-      // if (confirmSecret) {
-      logIn();
-      //   logIn(confirmSecret);
-      // } else {
-      //   Alert.alert('Wrong Secret!');
-      // }
+      const {
+        data: { confirmSecret },
+      } = await confirmSecretMutation();
+      if (confirmSecret) {
+        console.log(confirmSecret);
+        if (confirmSecret === 'SignUp') {
+          Alert.alert('회원가입이 필요합니다.');
+          navigation.navigate('SignUp', { phoneNumber });
+        } else {
+          logIn(confirmSecret);
+        }
+      } else {
+        Alert.alert('Wrong Secret!');
+      }
       if (true) {
         // navigation.navigate('Confirm');
         return;

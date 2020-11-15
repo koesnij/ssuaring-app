@@ -26,6 +26,7 @@ const Input = ({
   keyboardType = 'default',
   autoCapitalize = 'none',
   returnKeyType = 'done',
+  editable = true,
 }) => (
   <Container>
     <TextInput
@@ -37,6 +38,7 @@ const Input = ({
       keyboardType={keyboardType}
       autoCapitalize={autoCapitalize}
       returnKeyType={returnKeyType}
+      editable={editable}
     />
   </Container>
 );
@@ -46,6 +48,7 @@ Input.propTypes = {
   placeholder: PropTypes.string.isRequired,
   onSubmitEditing: PropTypes.func,
   autoCorrect: PropTypes.bool,
+  editable: PropTypes.bool,
   keyboardType: PropTypes.oneOf([
     'default',
     'number-pad',

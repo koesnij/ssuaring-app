@@ -6,24 +6,26 @@ export const LOG_IN = gql`
   }
 `;
 
-// export const CREATE_ACCOUNT = gql`
-//   mutation createAccount(
-//     $username: String!
-//     $email: String!
-//     $firstName: String
-//     $lastName: String
-//   ) {
-//     createAccount(
-//       username: $username
-//       email: $email
-//       firstName: $firstName
-//       lastName: $lastName
-//     )
-//   }
-// `;
+export const CREATE_ACCOUNT = gql`
+  mutation createAccount(
+    $phoneNumber: String!
+    $name: String!
+    $nickname: String!
+    $email: String!
+    $area: String!
+  ) {
+    createAccount(
+      phoneNumber: $phoneNumber
+      name: $name
+      nickname: $nickname
+      email: $email
+      area: $area
+    )
+  }
+`;
 
-// export const CONFIRM_SECRET = gql`
-//   mutation confirmSecret($secret: String!, $email: String!) {
-//     confirmSecret(secret: $secret, email: $email)
-//   }
-// `;
+export const CONFIRM_SECRET = gql`
+  mutation confirmSecret($secret: String!, $phoneNumber: String!) {
+    confirmSecret(secret: $secret, phoneNumber: $phoneNumber)
+  }
+`;

@@ -29,7 +29,7 @@ const Text = styled.Text`
 `;
 
 export default ({ navigation }) => {
-  const phoneInput = useInput('');
+  const phoneInput = useInput('01020867353');
   const [loading, setLoading] = useState(false);
   const [requestSecretMutation] = useMutation(LOG_IN, {
     variables: { phoneNumber: phoneInput.value },
@@ -43,8 +43,7 @@ export default ({ navigation }) => {
         data: { requestSecret },
       } = await requestSecretMutation();
       if (requestSecret) {
-        navigation.navigate('Confirm');
-        // navigation.navigate('SignUp', { phone: value });
+        navigation.navigate('Confirm', { phoneNumber: value });
         return;
       }
     } catch (e) {
