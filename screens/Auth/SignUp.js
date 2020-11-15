@@ -91,7 +91,6 @@ export default ({ route }) => {
             placeholder="전화번호 입력"
             autoCorrect={false}
             keyboardType="numeric"
-            editable={false}
           />
           <Input
             {...nameInput} /*value랑 onChange를 리턴함*/
