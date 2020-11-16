@@ -1,3 +1,7 @@
+/**
+ * 입력 안했을 때,
+ * 이메일, 닉네임 중복 등 처리 필요
+ */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
@@ -5,7 +9,11 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import useInput from '../../hooks/useInput';
 
-import { Keyboard, TouchableWithoutFeedback } from 'react-native';
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import { CREATE_ACCOUNT } from './AuthQueries';
 import { useMutation } from '@apollo/react-hooks';
 import { useLogIn } from '../../AuthContext';
@@ -54,8 +62,6 @@ export default ({ route }) => {
 
   const logIn = useLogIn();
   const handleSignUp = async () => {
-    /** 입력 안 했을 때 처리 */
-
     try {
       setLoading(true);
       const {
@@ -82,41 +88,44 @@ export default ({ route }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View>
-        <Title>
-          <Text>회원가입이 필요합니다</Text>
-        </Title>
-        <Form>
-          <Input
-            {...phoneInput} /*value랑 onChange를 리턴함*/
-            placeholder="전화번호 입력"
-            autoCorrect={false}
-            keyboardType="numeric"
-          />
-          <Input
-            {...nameInput} /*value랑 onChange를 리턴함*/
-            placeholder="이름 입력"
-            returnKeyType="next"
-          />
-          <Input
-            {...nicknameInput} /*value랑 onChange를 리턴함*/
-            placeholder="별명 입력"
-            returnKeyType="next"
-          />
-          <Input
-            {...emailInput} /*value랑 onChange를 리턴함*/
-            placeholder="이메일 입력"
-            autoCorrect={false}
-            keyboardType="email-address"
-            returnKeyType="next"
-          />
-          <Input
-            {...areaInput} /*value랑 onChange를 리턴함*/
-            placeholder="지역 선택"
-            autoCorrect={false}
-            returnKeyType="done"
-          />
-          <Button loading={loading} onPress={handleSignUp} text="회원가입" />
-        </Form>
+        <KeyboardAvoidingView behavior="padding">
+          <Title>
+            <Text>회원가입이 필요합니다</Text>
+          </Title>
+          <Form>
+            <Input
+              {...phoneInput} /*value랑 onChange를 리턴함*/
+              placeholder="전화번호 입력"
+              autoCorrect={false}
+              keyboardType="numeric"
+              editable={false}
+            />
+            <Input
+              {...nameInput} /*value랑 onChange를 리턴함*/
+              placeholder="이름 입력"
+              returnKeyType="next"
+            />
+            <Input
+              {...nicknameInput} /*value랑 onChange를 리턴함*/
+              placeholder="별명 입력"
+              returnKeyType="next"
+            />
+            <Input
+              {...emailInput} /*value랑 onChange를 리턴함*/
+              placeholder="이메일 입력"
+              autoCorrect={false}
+              keyboardType="email-address"
+              returnKeyType="next"
+            />
+            <Input
+              {...areaInput} /*value랑 onChange를 리턴함*/
+              placeholder="지역 선택"
+              autoCorrect={false}
+              returnKeyType="done"
+            />
+            <Button loading={loading} onPress={handleSignUp} text="회원가입" />
+          </Form>
+        </KeyboardAvoidingView>
       </View>
     </TouchableWithoutFeedback>
   );

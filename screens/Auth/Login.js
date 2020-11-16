@@ -47,7 +47,7 @@ export default ({ navigation }) => {
         return;
       }
     } catch (e) {
-      Alert.alert("Can't log in.");
+      Alert.alert('에러!');
       console.log(e);
     } finally {
       setLoading(false);
@@ -63,7 +63,7 @@ export default ({ navigation }) => {
         <Form>
           <Input
             {...phoneInput} /*value랑 onChange를 리턴함*/
-            placeholder="전화번호 입력"
+            placeholder="핸드폰번호 입력"
             autoCorrect={false}
             keyboardType="numeric"
           />
