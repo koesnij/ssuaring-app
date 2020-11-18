@@ -50,6 +50,26 @@ const Footer = styled.View`
   border-top-color: ${styles.lightGreyColor};
 `;
 
+const UPLOAD_POST = gql`
+  mutation uploadPost(
+    $area: String!
+    $title: String!
+    $caption: String!
+    $price: String!
+    $files: [String!]!
+  ) {
+    uploadPost(
+      area: $area
+      title: $title
+      caption: $caption
+      price: $price
+      files: $files
+    ) {
+      id
+    }
+  }
+`;
+
 export default ({ navigation }) => {
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -65,6 +85,34 @@ export default ({ navigation }) => {
   const priceInput = useInput('');
   const captionInput = useInput('');
   const categoryPicker = usePicker(null);
+
+  const [loading, setLoading] = useState(false);
+  const [uploadPostMutation] = useMutation(UPLOAD_POST);
+
+  const handleUpload = async () => {
+    console.log('upload');
+    try {
+      setLoading(true);
+      const {
+        data: { uploadPost },
+      } = await uploadPostMutation({
+        variables: {
+          area: '서울',
+          title: '테스트123',
+          caption: '헬로 Hello World',
+          price: '1000',
+          files: [
+            'http://www.hyulimbook.co.kr/files/attach/images/645103/142/746/d36b1201eef214657245b52032f658d8.jpg',
+          ],
+        },
+      });
+      console.log(uploadPost);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <KeyboardAvoidingView
