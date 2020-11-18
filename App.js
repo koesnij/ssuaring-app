@@ -37,6 +37,13 @@ export default function App() {
 
       // 아폴로 클라이언트 생성
       const client = new ApolloClient({
+        request: async (operation) => {
+          // 요청할 때 마다 이 함수가 실행된다
+          const token = await AsyncStorage.getItem('jwt');
+          return operation.setContext({
+            headers: { Authorization: `Bearer ${token}` },
+          });
+        },
         cache,
         ...apolloClientOptions,
       });
