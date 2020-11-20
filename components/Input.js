@@ -11,7 +11,8 @@ const TextInput = styled.TextInput`
   height: 48px;
   width: ${constants.width - 100};
   padding-left: 12px;
-  background-color: ${styles.greyColor};
+  background-color: ${(props) =>
+    props.editable ? styles.greyColor : styles.lightGreyColor};
   border: 1px solid ${styles.lightGreyColor};
   border-radius: 8px;
   font-size: 18px;
@@ -26,6 +27,7 @@ const Input = ({
   keyboardType = 'default',
   autoCapitalize = 'none',
   returnKeyType = 'done',
+  editable = true,
 }) => (
   <Container>
     <TextInput
@@ -37,6 +39,7 @@ const Input = ({
       keyboardType={keyboardType}
       autoCapitalize={autoCapitalize}
       returnKeyType={returnKeyType}
+      editable={editable}
     />
   </Container>
 );
