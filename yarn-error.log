@@ -1,0 +1,63 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add react-apollo-hooks
+
+PATH: 
+  C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Git\cmd;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\user\AppData\Local\Programs\Python\Python37\Scripts\;C:\Users\user\AppData\Local\Programs\Python\Python37\;C:\Users\user\AppData\Local\Microsoft\WindowsApps;;C:\Users\user\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\user\AppData\Roaming\npm;C:\Users\user\AppData\Local\Yarn\bin
+
+Yarn version: 
+  1.22.5
+
+Node version: 
+  12.18.4
+
+Platform: 
+  win32 x64
+
+Trace: 
+  Error: EPERM: operation not permitted, copyfile 'C:\Users\user\AppData\Local\Yarn\Cache\v6\npm-react-native-0.63.2-481924772788f0c04373b2bc2512d92fa264867d\node_modules\react-native\Libraries\LogBox\UI\LogBoxImages\close.png' -> 'C:\Users\user\ssuaring\ssuaring\Documents\ssuaring-app\node_modules\react-native\Libraries\LogBox\UI\LogBoxImages\close.png'
+
+npm manifest: 
+  {
+    "main": "node_modules/expo/AppEntry.js",
+    "scripts": {
+      "start": "expo start",
+      "android": "expo start --android",
+      "ios": "expo start --ios",
+      "web": "expo start --web",
+      "eject": "expo eject"
+    },
+    "dependencies": {
+      "@apollo/react-hooks": "4.0.0",
+      "@react-native-community/masked-view": "0.1.10",
+      "@react-navigation/bottom-tabs": "5.9.2",
+      "@react-navigation/native": "5.7.6",
+      "@react-navigation/stack": "5.9.3",
+      "apollo-boost": "0.4.9",
+      "apollo-cache-persist": "0.1.1",
+      "expo": "~39.0.2",
+      "expo-status-bar": "~1.0.2",
+      "graphql": "15.3.0",
+      "prop-types": "15.7.2",
+      "react": "16.13.1",
+      "react-dom": "16.13.1",
+      "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz",
+      "react-native-gesture-handler": "1.8.0",
+      "react-native-reanimated": "1.13.1",
+      "react-native-screens": "2.11.0",
+      "react-native-web": "~0.13.12",
+      "react-navigation": "4.4.2",
+      "react-navigation-stack": "2.8.4",
+      "react-navigation-tabs": "2.9.2",
+      "styled-components": "5.2.0"
+    },
+    "devDependencies": {
+      "@babel/core": "~7.9.0"
+    },
+    "private": true
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

@@ -6,10 +6,11 @@ import * as Font from 'expo-font';
 import { Asset } from 'expo-asset';
 import { Ionicons } from '@expo/vector-icons';
 
-import ApolloClient from 'apollo-boost';
+import {ApolloClient} from '@apollo/client';
 import { persistCache } from 'apollo-cache-persist';
 import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloProvider } from '@apollo/react-hooks';
+import { ApolloProvider } from '@apollo/client';
+
 import apolloClientOptions from './apollo';
 
 import { AuthProvider } from './AuthContext';
@@ -37,11 +38,18 @@ export default function App() {
 
       // 아폴로 클라이언트 생성
       const client = new ApolloClient({
+        request: async (operation) => {
+          // 요청할 때 마다 이 함수가 실행된다
+          const token = await AsyncStorage.getItem('jwt');
+          return operation.setContext({
+            headers: { Authorization: `Bearer ${token}` },
+          });
+        },
         cache,
         ...apolloClientOptions,
       });
       setClient(client);
-
+      console.log(client);
       const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
       if (!isLoggedIn || isLoggedIn === 'false') {
         setIsLoggedIn(false);
