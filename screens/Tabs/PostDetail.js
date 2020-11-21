@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import {StyleSheet, Image, ScrollView} from 'react-native';
-import { Divider } from 'react-native-elements';
-
+import {StyleSheet, Image, ScrollView,FlatList, TouchableOpacity, TouchableWithoutFeedback} from 'react-native';
+import { Divider, Icon } from 'react-native-elements';
+import Button from '../../components/Button'
 const View = styled.View`
   justify-content: center;
   align-items: center;
@@ -13,14 +13,23 @@ const Text = styled.Text``;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    //flex: 1,
     padding: 5,
   },
    PostMain: {
      width:'100%',
-     height:'80%',
-      flex : 2,
+     height: 200,
+      //flex : 0.2,
       backgroundColor: '#faa9ff',
+   },
+
+   Footer: {
+     //flex:0.2,
+     //height:'20%',
+      alignItems:'flex-start',
+     height:100,
+     width:'100%',
+      backgroundColor: '#ffffff',
    },
 
   UserProfileBigView: {
@@ -33,14 +42,15 @@ const styles = StyleSheet.create({
     PostMainView: {
       alignItems:'flex-start',
       flexDirection: 'row', 
-      width:'100%',
-      height:200,
+      width:'100%', 
+      height:400,
       backgroundColor: '#fffff0',
    },
    PostDetailView: {
+      flexDirection: 'row', 
       flex : 2,
       width:'100%',
-      height:'30%',
+      height:'100%',
       backgroundColor: '#5ffa9a',
    },
    UserProfilePic: {
@@ -72,12 +82,33 @@ const styles = StyleSheet.create({
     color:'black',
     backgroundColor: '#ff9a9a',
   },
+   itemView:{
+        flexDirection:'row',
+        borderWidth:1,
+        borderRadius:4,
+        padding:8,
+        marginBottom:12,
+    },
+   itemImg:{
+        width:120,
+        height:100,
+        resizeMode:'cover',
+        marginRight:8,
+    },
+    itemName:{
+        fontSize:24,
+        fontWeight:'bold',
+    },
+    itemMsg:{
+        fontSize:16,
+        fontStyle:'italic',
+    },
 });
 
 export default () => (
   <View style={styles.container}>
    <Image
-            style={{ flex: 0.7,height:'100%',width:"100%",resizeMode:"stretch"}}
+            style={{ height:270,width:"100%",resizeMode:"stretch"}}
             source={{uri: "https://dimg.donga.com/wps/NEWS/IMAGE/2013/01/14/52293938.2.jpg"}}/>
 
   <Divider style={{ height: 3,backgroundColor:'#e1e8ee' }} />
@@ -96,11 +127,45 @@ export default () => (
   
   <Divider style={{ height: 3,backgroundColor:'#e1e8ee' }} />
   <View style={styles.PostMainView}>
-      <Text>캠핑 용품 빌려드립니다.(제목) </Text>
+      <Text style={{  width:'100%',height:'20%',marginLeft: 10,marginTop: 10,fontSize:22,alignItems:'center'}}>캠핑 용품 빌려드립니다.(제목) </Text>
+      
+      {/* <FlatList
+           data={[
+          {name:"고영욱", message:"널 좋아해",img: "https://dimg.donga.com/wps/NEWS/IMAGE/2013/01/14/52293938.2.jpg"},
+          {name:"신정환", message:"역시 형이야",img:  "https://mblogthumb-phinf.pstatic.net/MjAxNzA0MjdfMjgx/MDAxNDkzMjYxNzQyMjU4.op0zQTfA81ih-qf3BEzr_6C2VXoclL_Cbs4aiJiObgkg.EZUQzZsblADVKBE1ZcbbleaRwcyd_KmsUJMwDPWU5GIg.JPEG.mki112112/%EC%8B%A0%EC%A0%95%ED%99%983.jpg?type=w800"},
+            {name:"고영욱", message:"널 좋아해",img: "https://dimg.donga.com/wps/NEWS/IMAGE/2013/01/14/52293938.2.jpg"},
+          {name:"신정환", message:"역시 형이야",img:  "https://mblogthumb-phinf.pstatic.net/MjAxNzA0MjdfMjgx/MDAxNDkzMjYxNzQyMjU4.op0zQTfA81ih-qf3BEzr_6C2VXoclL_Cbs4aiJiObgkg.EZUQzZsblADVKBE1ZcbbleaRwcyd_KmsUJMwDPWU5GIg.JPEG.mki112112/%EC%8B%A0%EC%A0%95%ED%99%983.jpg?type=w800"},
+        ]}
+          renderItem={({item}) =>  <TouchableOpacity style={styles.itemView} onPress={()=>{ 
+            navigation.navigate('PostDetail');
+            //alert(item.name);
+            }}>
+                <Image source={{uri: item.img}} style={styles.itemImg}></Image>
+                <View style={{flexDirection:'column'}}>
+                    <Text style={styles.itemName}>{item.name}</Text>
+                    <Text style={styles.itemMsg}>{item.message}</Text>
+                </View>
+            </TouchableOpacity>} */}
+{/*                 
+     /> */}
+      
+       
+   
     </View>
 
 
   </ScrollView>
+  <Divider style={{ height: 3,backgroundColor:'#e1e8ee' }} />
+  <View style={styles.Footer}>
+  <View>   
+  <Icon
+  raised
+  name='favorite'
+  color='#ff0000'/>
+   <Text style={{ marginLeft: 100,fontSize:22,}}>ZZimhagi</Text>
+  </View>
+    <Button style={{height:'100%', align:'center'}} text="인증문자 받기"/>
+  </View>
   
    </View>
 );
