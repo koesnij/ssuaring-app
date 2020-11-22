@@ -1,11 +1,13 @@
-import React, { useLayoutEffect } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import styled from "styled-components";
 import Button from "../../../components/Button";
 import { useLogOut } from "../../../AuthContext";
 import { Header, HeaderLink } from "../../../components/HeaderItem";
-import { ScrollView } from "react-native";
+import { Image, ScrollView } from "react-native";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
+import { USER_FRAGMENT } from "../../../fragment";
+import { ME } from "./MyPageQueries";
 
 const View = styled.View`
   align-items: center;
@@ -17,80 +19,36 @@ const Container = styled.TouchableOpacity`
   flex: 0.1;
   justify-content: center;
   border: 1px solid rgba(0, 0, 0, 0.2);
+  height: ${(props) => props.height};
 `;
 const Text = styled.Text``;
-export const USER_FRAGMENT = gql`
-  fragment UserParts on User {
-    id
-    name
-    nickname
-    phoneNumber
-    loginSecret
-    area
-    avatar
-    email
-    areaAuth
-    searchHistory
-    penalty
-    rooms
-    posts
-    likes
-    tradeHistory
-    reviews
-    createdAt
-    updatedAt
-    isDeleted
-    postsCount
-  }
-`;
-export const ME = gql`
-  {
-    me {
-      name
-    }
-  }
-`;
 
-export default ({ navigation }) => {
-  const { loading, data } = useQuery(ME);
+export default ({ navigation, updatedUser }) => {
+  const { loading, data, refetch } = useQuery(ME, {});
+  const [refreshing, setRefreshing] = useState(false);
+
   const logOut = useLogOut();
   const handler = () => {
     logOut();
   };
-
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerLeft: () => {
-        return (
-          <Header>
-            <HeaderLink
-              str={"필터"}
-              onPress={() => navigation.navigate("Filter")}
-            />
-            <HeaderLink
-              str={"지도"}
-              onPress={() => navigation.navigate("Map")}
-            />
-          </Header>
-        );
-      },
-      headerTitle: "동작구",
-      headerRight: () => {
-        return (
-          <Header>
-            <HeaderLink
-              str={"필터"}
-              onPress={() => navigation.navigate("Filter")}
-            />
-            <HeaderLink
-              str={"지도"}
-              onPress={() => navigation.navigate("Map")}
-            />
-          </Header>
-        );
-      },
+      headerTitle: "내 프로필",
     });
-  }, [navigation]);
+  }, [navigation]); //refreshing 코드(새로고침)
+  /*const onRefresh = async()=>{
+    try{
+      setRefreshing(true);
+      await refetch();
+    }catch(error){
+      console.log(error);
+    }finally{
+      setRefreshing(false);
+    }
+  }
+  */ console.log(
+    data
+  );
   return (
     <ScrollView>
       {loading ? (
@@ -101,27 +59,90 @@ export default ({ navigation }) => {
         data &&
         data.me && (
           <View>
-            <Container>
+            <Container height={400}>
+              <Image
+                style={{ width: 100, height: 100 }}
+                source={{ uri:data.me.avatar }}
+              />
+              <Text>{data.me.name}</Text>
+              <Text>{data.me.nickname}</Text>
+              <Text>{data.me.phoneNumber}</Text>
+              <Text>{data.me.email}</Text>
+              <Text>{data.me.phoneNumber}</Text>
               <Button
-                onPress={() => navigation.navigate("MyProfile")}
+                size="50"
+                onPress={() =>
+                  navigation.navigate("MyProfile", {
+                    otherParams: { user: data.me },
+                  })
+                }
                 text="프로필 보기"
               />
+              <Button
+                onPress={() =>
+                  navigation.navigate("EditProfile", {
+                    otherParams: { user: data.me },
+                  })
+                }
+                text="프로필 수정"
+              />
             </Container>
-            <Container onPress={() => navigation.navigate("MyLikes")}>
-              <Text>{data.me.name}</Text>
+            <Container
+              height={50}
+              onPress={() =>
+                navigation.navigate("MyLikes", {
+                  otherParams: { user: data.me },
+                })
+              }
+            >
+              <Text>내 찜 목록</Text>
             </Container>
-            <Container onPress={() => navigation.navigate("MyPosts")}>
+            <Container
+              height={50}
+              onPress={() =>
+                navigation.navigate("MyPosts", {
+                  otherParams: { user: data.me },
+                })
+              }
+            >
               <Text>내 게시물</Text>
             </Container>
-            <Container onPress={() => navigation.navigate("MyArea")}>
+            <Container
+              height={50}
+              onPress={() =>
+                navigation.navigate("MyArea", {
+                  otherParams: { user: data.me },
+                })
+              }
+            >
               <Text>내 지역</Text>
             </Container>
-
-            <Button onPress={handler} text="Log Out" />
+            <Container
+              height={50}
+              onPress={() =>
+                navigation.navigate("MyTradeHistory", {
+                  otherParams: { user: data.me },
+                })
+              }
+            >
+              <Text>내 거래 내역</Text>
+            </Container>
+            <Container
+              height={50}
+              onPress={() =>
+                navigation.navigate("Setting", {
+                  otherParams: { user: data.me },
+                })
+              }
+            >
+              <Text>설정</Text>
+            </Container>
+            <Container height={50} onPress={handler}>
+              <Text>로그아웃</Text>
+            </Container>
           </View>
         )
       )}
     </ScrollView>
-   
   );
 };

@@ -11,12 +11,16 @@ import TabIcon from "../components/TabIcon";
 import Filter from "../screens/Tabs/Home/Filter";
 import Map from "../screens/Tabs/Home/Map";
 import styles from "../styles";
-import MyProfile from "../screens/Tabs/Mypage/MyProfile";
-import MyLikes from "../screens/Tabs/Mypage/MyLikes";
-import MyPosts from "../screens/Tabs/Mypage/MyPosts";
-
+import MyProfile from "../screens/Tabs/Mypage/MyPageScreens/MyProfile";
+import MyLikes from "../screens/Tabs/Mypage/MyPageScreens/MyLikes";
+import MyPosts from "../screens/Tabs/Mypage/MyPageScreens/MyPosts";
+import EditProfile from "../screens/Tabs/Mypage/MyPageScreens/EditProfile";
+import MyTradeHistory from "../screens/Tabs/Mypage/MyPageScreens/MyTradeHistory";
+import Setting from "../screens/Tabs/Mypage/MyPageScreens/Setting";
+import SearchPage from "../screens/Tabs/Search/SearchPageScreens/SearchPage";
 const HomeStack = createStackNavigator();
 const MyPageStack = createStackNavigator();
+const SearchStack = createStackNavigator();
 const HomeStackScreen = () => (
   <HomeStack.Navigator
     screenOptions={{
@@ -36,6 +40,25 @@ const HomeStackScreen = () => (
     />
     <HomeStack.Screen name="Map" component={Map} options={{ title: "지도" }} />
   </HomeStack.Navigator>
+);
+const SearchStackScreen = () => (
+  <SearchStack.Navigator
+    screenOptions={{
+      headerBackTitle: " ",
+      headerTintColor: styles.blackColor,
+    }}
+  >
+    <SearchStack.Screen
+      name="Search"
+      component={Search}
+      options={{ title: "" }}
+    />
+    <SearchStack.Screen
+      name="SearchPage"
+      component={SearchPage}
+      options={{ title: "검색 결과" }}
+    />
+  </SearchStack.Navigator>
 );
 const MyPageStackScreen = () => (
   <MyPageStack.Navigator
@@ -64,6 +87,21 @@ const MyPageStackScreen = () => (
       component={MyPosts}
       options={{ title: "내 게시물" }}
     />
+    <MyPageStack.Screen
+      name="MyTradeHistory"
+      component={MyTradeHistory}
+      options={{ title: "내 거래내역" }}
+    />
+    <MyPageStack.Screen
+      name="Setting"
+      component={Setting}
+      options={{ title: "설정" }}
+    />
+    <MyPageStack.Screen
+      name="EditProfile"
+      component={EditProfile}
+      options={{ title: "프로필 수정" }}
+    />
   </MyPageStack.Navigator>
 );
 const Tab = createBottomTabNavigator();
@@ -85,7 +123,7 @@ export default ({ navigation }) => (
     />
     <Tab.Screen
       name="Search"
-      component={Search}
+      component={SearchStackScreen}
       options={{
         tabBarLabel: "검색",
         tabBarIcon: ({ focused }) => (
