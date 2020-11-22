@@ -1,5 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,Component } from 'react';
 import styled from 'styled-components';
+import { Constants } from 'expo';
+//import { CheckBox } from 'react-native-elements'
+import CheckBox from '../../components/CheckBox'
 
 const View = styled.View`
   justify-content: center;
@@ -17,7 +20,7 @@ export default ({ navigation }) => {
 
   return (
     <View>
-      <Text>Filter</Text>
+        <CheckBox></CheckBox>
     </View>
   );
 };

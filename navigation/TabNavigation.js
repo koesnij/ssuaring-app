@@ -11,6 +11,7 @@ import TabIcon from '../components/TabIcon';
 import Filter from '../screens/Tabs/Home/Filter';
 import Map from '../screens/Tabs/Home/Map';
 import PostDetail from '../screens/Tabs/PostDetail';
+import ReservationReq from '../screens/Tabs/ReservationReq';
 import styles from '../styles';
 
 const HomeStack = createStackNavigator();
@@ -38,6 +39,13 @@ const HomeStackScreen = () => (
       component={PostDetail}
       options={{ title: '대여 상세 정보' }}
     />
+
+          <HomeStack.Screen
+      name="ReservationReq"
+      component={ReservationReq}
+      options={{ title: '예약 신청' }}
+    />
+
     <HomeStack.Screen name="Map" component={Map} options={{ title: '지도' }} />
   </HomeStack.Navigator>
 );
