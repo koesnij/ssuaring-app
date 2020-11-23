@@ -22,7 +22,9 @@ export const categoryConfig = {
 };
 
 export const periodConfig = {
-  style: { inputIOS: { fontSize: 16 } },
+  style: {
+    inputIOS: { fontSize: 16, paddingVertical: 10 },
+  },
   placeholder: {
     label: '기간',
     value: null,

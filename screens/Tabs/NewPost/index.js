@@ -48,17 +48,20 @@ const Column = styled.View`
 
 const CaptionContainer = styled.View`
   flex: 1;
-  /* justify-content: flex-end; */
   margin: 20px 12px;
 `;
 
 const TextInput = styled.TextInput`
+  padding: 10px 0px;
   font-size: 16px;
+  /* background-color: green; */
 `;
 
 const Touchable = styled.TouchableOpacity``;
 
 const Text = styled.Text`
+  padding: 10px 0px;
+  /* background-color: red; */
   font-size: 16px;
 `;
 
@@ -135,6 +138,7 @@ export default ({ navigation }) => {
         const { data } = await axios.get(`${options.uri}/api/recommender`, {
           params: { title: titleInput.value },
         });
+        console.log(data);
         if (data.accuracy > 0.5) {
           categoryConfig.items.forEach((item) => {
             if (item.label === data.title) {
@@ -152,8 +156,21 @@ export default ({ navigation }) => {
     }
   };
 
-  const handleSubmit = async () => {
-    console.log('upload', img);
+  const handleSubmit = () => {
+    Alert.alert('게시물 업로드', '게시물을 이대로 제출하시겠습니까?', [
+      {
+        text: '취소',
+        onPress: () => {},
+        style: 'cancel',
+      },
+      {
+        text: '승인',
+        onPress: uploadPost,
+      },
+    ]);
+  };
+
+  const uploadPost = async () => {
     if (
       img === null ||
       titleInput.value === '' ||
