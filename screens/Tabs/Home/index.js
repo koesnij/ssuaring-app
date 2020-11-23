@@ -29,7 +29,7 @@ const style = StyleSheet.create({
   },
     itemView:{
         flexDirection:'row',
-        borderWidth:1,
+        borderWidth:0.6,
         borderRadius:4,
         padding:8,
         marginBottom:12,
