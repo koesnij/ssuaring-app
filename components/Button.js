@@ -1,15 +1,15 @@
-import React from 'react';
-import styled from 'styled-components';
-import PropTypes from 'prop-types';
-import { ActivityIndicator } from 'react-native';
+import React from "react";
+import styled from "styled-components";
+import PropTypes from "prop-types";
+import { ActivityIndicator } from "react-native";
 
-import styles from '../styles';
-import constants from '../constants';
+import styles from "../styles";
+import constants from "../constants";
 
 const Touchable = styled.TouchableOpacity``;
 const Container = styled.View`
   height: 48px;
-  width: ${constants.width - 100};
+  width: ${(props) => props.size || constants.width - 100};
   background-color: ${(props) =>
     props.disabled ? styles.darkGreyColor : styles.blueColor};
   align-items: center;
@@ -23,13 +23,15 @@ const Text = styled.Text`
   font-weight: 600;
 `;
 
-const Button = ({ text, onPress, disabled = false, loading = false }) => (
-  <Touchable disabled={disabled || loading} onPress={onPress}>
-    <Container disabled={disabled}>
-      {loading ? <ActivityIndicator color={'white'} /> : <Text>{text}</Text>}
-    </Container>
-  </Touchable>
-);
+const Button = ({ size, text, onPress, disabled = false, loading = false }) => {
+  return (
+    <Touchable disabled={disabled || loading} onPress={onPress}>
+      <Container disabled={disabled} size={size}>
+        {loading ? <ActivityIndicator color={"white"} /> : <Text>{text}</Text>}
+      </Container>
+    </Touchable>
+  );
+};
 
 Button.propTypes = {
   loading: PropTypes.bool,
