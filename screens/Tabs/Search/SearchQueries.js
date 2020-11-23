@@ -1,10 +1,19 @@
-import { gql } from "apollo-boost";
+import { gql } from "@apollo/react-hooks";
+
 export const SEARCH = gql`
-  query search($term: String!) {
+  query searchPost($term: String!) {
     searchPost(term: $term) {
+      title
+      price
+      caption
+      area
+      
+      createdAt
+      updatedAt
       files {
         url
       }
+      
     }
   }
 `;
