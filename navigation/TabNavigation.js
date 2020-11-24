@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from 'react';
 import { View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -14,29 +13,14 @@ import Map from '../screens/Tabs/Home/Map';
 import PostDetail from '../screens/Tabs/PostDetail';
 import ReservationReq from '../screens/Tabs/ReservationReq';
 import styles from '../styles';
-=======
-import React from "react";
-import { View } from "react-native";
-import { createStackNavigator } from "@react-navigation/stack";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
->>>>>>> de651edbbae814f96fcd8b55fe24ced0ba7e216e
-
-import Home from "../screens/Tabs/Home";
-import Search from "../screens/Tabs/Search";
-import Chats from "../screens/Tabs/Chats";
-import Mypage from "../screens/Tabs/Mypage";
-import TabIcon from "../components/TabIcon";
-import Filter from "../screens/Tabs/Home/Filter";
-import Map from "../screens/Tabs/Home/Map";
-import styles from "../styles";
-import MyProfile from "../screens/Tabs/Mypage/MyPageScreens/MyProfile";
-import MyLikes from "../screens/Tabs/Mypage/MyPageScreens/MyLikes";
-import MyPosts from "../screens/Tabs/Mypage/MyPageScreens/MyPosts";
-import EditProfile from "../screens/Tabs/Mypage/MyPageScreens/EditProfile";
-import MyTradeHistory from "../screens/Tabs/Mypage/MyPageScreens/MyTradeHistory";
-import Setting from "../screens/Tabs/Mypage/MyPageScreens/Setting";
-import SearchPage from "../screens/Tabs/Search/SearchPageScreens/SearchPage";
-import Chatting from "../screens/Tabs/Chats/ChatsScreens/Chatting";
+import MyProfile from '../screens/Tabs/Mypage/MyPageScreens/MyProfile';
+import MyLikes from '../screens/Tabs/Mypage/MyPageScreens/MyLikes';
+import MyPosts from '../screens/Tabs/Mypage/MyPageScreens/MyPosts';
+import EditProfile from '../screens/Tabs/Mypage/MyPageScreens/EditProfile';
+import MyTradeHistory from '../screens/Tabs/Mypage/MyPageScreens/MyTradeHistory';
+import Setting from '../screens/Tabs/Mypage/MyPageScreens/Setting';
+import SearchPage from '../screens/Tabs/Search/SearchPageScreens/SearchPage';
+import Chatting from '../screens/Tabs/Chats/ChatsScreens/Chatting';
 const HomeStack = createStackNavigator();
 const MyPageStack = createStackNavigator();
 const SearchStack = createStackNavigator();
@@ -45,76 +29,67 @@ const ChatStack = createStackNavigator();
 const HomeStackScreen = () => (
   <HomeStack.Navigator
     screenOptions={{
-      headerBackTitle: " ",
+      headerBackTitle: ' ',
       headerTintColor: styles.blackColor,
     }}
   >
     <HomeStack.Screen
       name="Home"
       component={Home}
-<<<<<<< HEAD
-      options={{ title: '내 지역a',
-       headerTitle: '동작구', }}
-=======
-      options={{ title: "내 지역" }}
->>>>>>> de651edbbae814f96fcd8b55fe24ced0ba7e216e
+      options={{ title: '내 지역a', headerTitle: '동작구' }}
     />
     <HomeStack.Screen
       name="Filter"
       component={Filter}
-      options={{ title: "필터" }}
+      options={{ title: '필터' }}
     />
-<<<<<<< HEAD
 
-      <HomeStack.Screen
+    <HomeStack.Screen
       name="PostDetail"
       component={PostDetail}
       options={{ title: '대여 상세 정보' }}
     />
 
-          <HomeStack.Screen
+    <HomeStack.Screen
       name="ReservationReq"
       component={ReservationReq}
       options={{ title: '예약 신청' }}
     />
 
     <HomeStack.Screen name="Map" component={Map} options={{ title: '지도' }} />
-=======
-    <HomeStack.Screen name="Map" component={Map} options={{ title: "지도" }} />
->>>>>>> de651edbbae814f96fcd8b55fe24ced0ba7e216e
   </HomeStack.Navigator>
 );
 const SearchStackScreen = () => (
   <SearchStack.Navigator
     screenOptions={{
-      headerBackTitle: " ",
+      headerBackTitle: ' ',
       headerTintColor: styles.blackColor,
     }}
   >
     <SearchStack.Screen
       name="Search"
       component={Search}
-      options={{ title: "" }}
+      options={{ title: '' }}
     />
     <SearchStack.Screen
       name="SearchPage"
       component={SearchPage}
-      options={{ title: "검색 결과" }}
+      options={{ title: '검색 결과' }}
     />
   </SearchStack.Navigator>
 );
 
 const ChatStackScreen = () => (
   <ChatStack.Navigator>
-    <ChatStack.Screen 
+    <ChatStack.Screen
       name="Chats"
       component={Chats}
-      options={{ title: "채팅방"}}
+      options={{ title: '채팅방' }}
     />
-    <ChatStack.Screen 
+    <ChatStack.Screen
       name="Chatting"
       component={Chatting}
-      options={{ title: "채팅화면"}}
+      options={{ title: '채팅화면' }}
     />
   </ChatStack.Navigator>
 );
@@ -122,44 +97,44 @@ const ChatStackScreen = () => (
 const MyPageStackScreen = () => (
   <MyPageStack.Navigator
     screenOptions={{
-      headerBackTitle: " ",
+      headerBackTitle: ' ',
       headerTintColor: styles.blackColor,
     }}
   >
     <MyPageStack.Screen
       name="MyPage"
       component={Mypage}
-      options={{ title: "내 정보" }}
+      options={{ title: '내 정보' }}
     />
     <MyPageStack.Screen
       name="MyProfile"
       component={MyProfile}
-      options={{ title: "프로필" }}
+      options={{ title: '프로필' }}
     />
     <MyPageStack.Screen
       name="MyLikes"
       component={MyLikes}
-      options={{ title: "찜 목록" }}
+      options={{ title: '찜 목록' }}
     />
     <MyPageStack.Screen
       name="MyPosts"
       component={MyPosts}
-      options={{ title: "내 게시물" }}
+      options={{ title: '내 게시물' }}
     />
     <MyPageStack.Screen
       name="MyTradeHistory"
       component={MyTradeHistory}
-      options={{ title: "내 거래내역" }}
+      options={{ title: '내 거래내역' }}
     />
     <MyPageStack.Screen
       name="Setting"
       component={Setting}
-      options={{ title: "설정" }}
+      options={{ title: '설정' }}
     />
     <MyPageStack.Screen
       name="EditProfile"
       component={EditProfile}
-      options={{ title: "프로필 수정" }}
+      options={{ title: '프로필 수정' }}
     />
   </MyPageStack.Navigator>
 );
@@ -176,7 +151,7 @@ export default ({ navigation }) => (
       name="Home"
       component={HomeStackScreen}
       options={{
-        tabBarLabel: "홈",
+        tabBarLabel: '홈',
         tabBarIcon: ({ focused }) => <TabIcon name="home" focused={focused} />,
       }}
     />
@@ -184,7 +159,7 @@ export default ({ navigation }) => (
       name="Search"
       component={SearchStackScreen}
       options={{
-        tabBarLabel: "검색",
+        tabBarLabel: '검색',
         tabBarIcon: ({ focused }) => (
           <TabIcon name="search" focused={focused} />
         ),
@@ -194,7 +169,7 @@ export default ({ navigation }) => (
       name="Add"
       component={View}
       options={{
-        tabBarLabel: "글쓰기",
+        tabBarLabel: '글쓰기',
         tabBarIcon: ({ focused }) => (
           <TabIcon name="add-circle-outline" focused={focused} />
         ),
@@ -202,7 +177,7 @@ export default ({ navigation }) => (
       listeners={{
         tabPress: (e) => {
           e.preventDefault();
-          navigation.navigate("NewPost");
+          navigation.navigate('NewPost');
         },
       }}
     />
@@ -210,7 +185,7 @@ export default ({ navigation }) => (
       name="Chats"
       component={ChatStackScreen}
       options={{
-        tabBarLabel: "채팅",
+        tabBarLabel: '채팅',
         tabBarIcon: ({ focused }) => (
           <TabIcon name="chatbubbles" focused={focused} />
         ),
@@ -220,7 +195,7 @@ export default ({ navigation }) => (
       name="Mypage"
       component={MyPageStackScreen}
       options={{
-        tabBarLabel: "마이",
+        tabBarLabel: '마이',
         tabBarIcon: ({ focused }) => (
           <TabIcon name="person" focused={focused} />
         ),
