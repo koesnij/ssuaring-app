@@ -1,19 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { AsyncStorage } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { AsyncStorage } from "react-native";
 
-import { AppLoading } from 'expo';
-import * as Font from 'expo-font';
-import { Asset } from 'expo-asset';
-import { Ionicons } from '@expo/vector-icons';
+import { AppLoading } from "expo";
+import * as Font from "expo-font";
+import { Asset } from "expo-asset";
+import { Ionicons } from "@expo/vector-icons";
 
-import ApolloClient from 'apollo-boost';
-import { persistCache } from 'apollo-cache-persist';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { ApolloProvider } from '@apollo/react-hooks';
-import apolloClientOptions from './apollo';
+import  ApolloClient  from "apollo-boost";
+import { persistCache } from "apollo-cache-persist";
+import { InMemoryCache } from "apollo-cache-inmemory";
+import { ApolloProvider } from "@apollo/react-hooks";
 
-import { AuthProvider } from './AuthContext';
-import NavController from './components/NavController';
+import apolloClientOptions from "./apollo";
+
+import { AuthProvider } from "./AuthContext";
+import NavController from "./components/NavController";
 
 export default function App() {
   const [loaded, setLoaded] = useState(false);
@@ -39,7 +40,7 @@ export default function App() {
       const client = new ApolloClient({
         request: async (operation) => {
           // 요청할 때 마다 이 함수가 실행된다
-          const token = await AsyncStorage.getItem('jwt');
+          const token = await AsyncStorage.getItem("jwt");
           return operation.setContext({
             headers: { Authorization: `Bearer ${token}` },
           });
@@ -48,9 +49,8 @@ export default function App() {
         ...apolloClientOptions,
       });
       setClient(client);
-
-      const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
-      if (!isLoggedIn || isLoggedIn === 'false') {
+      const isLoggedIn = await AsyncStorage.getItem("isLoggedIn");
+      if (!isLoggedIn || isLoggedIn === "false") {
         setIsLoggedIn(false);
       } else {
         setIsLoggedIn(true);

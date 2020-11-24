@@ -14,7 +14,6 @@ const Text = styled.Text``;
 export default ({ navigation }) => {
   useEffect(() => {
     navigation.setParams({ area: '동작구' });
-    console.log('filter:', navigation);
   }, []);
 
   useLayoutEffect(() => {
