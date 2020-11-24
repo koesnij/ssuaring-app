@@ -21,6 +21,8 @@ import SearchPage from "../screens/Tabs/Search/SearchPageScreens/SearchPage";
 const HomeStack = createStackNavigator();
 const MyPageStack = createStackNavigator();
 const SearchStack = createStackNavigator();
+// 스택하나를 먼저 만드세요
+// 
 const HomeStackScreen = () => (
   <HomeStack.Navigator
     screenOptions={{
