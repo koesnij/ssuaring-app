@@ -18,9 +18,12 @@ import EditProfile from "../screens/Tabs/Mypage/MyPageScreens/EditProfile";
 import MyTradeHistory from "../screens/Tabs/Mypage/MyPageScreens/MyTradeHistory";
 import Setting from "../screens/Tabs/Mypage/MyPageScreens/Setting";
 import SearchPage from "../screens/Tabs/Search/SearchPageScreens/SearchPage";
+import Chatting from "../screens/Tabs/Chats/ChatsScreens/Chatting";
 const HomeStack = createStackNavigator();
 const MyPageStack = createStackNavigator();
 const SearchStack = createStackNavigator();
+const ChatStack = createStackNavigator();
+
 const HomeStackScreen = () => (
   <HomeStack.Navigator
     screenOptions={{
@@ -60,6 +63,22 @@ const SearchStackScreen = () => (
     />
   </SearchStack.Navigator>
 );
+
+const ChatStackScreen = () => (
+  <ChatStack.Navigator>
+    <ChatStack.Screen 
+      name="Chats"
+      component={Chats}
+      options={{ title: "채팅방"}}
+    />
+    <ChatStack.Screen 
+      name="Chatting"
+      component={Chatting}
+      options={{ title: "채팅화면"}}
+    />
+  </ChatStack.Navigator>
+);
+
 const MyPageStackScreen = () => (
   <MyPageStack.Navigator
     screenOptions={{
@@ -149,7 +168,7 @@ export default ({ navigation }) => (
     />
     <Tab.Screen
       name="Chats"
-      component={Chats}
+      component={ChatStackScreen}
       options={{
         tabBarLabel: "채팅",
         tabBarIcon: ({ focused }) => (
