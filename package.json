@@ -18,19 +18,17 @@
     "apollo-boost": "0.4.9",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-cache-persist": "0.1.1",
-<<<<<<< HEAD
     "apollo-client": "^2.6.10",
     "apollo-link": "^1.2.14",
     "apollo-link-error": "^1.1.13",
     "apollo-link-http": "^1.5.17",
     "apollo-link-ws": "^1.0.20",
-=======
     "axios": "0.20.0",
->>>>>>> 9a267235cba562fcb16b2402e736b7b79e9ec179
     "expo": "~39.0.2",
     "expo-image-picker": "9.1.1",
     "expo-status-bar": "~1.0.2",
     "graphql": "15.3.0",
+    "moment": "^2.29.1",
     "graphql-tag": "^2.11.0",
     "prop-types": "15.7.2",
     "react": "16.13.1",
@@ -38,6 +36,8 @@
     "react-apollo-hooks": "^0.5.0",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-39.0.3.tar.gz",
+    "react-native-calendars": "^1.403.0",
+    "react-native-elements": "^3.0.0-alpha.1",
     "react-native-gesture-handler": "1.8.0",
     "react-native-picker-select": "8.0.3",
     "react-native-reanimated": "1.13.1",
@@ -47,6 +47,7 @@
     "react-navigation": "4.4.2",
     "react-navigation-stack": "2.8.4",
     "react-navigation-tabs": "2.9.2",
+    "recyclerlistview": "^3.0.0",
     "styled-components": "5.2.0",
     "subscriptions-transport-ws": "^0.9.18"
   },

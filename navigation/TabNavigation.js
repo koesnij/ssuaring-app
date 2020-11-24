@@ -1,7 +1,25 @@
+<<<<<<< HEAD
+import React from 'react';
+import { View } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+import Home from '../screens/Tabs/Home';
+import Search from '../screens/Tabs/Search';
+import Chats from '../screens/Tabs/Chats';
+import Mypage from '../screens/Tabs/Mypage';
+import TabIcon from '../components/TabIcon';
+import Filter from '../screens/Tabs/Home/Filter';
+import Map from '../screens/Tabs/Home/Map';
+import PostDetail from '../screens/Tabs/PostDetail';
+import ReservationReq from '../screens/Tabs/ReservationReq';
+import styles from '../styles';
+=======
 import React from "react";
 import { View } from "react-native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+>>>>>>> de651edbbae814f96fcd8b55fe24ced0ba7e216e
 
 import Home from "../screens/Tabs/Home";
 import Search from "../screens/Tabs/Search";
@@ -34,14 +52,36 @@ const HomeStackScreen = () => (
     <HomeStack.Screen
       name="Home"
       component={Home}
+<<<<<<< HEAD
+      options={{ title: '내 지역a',
+       headerTitle: '동작구', }}
+=======
       options={{ title: "내 지역" }}
+>>>>>>> de651edbbae814f96fcd8b55fe24ced0ba7e216e
     />
     <HomeStack.Screen
       name="Filter"
       component={Filter}
       options={{ title: "필터" }}
     />
+<<<<<<< HEAD
+
+      <HomeStack.Screen
+      name="PostDetail"
+      component={PostDetail}
+      options={{ title: '대여 상세 정보' }}
+    />
+
+          <HomeStack.Screen
+      name="ReservationReq"
+      component={ReservationReq}
+      options={{ title: '예약 신청' }}
+    />
+
+    <HomeStack.Screen name="Map" component={Map} options={{ title: '지도' }} />
+=======
     <HomeStack.Screen name="Map" component={Map} options={{ title: "지도" }} />
+>>>>>>> de651edbbae814f96fcd8b55fe24ced0ba7e216e
   </HomeStack.Navigator>
 );
 const SearchStackScreen = () => (
