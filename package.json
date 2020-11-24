@@ -18,12 +18,17 @@
     "apollo-boost": "0.4.9",
     "apollo-cache-inmemory": "^1.6.6",
     "apollo-cache-persist": "0.1.1",
+<<<<<<< HEAD
     "apollo-client": "^2.6.10",
     "apollo-link": "^1.2.14",
     "apollo-link-error": "^1.1.13",
     "apollo-link-http": "^1.5.17",
     "apollo-link-ws": "^1.0.20",
+=======
+    "axios": "0.20.0",
+>>>>>>> 9a267235cba562fcb16b2402e736b7b79e9ec179
     "expo": "~39.0.2",
+    "expo-image-picker": "9.1.1",
     "expo-status-bar": "~1.0.2",
     "graphql": "15.3.0",
     "graphql-tag": "^2.11.0",
