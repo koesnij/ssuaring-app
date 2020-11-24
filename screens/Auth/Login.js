@@ -29,7 +29,7 @@ const Text = styled.Text`
 `;
 
 export default ({ navigation }) => {
-  const phoneInput = useInput('');
+  const phoneInput = useInput('01020867353');
   const [loading, setLoading] = useState(false);
   const [requestSecretMutation] = useMutation(LOG_IN, {
     variables: { phoneNumber: phoneInput.value },
@@ -43,12 +43,11 @@ export default ({ navigation }) => {
         data: { requestSecret },
       } = await requestSecretMutation();
       if (requestSecret) {
-        navigation.navigate('Confirm');
-        // navigation.navigate('SignUp', { phone: value });
+        navigation.navigate('Confirm', { phoneNumber: value });
         return;
       }
     } catch (e) {
-      Alert.alert("Can't log in.");
+      Alert.alert('에러!');
       console.log(e);
     } finally {
       setLoading(false);
@@ -64,7 +63,7 @@ export default ({ navigation }) => {
         <Form>
           <Input
             {...phoneInput} /*value랑 onChange를 리턴함*/
-            placeholder="전화번호 입력"
+            placeholder="핸드폰번호 입력"
             autoCorrect={false}
             keyboardType="numeric"
           />
