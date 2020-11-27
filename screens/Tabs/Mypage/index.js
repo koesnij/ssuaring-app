@@ -4,7 +4,7 @@ import Button from "../../../components/Button";
 import { useLogOut } from "../../../AuthContext";
 import { Header, HeaderLink } from "../../../components/HeaderItem";
 import { Image, ScrollView } from "react-native";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "react-apollo-hooks";
 import { gql } from "apollo-boost";
 import { USER_FRAGMENT } from "../../../fragment";
 import { ME } from "./MyPageQueries";

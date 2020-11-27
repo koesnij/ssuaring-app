@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from "react-apollo-hooks";
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';

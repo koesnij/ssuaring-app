@@ -79,20 +79,27 @@ const SearchStackScreen = () => (
   </SearchStack.Navigator>
 );
 
-const ChatStackScreen = () => (
-  <ChatStack.Navigator>
-    <ChatStack.Screen
-      name="Chats"
-      component={Chats}
-      options={{ title: '채팅방' }}
-    />
-    <ChatStack.Screen
-      name="Chatting"
-      component={Chatting}
-      options={{ title: '채팅화면' }}
-    />
-  </ChatStack.Navigator>
-);
+const ChatStackScreen = ({ navigation, route }) => {
+  if(route.state && route.state.index > 0) {
+    navigation.setOptions({tabBarVisible: false})
+  } else {
+    navigation.setOptions({tabBarVisible: true})
+  }
+  return (
+    <ChatStack.Navigator>
+      <ChatStack.Screen
+        name="Chats"
+        component={Chats}
+        options={{ title: '채팅방' }}
+      />
+      <ChatStack.Screen
+        name="Chatting"
+        component={Chatting}
+        options={{ title: '채팅화면' }}
+      />
+    </ChatStack.Navigator>
+  );
+};
 
 const MyPageStackScreen = () => (
   <MyPageStack.Navigator
