@@ -15,6 +15,7 @@ const Container = styled.View`
   align-items: center;
   justify-content: center;
   border-radius: 8px;
+  margin-right:10px;
 `;
 const Text = styled.Text`
   color: white;

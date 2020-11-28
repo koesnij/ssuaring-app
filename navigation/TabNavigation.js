@@ -18,11 +18,14 @@ import EditProfile from "../screens/Tabs/Mypage/MyPageScreens/EditProfile";
 import MyTradeHistory from "../screens/Tabs/Mypage/MyPageScreens/MyTradeHistory";
 import Setting from "../screens/Tabs/Mypage/MyPageScreens/Setting";
 import SearchPage from "../screens/Tabs/Search/SearchPageScreens/SearchPage";
+import Chatting from "../screens/Tabs/Chats/ChatsScreens/Chatting";
+import MyArea from "../screens/Tabs/Mypage/MyPageScreens/MyArea";
+import MyReviews from "../screens/Tabs/Mypage/MyPageScreens/MyReviews";
 const HomeStack = createStackNavigator();
 const MyPageStack = createStackNavigator();
 const SearchStack = createStackNavigator();
-// 스택하나를 먼저 만드세요
-// 
+const ChatStack = createStackNavigator();
+
 const HomeStackScreen = () => (
   <HomeStack.Navigator
     screenOptions={{
@@ -62,6 +65,22 @@ const SearchStackScreen = () => (
     />
   </SearchStack.Navigator>
 );
+
+const ChatStackScreen = () => (
+  <ChatStack.Navigator>
+    <ChatStack.Screen
+      name="Chats"
+      component={Chats}
+      options={{ title: "채팅방" }}
+    />
+    <ChatStack.Screen
+      name="Chatting"
+      component={Chatting}
+      options={{ title: "채팅화면" }}
+    />
+  </ChatStack.Navigator>
+);
+
 const MyPageStackScreen = () => (
   <MyPageStack.Navigator
     screenOptions={{
@@ -85,6 +104,11 @@ const MyPageStackScreen = () => (
       options={{ title: "찜 목록" }}
     />
     <MyPageStack.Screen
+      name="MyArea"
+      component={MyArea}
+      options={{ title: "내 지역" }}
+    />
+    <MyPageStack.Screen
       name="MyPosts"
       component={MyPosts}
       options={{ title: "내 게시물" }}
@@ -98,6 +122,11 @@ const MyPageStackScreen = () => (
       name="Setting"
       component={Setting}
       options={{ title: "설정" }}
+    />
+     <MyPageStack.Screen
+      name="MyReviews"
+      component={MyReviews}
+      options={{ title: "리뷰" }}
     />
     <MyPageStack.Screen
       name="EditProfile"
@@ -151,7 +180,7 @@ export default ({ navigation }) => (
     />
     <Tab.Screen
       name="Chats"
-      component={Chats}
+      component={ChatStackScreen}
       options={{
         tabBarLabel: "채팅",
         tabBarIcon: ({ focused }) => (

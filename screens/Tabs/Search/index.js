@@ -16,8 +16,14 @@ const View = styled.View`
 const Icon = styled.TouchableOpacity`
   flex: 1;
   justify-content: center;
+  height:48px;
+margin-left:30px;  
+  
 `;
 const Text = styled.Text``;
+const TitleText = styled.Text`
+  font-size:24px;
+`;
 
 export default ({ navigation }) => {
   const searchInput = useInput("");
@@ -25,13 +31,14 @@ export default ({ navigation }) => {
     headerLeft: () => {
       return (
         <Header>
-          <Input placeholder={"빌리고 싶은 게이이 뭐에요"} {...searchInput} />
+          <Input placeholder={"빌리고 싶은 물건 뭐에요"} {...searchInput} />
           <Icon
             onPress={() => {
               navigation.navigate("SearchPage", {
-                otherParams: { term : searchInput.value },
+                otherParams: { term: searchInput.value },
               });
             }}
+            
           >
             <TabIcon name="search" />
           </Icon>
@@ -39,17 +46,24 @@ export default ({ navigation }) => {
       );
     },
   });
- 
+
   useEffect(() => {
     console.log(searchInput.value);
   }, [searchInput.value]);
   return (
     <View>
       <View>
-        <Text>최근 검색어</Text>
+        <TitleText>최근검색어</TitleText>
+
+        <Text>title</Text>
+        <Text>text</Text>
+        <Text>gay</Text>
       </View>
       <View>
-        <Text>인기 검색어</Text>
+        <TitleText>인기 검색어</TitleText>
+        <Text>자전거</Text>
+        <Text>냄비</Text>
+        <Text>오토바이</Text>
       </View>
     </View>
   );
