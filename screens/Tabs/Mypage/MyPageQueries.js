@@ -1,4 +1,4 @@
-import { gql } from "@apollo/react-hooks";
+import { gql } from '@apollo/react-hooks';
 
 export const ME = gql`
   {
@@ -9,13 +9,14 @@ export const ME = gql`
       phoneNumber
       email
       area
+      areaAuth
       avatar
-      posts{
+      posts {
+        id
+        files {
           id
-          files{
-              id
-              url
-          }
+          url
+        }
       }
       postsCount
       likesCount

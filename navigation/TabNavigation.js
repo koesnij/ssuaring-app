@@ -15,12 +15,15 @@ import ReservationReq from '../screens/Tabs/ReservationReq';
 import styles from '../styles';
 import MyProfile from '../screens/Tabs/Mypage/MyPageScreens/MyProfile';
 import MyLikes from '../screens/Tabs/Mypage/MyPageScreens/MyLikes';
+import MyArea from '../screens/Tabs/Mypage/MyPageScreens/MyArea';
 import MyPosts from '../screens/Tabs/Mypage/MyPageScreens/MyPosts';
 import EditProfile from '../screens/Tabs/Mypage/MyPageScreens/EditProfile';
 import MyTradeHistory from '../screens/Tabs/Mypage/MyPageScreens/MyTradeHistory';
 import Setting from '../screens/Tabs/Mypage/MyPageScreens/Setting';
 import SearchPage from '../screens/Tabs/Search/SearchPageScreens/SearchPage';
 import Chatting from '../screens/Tabs/Chats/ChatsScreens/Chatting';
+import EditArea from '../screens/Tabs/Mypage/MyPageScreens/EditArea';
+
 const HomeStack = createStackNavigator();
 const MyPageStack = createStackNavigator();
 const SearchStack = createStackNavigator();
@@ -59,6 +62,7 @@ const HomeStackScreen = () => (
     <HomeStack.Screen name="Map" component={Map} options={{ title: '지도' }} />
   </HomeStack.Navigator>
 );
+
 const SearchStackScreen = () => (
   <SearchStack.Navigator
     screenOptions={{
@@ -120,6 +124,16 @@ const MyPageStackScreen = () => (
       name="MyPosts"
       component={MyPosts}
       options={{ title: '내 게시물' }}
+    />
+    <MyPageStack.Screen
+      name="MyArea"
+      component={MyArea}
+      options={{ title: '내 지역' }}
+    />
+    <MyPageStack.Screen
+      name="EditArea"
+      component={EditArea}
+      options={{ title: '지역 변경하기' }}
     />
     <MyPageStack.Screen
       name="MyTradeHistory"
