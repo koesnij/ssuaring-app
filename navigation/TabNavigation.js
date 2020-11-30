@@ -23,6 +23,7 @@ import Setting from '../screens/Tabs/Mypage/MyPageScreens/Setting';
 import SearchPage from '../screens/Tabs/Search/SearchPageScreens/SearchPage';
 import Chatting from '../screens/Tabs/Chats/ChatsScreens/Chatting';
 import EditArea from '../screens/Tabs/Mypage/MyPageScreens/EditArea';
+import Report from '../screens/Report/Report';
 
 const HomeStack = createStackNavigator();
 const MyPageStack = createStackNavigator();
@@ -149,6 +150,11 @@ const MyPageStackScreen = () => (
       name="EditProfile"
       component={EditProfile}
       options={{ title: '프로필 수정' }}
+    />
+    <MyPageStack.Screen
+      name="Report"
+      component={Report}
+      options={{ title: '신고하기' }}
     />
   </MyPageStack.Navigator>
 );
