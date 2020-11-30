@@ -1,13 +1,13 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import styled from "styled-components";
-import Button from "../../../components/Button";
-import { useLogOut } from "../../../AuthContext";
-import { Header, HeaderLink } from "../../../components/HeaderItem";
-import { Image, ScrollView } from "react-native";
-import { useQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
-import { USER_FRAGMENT } from "../../../fragment";
-import { ME } from "./MyPageQueries";
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import styled from 'styled-components';
+import Button from '../../../components/Button';
+import { useLogOut } from '../../../AuthContext';
+import { Header, HeaderLink } from '../../../components/HeaderItem';
+import { Image, ScrollView } from 'react-native';
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
+import { USER_FRAGMENT } from '../../../fragment';
+import { ME } from './MyPageQueries';
 
 const View = styled.View`
   align-items: center;
@@ -55,7 +55,7 @@ export default ({ navigation, updatedUser }) => {
   };
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: "내 프로필",
+      headerTitle: '내 프로필',
     });
   }, [navigation]); //refreshing 코드(새로고침)
   /*const onRefresh = async()=>{
@@ -115,7 +115,7 @@ export default ({ navigation, updatedUser }) => {
             <Container
               height={50}
               onPress={() =>
-                navigation.navigate("MyLikes", {
+                navigation.navigate('MyLikes', {
                   otherParams: { user: data.me },
                 })
               }
@@ -125,7 +125,7 @@ export default ({ navigation, updatedUser }) => {
             <Container
               height={50}
               onPress={() =>
-                navigation.navigate("MyPosts", {
+                navigation.navigate('MyPosts', {
                   otherParams: { user: data.me },
                 })
               }
@@ -135,7 +135,7 @@ export default ({ navigation, updatedUser }) => {
             <Container
               height={50}
               onPress={() =>
-                navigation.navigate("MyArea", {
+                navigation.navigate('MyArea', {
                   otherParams: { user: data.me },
                 })
               }
@@ -145,7 +145,7 @@ export default ({ navigation, updatedUser }) => {
             <Container
               height={50}
               onPress={() =>
-                navigation.navigate("MyTradeHistory", {
+                navigation.navigate('MyTradeHistory', {
                   otherParams: { user: data.me },
                 })
               }
@@ -155,7 +155,7 @@ export default ({ navigation, updatedUser }) => {
             <Container
               height={50}
               onPress={() =>
-                navigation.navigate("Setting", {
+                navigation.navigate('Setting', {
                   otherParams: { user: data.me },
                 })
               }

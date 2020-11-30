@@ -23,6 +23,7 @@ import useInput from '../../../hooks/useInput';
 import usePicker from '../../../hooks/usePicker';
 import { categoryConfig, periodConfig } from './pickerConfig';
 import { Header, HeaderLink } from '../../../components/HeaderItem';
+import { useLogOut } from '../../../AuthContext';
 
 const MainArea = styled.ScrollView`
   flex: 10;
@@ -79,15 +80,19 @@ const UPLOAD_POST = gql`
   mutation uploadPost(
     $area: String!
     $title: String!
+    $category: Int!
     $caption: String!
     $price: String!
+    $period: Int!
     $files: [String!]!
   ) {
     uploadPost(
       area: $area
       title: $title
+      category: $category
       caption: $caption
       price: $price
+      period: $period
       files: $files
     ) {
       id
@@ -176,14 +181,16 @@ export default ({ navigation }) => {
       titleInput.value === '' ||
       priceInput.value === '' ||
       captionInput.value === '' ||
-      categoryPicker.value === null
+      categoryPicker.value === null ||
+      periodPicker.value === null
     ) {
       console.log(
         img,
         titleInput.value,
         priceInput.value,
         captionInput.value,
-        categoryPicker.value
+        categoryPicker.value,
+        periodPicker.value
       );
       Alert.alert('모든 항목을 입력해야 합니다.');
     } else {
@@ -202,8 +209,10 @@ export default ({ navigation }) => {
           variables: {
             area: '서울',
             title: titleInput.value,
+            category: Number(categoryPicker.value),
             caption: captionInput.value,
             price: priceInput.value,
+            period: Number(periodPicker.value),
             files: [location],
           },
         });
