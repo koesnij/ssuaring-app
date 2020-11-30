@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@apollo/client": "^3.2.7",
-    "@apollo/react-hooks": "^4.0.0",
     "@react-native-community/datetimepicker": "^3.0.6",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "5.9.2",

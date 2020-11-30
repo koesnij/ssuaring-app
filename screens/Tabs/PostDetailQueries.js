@@ -1,7 +1,7 @@
-import { gql } from "@apollo/react-hooks";
+import gql from 'graphql-tag';
 
 export const SEEFULLPOST = gql`
-   query seeFullPost($id: String!) {
+  query seeFullPost($id: String!) {
     postdetail {
       id
       area
@@ -10,7 +10,7 @@ export const SEEFULLPOST = gql`
       category
       price
       period
-      user{
+      user {
         id
         name
         nickname
@@ -26,34 +26,33 @@ export const SEEFULLPOST = gql`
 `;
 
 export const SEARCHPOST = gql`
-   query searchPost($term: String!) {
+  query searchPost($term: String!) {
     searchPost {
-           id
-          area
-          title
-          caption
-          files{
-            id
-            url
-          }
+      id
+      area
+      title
+      caption
+      files {
+        id
+        url
+      }
     }
   }
 `;
 
 export const SEEALLPOST = gql`
-    query seeAllPost {
-        seePost {
-          id
-          area
-          title
-          caption
-          files{
-            id
-            url
-          }
-          
-        }
+  query seeAllPost {
+    seePost {
+      id
+      area
+      title
+      caption
+      files {
+        id
+        url
+      }
     }
+  }
 `;
 
 export const EDIT_PROFILE = gql`
