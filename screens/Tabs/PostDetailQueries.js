@@ -42,11 +42,13 @@ export const SEARCHPOST = gql`
 
 export const SEEALLPOST = gql`
   query seeAllPost {
-    seePost {
+    seeAllPost {
       id
       area
       title
       caption
+      period
+      price
       files {
         id
         url
