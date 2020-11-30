@@ -49,16 +49,34 @@ const styles = StyleSheet.create({
 export default ({ navigation }) => {
  const captionInput = useInput('');
   const priceInput = useInput('');
+
 const onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     //setShow(Platform.OS === 'ios');
+    if (event.type == 'set'){
+      setShow(false);
+      if (btntype == 'startingDay'){
+        startingDay = selectedDate
+      }
+    }else if (event.type == 'dismissed'){
+      setShow(true);
+    }else{
     setDate(currentDate);
-    setShow(false);
+    }
+    //setShow(false);
+    //changeText(selectedDate);
     console.log(selectedDate)
+      console.log(event)
   };
-  const [date, setDate] = useState(new Date(1598051730000));
+  const [date, setDate] = useState(new Date());
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
+
+  var startingDay = '11-21 (목)'
+  var startingTime = '10:00'
+  var endingDay = '11-21 (목)'
+  var endingTime = '10:00'
+  var btntype = ''
 
    const showMode = (currentMode) => {
     setShow(true);
@@ -72,6 +90,9 @@ const onChange = (event, selectedDate) => {
   const showTimepicker = () => {
     showMode('time');
   };
+
+
+  
   return (
   <View style={styles.container}>
   <ScrollView  style={{ height:'100%',width:"100%",resizeMode:"stretch",backgroundColor:'white',alignContent:'center'}}>
@@ -96,18 +117,37 @@ const onChange = (event, selectedDate) => {
  <Divider style={{ marginTop: 5, height: 0.4,backgroundColor:'#000000' }} />
 <View style={{ flexDirection:'row' }}>
   <ButtonMore
-  onPress={() =>  showDatepicker()} 
+  onPress={() =>  {showDatepicker(), btntype= 'startingDay'}} 
   style={{ align:'center'}}
-  text="11-21 (목) 10:00"
+  text={startingDay}
 />
 <Text style={{ marginTop:10,marginLeft: 140,fontSize:17,}}></Text>
   <ButtonMore
-  onPress={() =>  showDatepicker()} 
+  onPress={() =>  {showDatepicker(), btntype= 'endingDay'}} 
   style={{ align:'center'}}
-  text="11-25 (수) 10:00"
+  text={endingDay}
+/>
+ </View>
+
+{/* <Divider style={{ marginTop: 0, height: 0.4,backgroundColor:'#000000' }} /> */}
+
+<View style={{ flexDirection:'row' }}>
+  <ButtonMore
+  onPress={() =>  {showTimepicker(), btntype= 'startingTime'}} 
+  style={{ align:'center'}}
+  text={startingTime}
+
+/>
+<Text style={{ marginTop:0,marginLeft: 140,fontSize:17,}}></Text>
+  <ButtonMore
+  onPress={() =>  {showTimepicker(), btntype= 'endingTime'}} 
+  style={{ align:'center'}}
+  text={endingTime}
+
 />
 
  </View>
+ <Divider style={{ marginTop: 10, height: 0.4,backgroundColor:'#000000' }} />
 <Text style={{backgroundColor:'gray',marginTop:20, fontSize:24,color:'green',textAlign:'center'}}>총 3일 사용</Text> 
 
  <View style={{ flexDirection:'row' }}>
@@ -125,7 +165,7 @@ const onChange = (event, selectedDate) => {
 
 <Divider style={{ marginTop: 10, height: 0.4,backgroundColor:'#000000' }} />
 <View style={{ flexDirection:'row' }}>
-  <Text style={{marginLeft: -150,marginTop:10, fontSize:20,fontWeight:'bold'}}>대여 위치</Text>
+  <Text style={{marginLeft: 0,marginTop:10, fontSize:20,fontWeight:'bold'}}>대여 위치</Text>
  {/* <Text style={{ marginTop:10,marginLeft: 50,fontSize:17,}}>숭실대학교 정문</Text> */}
  <Text style={{ marginTop:10,marginLeft:10,fontSize:17,}}></Text> 
   <TextInput
