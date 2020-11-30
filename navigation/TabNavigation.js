@@ -22,6 +22,8 @@ import MyTradeHistory from '../screens/Tabs/Mypage/MyPageScreens/MyTradeHistory'
 import Setting from '../screens/Tabs/Mypage/MyPageScreens/Setting';
 import SearchPage from '../screens/Tabs/Search/SearchPageScreens/SearchPage';
 import Chatting from '../screens/Tabs/Chats/ChatsScreens/Chatting';
+import PostDetail from "../screens/Tabs/PostDetail";
+import ReservationReq from "../screens/Tabs/ReservationReq";
 import EditArea from '../screens/Tabs/Mypage/MyPageScreens/EditArea';
 import Report from '../screens/Report/Report';
 
@@ -40,7 +42,8 @@ const HomeStackScreen = () => (
     <HomeStack.Screen
       name="Home"
       component={Home}
-      options={{ title: '내 지역a', headerTitle: '동작구' }}
+      options={{ title: '내 지역a',
+       headerTitle: '동작구', }}
     />
     <HomeStack.Screen
       name="Filter"
