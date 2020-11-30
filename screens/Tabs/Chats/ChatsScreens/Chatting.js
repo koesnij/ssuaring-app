@@ -66,7 +66,7 @@ export default ({ route, navigation }) => {
                         borderRadius: 10,
                         paddingVertical: 15,
                         paddingHorizontal: 10,
-                        backgroundColor: "#f2f2f2"
+                        backgroundColor: "#2980b9"
                     }}
                     returnKeyType="send"
                     value={message}

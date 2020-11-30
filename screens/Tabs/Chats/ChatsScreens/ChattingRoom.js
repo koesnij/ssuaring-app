@@ -3,18 +3,20 @@ import { useQuery, useSubscription } from "react-apollo-hooks";
 import { Image, ScrollView } from "react-native";
 import styled from 'styled-components';
 
-const View = styled.View`
-  justify-content: center;
-  align-items: center;
-  flex: 1;
+const Container = styled.TouchableOpacity`
+    width: 100%;
+    height: 50;
+    borderWidth: 1;
 `;
-const Container = styled.TouchableOpacity``;
 
 const Text = styled.Text``;
 
 export default ({ rooms, me, navigation }) => {
     return (
-      <ScrollView>
+      <ScrollView style={{
+          width: "100%",
+          height: "100%"
+      }}>
           {
             rooms.map(room => (
                 <Container
@@ -28,6 +30,7 @@ export default ({ rooms, me, navigation }) => {
                     source={{ uri: room.participants.filter(user => user.id !== me.id)[0].avatar}}
                   ></Image>
                   <Text>{room.participants.filter(user => user.id !== me.id)[0].nickname}</Text>
+                  <Text>{room.messages[room.messages.length-1].text}</Text>
                 </Container>
             ))
           }
