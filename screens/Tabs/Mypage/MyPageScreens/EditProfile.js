@@ -2,7 +2,7 @@ import { gql, useMutation } from "@apollo/react-hooks";
 import React, { useEffect, useState } from "react";
 import { ScrollView } from "react-native";
 import styled from "styled-components";
-import { ME } from "..";
+import { ME } from "../MyPageQueries";
 import Button from "../../../../components/Button";
 import Input from "../../../../components/Input";
 import useInput from "../../../../hooks/useInput";
@@ -25,32 +25,29 @@ export default ({ route, navigation }) => {
   const {
     otherParams: { user },
   } = route.params;
-  const [realUser, setRealUser] = useState(user);
   const nameInput = useInput(user.name);
   const nicknameInput = useInput(user.nickname);
 
   const [editUserMutation] = useMutation(EDIT_PROFILE, {
-    refetchQueries: ()=>[{query:ME}],
     variables: {
       id: user.id,
       name: nameInput.value,
       nickname: nicknameInput.value,
     },
+    refetchQueries: ()=>[{query:ME}],
   });
 
   useEffect(() => {
-    console.log(nameInput.value);
   }, [nameInput]); ///useEffect로 변할때마다 확인
   const editProfileCheckOut = async () => {
     try {
       const {
         data: { editUser },
       } = await editUserMutation();
-      console.log("edit profile check out");
-      if (editUser) {
+      console.log(editUserMutation())
+      if (editUser ) {
         navigation.navigate("MyPage");
       }
-      return true;
     } catch (error) {
       console.log(error);
     }
@@ -59,11 +56,11 @@ export default ({ route, navigation }) => {
     <ScrollView>
       <Container>
         <Text>이름</Text>
-        <Input {...nameInput} />
+        <Input {...nameInput} placeholder={"name"} />
       </Container>
       <Container>
         <Text>닉네임</Text>
-        <Input {...nicknameInput} />
+        <Input {...nicknameInput} placeholder={"nickname"}/>
       </Container>
       <Button onPress={() => editProfileCheckOut()} text="완료" />
     </ScrollView>

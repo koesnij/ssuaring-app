@@ -3,26 +3,29 @@ import { View } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
-
-
-import Home from "../screens/Tabs/Home";
-import Search from "../screens/Tabs/Search";
-import Chats from "../screens/Tabs/Chats";
-import Mypage from "../screens/Tabs/Mypage";
-import TabIcon from "../components/TabIcon";
-import Filter from "../screens/Tabs/Home/Filter";
-import Map from "../screens/Tabs/Home/Map";
-import styles from "../styles";
-import MyProfile from "../screens/Tabs/Mypage/MyPageScreens/MyProfile";
-import MyLikes from "../screens/Tabs/Mypage/MyPageScreens/MyLikes";
-import MyPosts from "../screens/Tabs/Mypage/MyPageScreens/MyPosts";
-import EditProfile from "../screens/Tabs/Mypage/MyPageScreens/EditProfile";
-import MyTradeHistory from "../screens/Tabs/Mypage/MyPageScreens/MyTradeHistory";
-import Setting from "../screens/Tabs/Mypage/MyPageScreens/Setting";
-import SearchPage from "../screens/Tabs/Search/SearchPageScreens/SearchPage";
-import Chatting from "../screens/Tabs/Chats/ChatsScreens/Chatting";
+import Home from '../screens/Tabs/Home';
+import Search from '../screens/Tabs/Search';
+import Chats from '../screens/Tabs/Chats';
+import Mypage from '../screens/Tabs/Mypage';
+import TabIcon from '../components/TabIcon';
+import Filter from '../screens/Tabs/Home/Filter';
+import Map from '../screens/Tabs/Home/Map';
+import PostDetail from '../screens/Tabs/PostDetail';
+import ReservationReq from '../screens/Tabs/ReservationReq';
+import styles from '../styles';
+import MyProfile from '../screens/Tabs/Mypage/MyPageScreens/MyProfile';
+import MyLikes from '../screens/Tabs/Mypage/MyPageScreens/MyLikes';
+import MyArea from '../screens/Tabs/Mypage/MyPageScreens/MyArea';
+import MyPosts from '../screens/Tabs/Mypage/MyPageScreens/MyPosts';
+import EditProfile from '../screens/Tabs/Mypage/MyPageScreens/EditProfile';
+import MyTradeHistory from '../screens/Tabs/Mypage/MyPageScreens/MyTradeHistory';
+import Setting from '../screens/Tabs/Mypage/MyPageScreens/Setting';
+import SearchPage from '../screens/Tabs/Search/SearchPageScreens/SearchPage';
+import Chatting from '../screens/Tabs/Chats/ChatsScreens/Chatting';
 import PostDetail from "../screens/Tabs/PostDetail";
 import ReservationReq from "../screens/Tabs/ReservationReq";
+import EditArea from '../screens/Tabs/Mypage/MyPageScreens/EditArea';
+import Report from '../screens/Report/Report';
 
 const HomeStack = createStackNavigator();
 const MyPageStack = createStackNavigator();
@@ -63,6 +66,7 @@ const HomeStackScreen = () => (
     <HomeStack.Screen name="Map" component={Map} options={{ title: '지도' }} />
   </HomeStack.Navigator>
 );
+
 const SearchStackScreen = () => (
   <SearchStack.Navigator
     screenOptions={{
@@ -121,9 +125,24 @@ const MyPageStackScreen = () => (
       options={{ title: '찜 목록' }}
     />
     <MyPageStack.Screen
+      name="MyArea"
+      component={MyArea}
+      options={{ title: "내 지역" }}
+    />
+    <MyPageStack.Screen
       name="MyPosts"
       component={MyPosts}
       options={{ title: '내 게시물' }}
+    />
+    <MyPageStack.Screen
+      name="MyArea"
+      component={MyArea}
+      options={{ title: '내 지역' }}
+    />
+    <MyPageStack.Screen
+      name="EditArea"
+      component={EditArea}
+      options={{ title: '지역 변경하기' }}
     />
     <MyPageStack.Screen
       name="MyTradeHistory"
@@ -135,10 +154,20 @@ const MyPageStackScreen = () => (
       component={Setting}
       options={{ title: '설정' }}
     />
+     <MyPageStack.Screen
+      name="MyReviews"
+      component={MyReviews}
+      options={{ title: "리뷰" }}
+    />
     <MyPageStack.Screen
       name="EditProfile"
       component={EditProfile}
       options={{ title: '프로필 수정' }}
+    />
+    <MyPageStack.Screen
+      name="Report"
+      component={Report}
+      options={{ title: '신고하기' }}
     />
   </MyPageStack.Navigator>
 );

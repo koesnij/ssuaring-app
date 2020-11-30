@@ -126,42 +126,40 @@ const Text = styled.Text``;
 
 const style = StyleSheet.create({
   container: {
-   flex: 1,
-   paddingTop: 22
+    flex: 1,
+    paddingTop: 22,
   },
   item: {
     padding: 10,
     fontSize: 18,
     height: 44,
   },
-   logo: {
+  logo: {
     width: 66,
     height: 58,
   },
-    itemView:{
-        flexDirection:'row',
-        borderWidth:0.6,
-        borderRadius:4,
-        padding:8,
-        marginBottom:12,
-    },
-   itemImg:{
-        width:120,
-        height:100,
-        resizeMode:'cover',
-        marginRight:8,
-    },
-    itemName:{
-        fontSize:24,
-        fontWeight:'bold',
-    },
-    itemMsg:{
-        fontSize:16,
-        fontStyle:'italic',
-    },
+  itemView: {
+    flexDirection: 'row',
+    borderWidth: 0.6,
+    borderRadius: 4,
+    padding: 8,
+    marginBottom: 12,
+  },
+  itemImg: {
+    width: 120,
+    height: 100,
+    resizeMode: 'cover',
+    marginRight: 8,
+  },
+  itemName: {
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  itemMsg: {
+    fontSize: 16,
+    fontStyle: 'italic',
+  },
 });
-
-
 
 export default ({ navigation }) => {
   useEffect(() => {

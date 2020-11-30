@@ -233,7 +233,7 @@ const styles = StyleSheet.create({
       //backgroundColor: '#faa9ff',
    },
 
-   Footergit p: {
+   Footer: {
       height: '100%',
       width:'100%',
       backgroundColor: '#ff0000',

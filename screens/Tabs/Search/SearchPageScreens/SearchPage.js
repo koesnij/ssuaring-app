@@ -2,17 +2,40 @@ import { useQuery } from "@apollo/client";
 import React from "react";
 import { ScrollView } from "react-native";
 import styled from "styled-components";
+import { defaultimage } from "../../../../constants";
 import { SEARCH } from "../SearchQueries";
+import { Image } from "react-native";
 
 const View = styled.View`
   justify-content: center;
   align-items: center;
   flex: 1;
-  border:1px solid black;
+  border: 1px solid black;
 `;
+const TitleText = styled.Text`
+  font-size: 24px;
+  height: 25%;
+`;
+const Text = styled.Text`
+  font-size: 12px;
+  font-weight: 500;
+  height: 25%;
+`;
+const LoadingText=styled.Text`
 
-const Text = styled.Text``;
-
+`;
+const TextContainer = styled.TouchableOpacity`
+  flex: 1;
+  flex-direction: column;
+`;
+const Container = styled.TouchableOpacity`
+  width: 100%;
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  height: ${(props) => props.height};
+`;
 export default ({ route, navigation }) => {
   const {
     otherParams: { term },
@@ -22,25 +45,40 @@ export default ({ route, navigation }) => {
     variables: {
       term: term,
     },
+    fetchPolicy:"network-only"
   });
   console.log(data);
   return (
     <ScrollView>
       {loading ? (
         <View>
-          <Text>loading</Text>
+          <LoadingText>loading</LoadingText>
         </View>
-      ) : (
-        data &&
-        data.searchPost ?
+      ) : data && data.searchPost ? (
         data.searchPost.map((tomato) => (
-          <View>
-            <Text>{tomato.title}</Text>
-            <Text>{tomato.price}</Text>
-            <Text>{tomato.caption}</Text>
-            <Text>{tomato.area}</Text>
-          </View>
-        )):
+          <Container>
+            {tomato.files[0] ? (
+              <Image
+                style={{ width: 100, height: 100 }}
+                source={{ uri: tomato.files[0].url }}
+              />
+            ) : (
+              <Image
+                style={{ width: 100, height: 100 }}
+                source={{
+                  uri: defaultimage,
+                }}
+              />
+            )}
+            <TextContainer>
+              <Text>{tomato.title}</Text>
+              <Text>{tomato.area}</Text>
+              <Text>{tomato.period}기간당{tomato.price}원</Text>
+              <Text>{tomato.caption}</Text>
+            </TextContainer>
+          </Container>
+        ))
+      ) : (
         <View>
           <Text>검색 결과를 찾을 수 없습니다.</Text>
         </View>

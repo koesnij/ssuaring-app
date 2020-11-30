@@ -1,13 +1,13 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import styled from "styled-components";
-import Button from "../../../components/Button";
-import { useLogOut } from "../../../AuthContext";
-import { Header, HeaderLink } from "../../../components/HeaderItem";
-import { Image, ScrollView } from "react-native";
-import { useQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
-import { USER_FRAGMENT } from "../../../fragment";
-import { ME } from "./MyPageQueries";
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import styled from 'styled-components';
+import Button from '../../../components/Button';
+import { useLogOut } from '../../../AuthContext';
+import { Header, HeaderLink } from '../../../components/HeaderItem';
+import { Image, ScrollView } from 'react-native';
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
+import { USER_FRAGMENT } from '../../../fragment';
+import { ME } from './MyPageQueries';
 
 const View = styled.View`
   align-items: center;
@@ -21,8 +21,30 @@ const Container = styled.TouchableOpacity`
   border: 1px solid rgba(0, 0, 0, 0.2);
   height: ${(props) => props.height};
 `;
-const Text = styled.Text``;
-
+const Text = styled.Text`
+`;
+const NameText = styled.Text`
+  font-size:18px;
+  margin-bottom: 10px;
+`;
+const TextButtonContainer = styled.View`
+  flex: 1;
+  justify-content: center;
+  padding: 5px;
+`;
+const ProfileContainer = styled.View`
+  width: 100%;
+  flex: 0.1;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  height: 100;
+  flex-direction: row;
+`;
+const ButtonContainer = styled.View`
+  flex: 1;
+  flex-direction: row;
+`;
 export default ({ navigation, updatedUser }) => {
   const { loading, data, refetch } = useQuery(ME, {});
   const [refreshing, setRefreshing] = useState(false);
@@ -33,7 +55,7 @@ export default ({ navigation, updatedUser }) => {
   };
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: "내 프로필",
+      headerTitle: '내 프로필',
     });
   }, [navigation]); //refreshing 코드(새로고침)
   /*const onRefresh = async()=>{
@@ -46,9 +68,11 @@ export default ({ navigation, updatedUser }) => {
       setRefreshing(false);
     }
   }
-  */ console.log(
-    data
-  );
+  
+  */
+  useEffect(() => {
+    refetch();
+  }, []);
   return (
     <ScrollView>
       {loading ? (
@@ -59,38 +83,39 @@ export default ({ navigation, updatedUser }) => {
         data &&
         data.me && (
           <View>
-            <Container height={400}>
+            <ProfileContainer>
               <Image
-                style={{ width: 100, height: 100 }}
-                source={{ uri:data.me.avatar }}
+                style={{ width: 100, height: 90 ,borderRadius:100}}
+                source={{ uri: data.me.avatar }}
               />
-              <Text>{data.me.name}</Text>
-              <Text>{data.me.nickname}</Text>
-              <Text>{data.me.phoneNumber}</Text>
-              <Text>{data.me.email}</Text>
-              <Text>{data.me.phoneNumber}</Text>
-              <Button
-                size="50"
-                onPress={() =>
-                  navigation.navigate("MyProfile", {
-                    otherParams: { user: data.me },
-                  })
-                }
-                text="프로필 보기"
-              />
-              <Button
-                onPress={() =>
-                  navigation.navigate("EditProfile", {
-                    otherParams: { user: data.me },
-                  })
-                }
-                text="프로필 수정"
-              />
-            </Container>
+              <TextButtonContainer>
+                <NameText>{data.me.name}</NameText>
+                <ButtonContainer>
+                  <Button
+                    size={100}
+                    onPress={() =>
+                      navigation.navigate("MyProfile", {
+                        otherParams: { user: data.me },
+                      })
+                    }
+                    text="프로필 보기"
+                  />
+                  <Button
+                    size={100}
+                    onPress={() =>
+                      navigation.navigate("EditProfile", {
+                        otherParams: { user: data.me },
+                      })
+                    }
+                    text="프로필 수정"
+                  />
+                </ButtonContainer>
+              </TextButtonContainer>
+            </ProfileContainer>
             <Container
               height={50}
               onPress={() =>
-                navigation.navigate("MyLikes", {
+                navigation.navigate('MyLikes', {
                   otherParams: { user: data.me },
                 })
               }
@@ -100,7 +125,7 @@ export default ({ navigation, updatedUser }) => {
             <Container
               height={50}
               onPress={() =>
-                navigation.navigate("MyPosts", {
+                navigation.navigate('MyPosts', {
                   otherParams: { user: data.me },
                 })
               }
@@ -110,7 +135,7 @@ export default ({ navigation, updatedUser }) => {
             <Container
               height={50}
               onPress={() =>
-                navigation.navigate("MyArea", {
+                navigation.navigate('MyArea', {
                   otherParams: { user: data.me },
                 })
               }
@@ -120,7 +145,7 @@ export default ({ navigation, updatedUser }) => {
             <Container
               height={50}
               onPress={() =>
-                navigation.navigate("MyTradeHistory", {
+                navigation.navigate('MyTradeHistory', {
                   otherParams: { user: data.me },
                 })
               }
@@ -130,7 +155,7 @@ export default ({ navigation, updatedUser }) => {
             <Container
               height={50}
               onPress={() =>
-                navigation.navigate("Setting", {
+                navigation.navigate('Setting', {
                   otherParams: { user: data.me },
                 })
               }
