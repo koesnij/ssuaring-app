@@ -22,6 +22,9 @@ const Text = styled.Text`
   font-weight: 600;
 `;
 
+
+
+
 const Button = ({ text, onPress, disabled = false, loading = false }) => (
   <Touchable disabled={disabled || loading} onPress={onPress}>
     <Container disabled={disabled}>
@@ -29,6 +32,10 @@ const Button = ({ text, onPress, disabled = false, loading = false }) => (
     </Container>
   </Touchable>
 );
+
+// const changeText = (text) => {
+//   this.propTypes.text = text
+// };
 
 Button.propTypes = {
   loading: PropTypes.bool,

@@ -9,14 +9,29 @@ export const ME = gql`
       phoneNumber
       email
       area
+      areaAuth
       avatar
-      posts{
+      posts {
+        id
+        title
+        price
+        files {
           id
-          files{
-              id
-              url
-          }
+          url
+        }
       }
+      likes{
+        post{
+          id
+          title
+          price
+          files{
+            id
+            url
+          }
+        }
+      }
+     
       postsCount
       likesCount
       createdAt
@@ -27,6 +42,8 @@ export const EDIT_PROFILE = gql`
   mutation editUser($id: String!, $name: String!, $nickname: String!) {
     editUser(id: $id, name: $name, nickname: $nickname) {
       name
+      nickname
     }
   }
 `;
+

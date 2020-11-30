@@ -38,3 +38,19 @@ export const periodConfig = {
     { label: '1일', value: 6 },
   ],
 };
+
+export const filterConfig = {
+  style: {
+    inputIOS: { fontSize: 16, paddingVertical: 10 },
+  },
+  placeholder: {
+    label: '정렬순',
+    value: null,
+  },
+  items: [
+    { label: '인기순', value: 1 },
+    { label: '최신순', value: 2 },
+    { label: '조회순', value: 3 },
+    { label: '사용자평점순', value: 4 },
+  ],
+};
