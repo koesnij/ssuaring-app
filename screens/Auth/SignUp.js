@@ -56,7 +56,7 @@ export default ({ route }) => {
       name: nameInput.value,
       nickname: nicknameInput.value,
       email: emailInput.value,
-      area: areaInput.value,
+      area: '-',
     },
   });
 
@@ -116,12 +116,6 @@ export default ({ route }) => {
               autoCorrect={false}
               keyboardType="email-address"
               returnKeyType="next"
-            />
-            <Input
-              {...areaInput} /*value랑 onChange를 리턴함*/
-              placeholder="지역 선택"
-              autoCorrect={false}
-              returnKeyType="done"
             />
             <Button loading={loading} onPress={handleSignUp} text="회원가입" />
           </Form>

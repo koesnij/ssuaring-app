@@ -8,8 +8,8 @@ const Container = styled.View`
   margin-bottom: 10px;
 `;
 const TextInput = styled.TextInput`
-  height: 48px;
-  width: ${constants.width - 100};
+  height: ${(props) => props.height};
+  width: ${(props) => props.width};
   padding-left: 12px;
   background-color: ${(props) =>
     props.editable ? styles.greyColor : styles.lightGreyColor};
@@ -28,6 +28,9 @@ const Input = ({
   autoCapitalize = 'none',
   returnKeyType = 'done',
   editable = true,
+  height = 48,
+  multiline = false,
+  width = constants.width - 100,
 }) => (
   <Container>
     <TextInput
@@ -40,6 +43,9 @@ const Input = ({
       autoCapitalize={autoCapitalize}
       returnKeyType={returnKeyType}
       editable={editable}
+      height={height}
+      width={width}
+      multiline={multiline}
     />
   </Container>
 );
