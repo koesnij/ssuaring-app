@@ -14,16 +14,16 @@ import * as ImagePicker from 'expo-image-picker';
 
 import axios from 'axios';
 import { gql } from 'apollo-boost';
-import { useMutation } from "react-apollo-hooks";
+import { useMutation } from 'react-apollo-hooks';
 
 import styles from '../../../styles';
-import options from '../../../apollo';
+import options, { ServerURI } from '../../../apollo';
 import TabIcon from '../../../components/TabIcon';
 import useInput from '../../../hooks/useInput';
 import usePicker from '../../../hooks/usePicker';
 import { categoryConfig, periodConfig } from './pickerConfig';
 import { Header, HeaderLink } from '../../../components/HeaderItem';
-import { useLogOut } from '../../../AuthContext';
+import { SEEALLPOST } from '../PostDetailQueries';
 
 const MainArea = styled.ScrollView`
   flex: 10;
@@ -111,7 +111,9 @@ export default ({ navigation }) => {
   const [imgLoading, setImgLoading] = useState(false);
   const [categoryLoading, setCategoryLoading] = useState(false);
   const [submitLoading, setSubmitLoading] = useState(false);
-  const [uploadPostMutation] = useMutation(UPLOAD_POST);
+  const [uploadPostMutation] = useMutation(UPLOAD_POST, {
+    refetchQueries: () => [{ query: SEEALLPOST }],
+  });
 
   const pickImage = async () => {
     try {
@@ -140,7 +142,7 @@ export default ({ navigation }) => {
     } else {
       try {
         setCategoryLoading(true);
-        const { data } = await axios.get(`${options.uri}/api/recommender`, {
+        const { data } = await axios.get(`${ServerURI}/api/recommender`, {
           params: { title: titleInput.value },
         });
         console.log(data);
@@ -200,7 +202,7 @@ export default ({ navigation }) => {
         setSubmitLoading(true);
         const {
           data: { location },
-        } = await axios.post(`${options.uri}/api/upload`, formData, {
+        } = await axios.post(`${ServerURI}/api/upload`, formData, {
           headers: { 'content-type': 'multipart/form-data' },
         });
         const {
@@ -339,4 +341,3 @@ export default ({ navigation }) => {
     </KeyboardAvoidingView>
   );
 };
-

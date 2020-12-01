@@ -10,18 +10,19 @@ import Mypage from '../screens/Tabs/Mypage';
 import TabIcon from '../components/TabIcon';
 import Filter from '../screens/Tabs/Home/Filter';
 import Map from '../screens/Tabs/Home/Map';
-import PostDetail from '../screens/Tabs/PostDetail';
-import ReservationReq from '../screens/Tabs/ReservationReq';
 import styles from '../styles';
 import MyProfile from '../screens/Tabs/Mypage/MyPageScreens/MyProfile';
 import MyLikes from '../screens/Tabs/Mypage/MyPageScreens/MyLikes';
 import MyArea from '../screens/Tabs/Mypage/MyPageScreens/MyArea';
 import MyPosts from '../screens/Tabs/Mypage/MyPageScreens/MyPosts';
+import MyReviews from '../screens/Tabs/Mypage/MyPageScreens/MyReviews';
 import EditProfile from '../screens/Tabs/Mypage/MyPageScreens/EditProfile';
 import MyTradeHistory from '../screens/Tabs/Mypage/MyPageScreens/MyTradeHistory';
 import Setting from '../screens/Tabs/Mypage/MyPageScreens/Setting';
 import SearchPage from '../screens/Tabs/Search/SearchPageScreens/SearchPage';
 import Chatting from '../screens/Tabs/Chats/ChatsScreens/Chatting';
+import PostDetail from '../screens/Tabs/PostDetail';
+import ReservationReq from '../screens/Tabs/ReservationReq';
 import EditArea from '../screens/Tabs/Mypage/MyPageScreens/EditArea';
 import Report from '../screens/Report/Report';
 import MyReviews from '../screens/Tabs/Mypage/MyPageScreens/MyReviews';
@@ -41,8 +42,7 @@ const HomeStackScreen = () => (
     <HomeStack.Screen
       name="Home"
       component={Home}
-      options={{ title: '내 지역a',
-       headerTitle: '동작구', }}
+      options={{ title: '내 지역a', headerTitle: '동작구' }}
     />
     <HomeStack.Screen
       name="Filter"
@@ -87,10 +87,10 @@ const SearchStackScreen = () => (
 );
 
 const ChatStackScreen = ({ navigation, route }) => {
-  if(route.state && route.state.index > 0) {
-    navigation.setOptions({tabBarVisible: false})
+  if (route.state && route.state.index > 0) {
+    navigation.setOptions({ tabBarVisible: false });
   } else {
-    navigation.setOptions({tabBarVisible: true})
+    navigation.setOptions({ tabBarVisible: true });
   }
   return (
     <ChatStack.Navigator>
@@ -133,7 +133,7 @@ const MyPageStackScreen = () => (
     <MyPageStack.Screen
       name="MyArea"
       component={MyArea}
-      options={{ title: "내 지역" }}
+      options={{ title: '내 지역' }}
     />
     <MyPageStack.Screen
       name="MyPosts"
@@ -156,10 +156,10 @@ const MyPageStackScreen = () => (
       component={Setting}
       options={{ title: '설정' }}
     />
-     <MyPageStack.Screen
+    <MyPageStack.Screen
       name="MyReviews"
       component={MyReviews}
-      options={{ title: "리뷰" }}
+      options={{ title: '리뷰' }}
     />
     <MyPageStack.Screen
       name="EditProfile"

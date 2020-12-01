@@ -11,9 +11,7 @@ export default () => {
   const logOut = useLogOut();
   return (
     <View style={{ flex: 1 }}>
-      {!isLoggedIn ? <AuthNavigation /> : <MainNavigation />} 
-       {/* {isLoggedIn ? <MainNavigation /> : <AuthNavigation />} */}
-      {/* {!isLoggedIn ? <AuthNavigation /> : <MainNavigation />} */}
+      {!isLoggedIn ? <AuthNavigation /> : <MainNavigation />}
     </View>
   );
 };

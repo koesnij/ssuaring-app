@@ -104,10 +104,10 @@
 //   );
 // };
 
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import { ScrollView } from "react-native";
-import styled from "styled-components";
-import { Header, HeaderLink } from "../../../components/HeaderItem";
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { ScrollView } from 'react-native';
+import styled from 'styled-components';
+import { Header, HeaderLink } from '../../../components/HeaderItem';
 
 //import TabIcon from '../components/FlatList';
 import {
@@ -117,16 +117,18 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Image,
-} from "react-native";
-import { useQuery } from "react-apollo-hooks";
-import { SEEALLPOST } from "../../../screens/Tabs/PostDetailQueries";
+} from 'react-native';
+import { useQuery } from 'react-apollo-hooks';
+import { SEEALLPOST } from '../../../screens/Tabs/PostDetailQueries';
+import Loader from '../../../components/Loader';
+import PostItem from '../../../components/PostItem';
 
 const Text = styled.Text``;
 
 const style = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 22,
+    backgroundColor: 'white',
   },
   item: {
     padding: 10,
@@ -185,53 +187,32 @@ export default ({ navigation }) => {
     });
   }, [navigation]);
   const { loading, data, refetch } = useQuery(SEEALLPOST, {
-    fetchPolicy:"network-only"
+    fetchPolicy: 'network-only',
   });
-  const [refreshing, setRefreshing] = useState(false);  
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = async () => {
+    try {
+      setRefreshing(true);
+      await refetch();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setRefreshing(false);
+    }
+  };
+  if (data) console.log(data.seeAllPost);
   return (
-    <View>
+    <View style={style.container}>
       {loading ? (
-        <View>
-          <Text>hi</Text>
-        </View>
+        <Loader />
       ) : (
         data &&
         data.seeAllPost && (
-          <View>
-            <FlatList
-              //    data={[
-              //   {name:"고영욱", message:"널 좋아해",img: "https://dimg.donga.com/wps/NEWS/IMAGE/2013/01/14/52293938.2.jpg"},
-              //   {name:"신정환", message:"역시 형이야",img:  "https://mblogthumb-phinf.pstatic.net/MjAxNzA0MjdfMjgx/MDAxNDkzMjYxNzQyMjU4.op0zQTfA81ih-qf3BEzr_6C2VXoclL_Cbs4aiJiObgkg.EZUQzZsblADVKBE1ZcbbleaRwcyd_KmsUJMwDPWU5GIg.JPEG.mki112112/%EC%8B%A0%EC%A0%95%ED%99%983.jpg?type=w800"},
-              //     {name:"고영욱", message:"널 좋아해",img: "https://dimg.donga.com/wps/NEWS/IMAGE/2013/01/14/52293938.2.jpg"},
-              //   {name:"신정환", message:"역시 형이야",img:  "https://mblogthumb-phinf.pstatic.net/MjAxNzA0MjdfMjgx/MDAxNDkzMjYxNzQyMjU4.op0zQTfA81ih-qf3BEzr_6C2VXoclL_Cbs4aiJiObgkg.EZUQzZsblADVKBE1ZcbbleaRwcyd_KmsUJMwDPWU5GIg.JPEG.mki112112/%EC%8B%A0%EC%A0%95%ED%99%983.jpg?type=w800"},
-              //     {name:"고영욱", message:"널 좋아해",img: "https://dimg.donga.com/wps/NEWS/IMAGE/2013/01/14/52293938.2.jpg"},
-              //   {name:"신정환", message:"역시 형이야",img:  "https://mblogthumb-phinf.pstatic.net/MjAxNzA0MjdfMjgx/MDAxNDkzMjYxNzQyMjU4.op0zQTfA81ih-qf3BEzr_6C2VXoclL_Cbs4aiJiObgkg.EZUQzZsblADVKBE1ZcbbleaRwcyd_KmsUJMwDPWU5GIg.JPEG.mki112112/%EC%8B%A0%EC%A0%95%ED%99%983.jpg?type=w800"},
-              //     {name:"고영욱", message:"널 좋아해",img: "https://dimg.donga.com/wps/NEWS/IMAGE/2013/01/14/52293938.2.jpg"},
-              //   {name:"신정환", message:"역시 형이야",img:  "https://mblogthumb-phinf.pstatic.net/MjAxNzA0MjdfMjgx/MDAxNDkzMjYxNzQyMjU4.op0zQTfA81ih-qf3BEzr_6C2VXoclL_Cbs4aiJiObgkg.EZUQzZsblADVKBE1ZcbbleaRwcyd_KmsUJMwDPWU5GIg.JPEG.mki112112/%EC%8B%A0%EC%A0%95%ED%99%983.jpg?type=w800"},
-              // ]}
-              data={data.seeAllPost}
-              renderItem={({ item }) => (
-                <TouchableOpacity
-                  style={style.itemView}
-                  onPress={() => {
-                    navigation.navigate("PostDetail", {
-                      otherParams: { id: item.id },
-                    });
-                    //alert(item.name);
-                  }}
-                >
-                  <Image
-                    source={{ uri: item.files.uri }}
-                    style={style.itemImg}
-                  />
-                  <View style={{ flexDirection: "column" }}>
-                    <Text style={style.itemName}>{item.title}</Text>
-                    <Text style={style.itemMsg}>{item.caption}</Text>
-                  </View>
-                </TouchableOpacity>
-              )}
-            />
-          </View>
+          <FlatList
+            data={data.seeAllPost}
+            refreshControl
+            renderItem={({ item }) => <PostItem item={item} />}
+          />
         )
       )}
     </View>
