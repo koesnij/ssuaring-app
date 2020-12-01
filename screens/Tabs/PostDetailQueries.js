@@ -2,7 +2,7 @@ import gql from 'graphql-tag';
 
 export const SEEFULLPOST = gql`
   query seeFullPost($id: String!) {
-    postdetail {
+    seeFullPost(id: $id) {
       id
       area
       title
@@ -13,6 +13,7 @@ export const SEEFULLPOST = gql`
       user {
         id
         name
+        avatar
         nickname
       }
       files {
