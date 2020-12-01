@@ -15,7 +15,7 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import { CREATE_ACCOUNT } from './AuthQueries';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from "react-apollo-hooks";
 import { useLogIn } from '../../AuthContext';
 
 const View = styled.View`

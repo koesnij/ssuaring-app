@@ -1,4 +1,4 @@
-import { gql } from "@apollo/react-hooks";
+import gql from "graphql-tag";
 
 export const SEARCH = gql`
   query searchPost($term: String!) {

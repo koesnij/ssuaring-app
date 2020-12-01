@@ -1,4 +1,5 @@
-import { gql, useMutation } from "@apollo/react-hooks";
+import { useMutation } from "react-apollo-hooks";
+import gql from "graphql-tag";
 import React, { useEffect, useState } from "react";
 import { ScrollView } from "react-native";
 import styled from "styled-components";

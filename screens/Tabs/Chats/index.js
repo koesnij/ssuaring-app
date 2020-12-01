@@ -1,8 +1,10 @@
-import { useQuery } from "@apollo/react-hooks";
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useQuery, useSubscription } from "react-apollo-hooks";
 import { Image, ScrollView } from "react-native";
 import styled from 'styled-components';
-import { GET_ROOM, GET_ROOMS } from "./ChatQueries";
+import { ME } from '../Mypage/MyPageQueries';
+import { GET_ROOM, GET_ROOMS, NEW_MESSAGE } from "./ChatQueries";
+import ChattingRoom from './ChatsScreens/ChattingRoom';
 
 const View = styled.View`
   justify-content: center;
@@ -14,32 +16,24 @@ const Container = styled.TouchableOpacity``;
 const Text = styled.Text``;
 
 export default ({ navigation }) => {
-  const { loading, data } = useQuery(GET_ROOMS);
-  console.log(data);
+  const { data, loading  } = useQuery(GET_ROOMS, {
+    fetchPolicy: "network-only"
+  });
+  const { data: me, loading: meloading } = useQuery(ME, {
+    fetchPolicy: "network-only"
+  });
   return (
-    <ScrollView>
-        {loading ? (
-          <View>
-            <Text>로딩 중...</Text>
-          </View>
-        ) : (
-          data && data.getRooms && data.getRooms.map(room => (
-                <Container
-                  key={room.id} 
-                  onPress={() => 
-                    navigation.navigate("Chatting", {
-                      otherParams: { room }
-                    })
-                  }>
-                  <Image 
-                    source={{ uri: room.participants[0].avatar}}
-                  ></Image>
-                  <Text>{room.participants[0].nickname}</Text>
-                  <Text>{room.messages[room.messages.length-1].text}</Text>
-                </Container>
-            ))
-        )
-      }
-    </ScrollView>
+    <View>
+    {loading && meloading ? (
+        <Text>로딩 중</Text>
+    ) : (
+      me && me.me && data && data.getRooms &&
+      <ChattingRoom 
+        rooms={data.getRooms}
+        me={me.me}
+        navigation={navigation}
+      />
+    )}
+    </View>
   );
 };

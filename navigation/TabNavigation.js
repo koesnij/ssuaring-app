@@ -22,6 +22,8 @@ import MyTradeHistory from '../screens/Tabs/Mypage/MyPageScreens/MyTradeHistory'
 import Setting from '../screens/Tabs/Mypage/MyPageScreens/Setting';
 import SearchPage from '../screens/Tabs/Search/SearchPageScreens/SearchPage';
 import Chatting from '../screens/Tabs/Chats/ChatsScreens/Chatting';
+import PostDetail from "../screens/Tabs/PostDetail";
+import ReservationReq from "../screens/Tabs/ReservationReq";
 import EditArea from '../screens/Tabs/Mypage/MyPageScreens/EditArea';
 import Report from '../screens/Report/Report';
 import MyReviews from '../screens/Tabs/Mypage/MyPageScreens/MyReviews';
@@ -41,7 +43,8 @@ const HomeStackScreen = () => (
     <HomeStack.Screen
       name="Home"
       component={Home}
-      options={{ title: '내 지역a', headerTitle: '동작구' }}
+      options={{ title: '내 지역a',
+       headerTitle: '동작구', }}
     />
     <HomeStack.Screen
       name="Filter"
@@ -85,20 +88,27 @@ const SearchStackScreen = () => (
   </SearchStack.Navigator>
 );
 
-const ChatStackScreen = () => (
-  <ChatStack.Navigator>
-    <ChatStack.Screen
-      name="Chats"
-      component={Chats}
-      options={{ title: '채팅방' }}
-    />
-    <ChatStack.Screen
-      name="Chatting"
-      component={Chatting}
-      options={{ title: '채팅화면' }}
-    />
-  </ChatStack.Navigator>
-);
+const ChatStackScreen = ({ navigation, route }) => {
+  if(route.state && route.state.index > 0) {
+    navigation.setOptions({tabBarVisible: false})
+  } else {
+    navigation.setOptions({tabBarVisible: true})
+  }
+  return (
+    <ChatStack.Navigator>
+      <ChatStack.Screen
+        name="Chats"
+        component={Chats}
+        options={{ title: '채팅방' }}
+      />
+      <ChatStack.Screen
+        name="Chatting"
+        component={Chatting}
+        options={{ title: '채팅화면' }}
+      />
+    </ChatStack.Navigator>
+  );
+};
 
 const MyPageStackScreen = () => (
   <MyPageStack.Navigator

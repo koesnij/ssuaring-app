@@ -14,7 +14,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 import axios from 'axios';
 import { gql } from 'apollo-boost';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from "react-apollo-hooks";
 
 import styles from '../../../styles';
 import options from '../../../apollo';
@@ -339,3 +339,4 @@ export default ({ navigation }) => {
     </KeyboardAvoidingView>
   );
 };
+
