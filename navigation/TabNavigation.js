@@ -24,6 +24,7 @@ import SearchPage from '../screens/Tabs/Search/SearchPageScreens/SearchPage';
 import Chatting from '../screens/Tabs/Chats/ChatsScreens/Chatting';
 import EditArea from '../screens/Tabs/Mypage/MyPageScreens/EditArea';
 import Report from '../screens/Report/Report';
+import MyReviews from '../screens/Tabs/Mypage/MyPageScreens/MyReviews';
 
 const HomeStack = createStackNavigator();
 const MyPageStack = createStackNavigator();
@@ -131,11 +132,7 @@ const MyPageStackScreen = () => (
       component={MyPosts}
       options={{ title: '내 게시물' }}
     />
-    <MyPageStack.Screen
-      name="MyArea"
-      component={MyArea}
-      options={{ title: '내 지역' }}
-    />
+  
     <MyPageStack.Screen
       name="EditArea"
       component={EditArea}
