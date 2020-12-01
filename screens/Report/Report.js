@@ -37,7 +37,7 @@ const Text = styled.Text`
 `;
 const Caution = styled.Text`
   font-size: 14px;
-  color: ${styles.darkGreyColor}
+  color: ${styles.darkGreyColor};
   font-weight: 300;
   padding: 60px 0px;
   align-self: center;
