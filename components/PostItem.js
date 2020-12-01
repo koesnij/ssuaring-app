@@ -21,20 +21,20 @@ const Column = styled.View`
 `;
 
 const Title = styled.Text`
-  font-size: 18;
+  font-size: 17;
   font-weight: 400;
   color: ${styles.blackColor};
 `;
 
 const Location = styled.Text`
-  padding-top: 6px;
+  padding-top: 8px;
   font-size: 12;
   font-weight: 600;
   color: ${styles.darkGreyColor};
 `;
 
 const Price = styled.Text`
-  padding-top: 35;
+  padding-top: 30;
   font-size: 14;
   color: ${styles.blackColor};
   font-weight: 600;
@@ -47,7 +47,7 @@ const PostItem = ({ item: { id, files, title, price, period, area } }) => {
     <Touchable
       onPress={() => {
         navigation.navigate('PostDetail', {
-          otherParams: { id },
+          otherParams: { id, files, title, price, period, area },
         });
       }}
     >

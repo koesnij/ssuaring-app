@@ -31,39 +31,50 @@ const MyPageStack = createStackNavigator();
 const SearchStack = createStackNavigator();
 const ChatStack = createStackNavigator();
 
-const HomeStackScreen = () => (
-  <HomeStack.Navigator
-    screenOptions={{
-      headerBackTitle: ' ',
-      headerTintColor: styles.blackColor,
-    }}
-  >
-    <HomeStack.Screen
-      name="Home"
-      component={Home}
-      options={{ title: '내 지역a', headerTitle: '동작구' }}
-    />
-    <HomeStack.Screen
-      name="Filter"
-      component={Filter}
-      options={{ title: '필터' }}
-    />
+const HomeStackScreen = ({ navigation, route }) => {
+  if (route.state && route.state.index > 0) {
+    navigation.setOptions({ tabBarVisible: false });
+  } else {
+    navigation.setOptions({ tabBarVisible: true });
+  }
+  return (
+    <HomeStack.Navigator
+      screenOptions={{
+        headerBackTitle: ' ',
+        headerTintColor: styles.blackColor,
+      }}
+    >
+      <HomeStack.Screen
+        name="Home"
+        component={Home}
+        options={{ title: '내 지역a', headerTitle: '동작구' }}
+      />
+      <HomeStack.Screen
+        name="Filter"
+        component={Filter}
+        options={{ title: '필터' }}
+      />
 
-    <HomeStack.Screen
-      name="PostDetail"
-      component={PostDetail}
-      options={{ title: '대여 상세 정보' }}
-    />
+      <HomeStack.Screen
+        name="PostDetail"
+        component={PostDetail}
+        options={{ title: '대여 상세 정보' }}
+      />
 
-    <HomeStack.Screen
-      name="ReservationReq"
-      component={ReservationReq}
-      options={{ title: '예약 신청' }}
-    />
+      <HomeStack.Screen
+        name="ReservationReq"
+        component={ReservationReq}
+        options={{ title: '예약 신청' }}
+      />
 
-    <HomeStack.Screen name="Map" component={Map} options={{ title: '지도' }} />
-  </HomeStack.Navigator>
-);
+      <HomeStack.Screen
+        name="Map"
+        component={Map}
+        options={{ title: '지도' }}
+      />
+    </HomeStack.Navigator>
+  );
+};
 
 const SearchStackScreen = () => (
   <SearchStack.Navigator
