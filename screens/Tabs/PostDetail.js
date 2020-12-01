@@ -208,7 +208,7 @@ import {StyleSheet, Image, ScrollView,FlatList, TouchableOpacity, TouchableWitho
 import { Divider, Icon } from 'react-native-elements';
 import Button from '../../components/Button';
 import ButtonMore from '../../components/ButtonMore';
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from 'react-apollo-hooks';
 import { gql } from "apollo-boost";
 import {SEEFULLPOST } from "./PostDetailQueries";
 

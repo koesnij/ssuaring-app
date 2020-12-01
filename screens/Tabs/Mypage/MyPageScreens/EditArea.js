@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMutation } from '@apollo/react-hooks';
+import { useMutation } from 'react-apollo-hooks';
 import { gql } from 'apollo-boost';
 import { Alert } from 'react-native';
 import Postcode from 'react-native-daum-postcode';

@@ -1,4 +1,4 @@
-import { gql } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
 
 export const SEEFULLPOST = gql`
    query seeFullPost($id: String!) {
@@ -42,7 +42,7 @@ export const SEARCHPOST = gql`
 
 export const SEEALLPOST = gql`
     query seeAllPost {
-        seePost {
+        seeAllPost {
           id
           area
           title

@@ -22,8 +22,6 @@ import MyTradeHistory from '../screens/Tabs/Mypage/MyPageScreens/MyTradeHistory'
 import Setting from '../screens/Tabs/Mypage/MyPageScreens/Setting';
 import SearchPage from '../screens/Tabs/Search/SearchPageScreens/SearchPage';
 import Chatting from '../screens/Tabs/Chats/ChatsScreens/Chatting';
-import PostDetail from "../screens/Tabs/PostDetail";
-import ReservationReq from "../screens/Tabs/ReservationReq";
 import EditArea from '../screens/Tabs/Mypage/MyPageScreens/EditArea';
 import Report from '../screens/Report/Report';
 import MyReviews from '../screens/Tabs/Mypage/MyPageScreens/MyReviews';
