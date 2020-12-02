@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { useMutation } from "react-apollo-hooks";
+import { useMutation } from 'react-apollo-hooks';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import useInput from '../../hooks/useInput';
 import { useLogIn } from '../../AuthContext';
 import { CONFIRM_SECRET } from './AuthQueries';
+import Toast from 'react-native-toast-message';
 
 const View = styled.View`
   justify-content: center;
@@ -61,6 +62,11 @@ export default ({ route, navigation }) => {
             ]
           );
         } else {
+          Toast.show({
+            topOffset: 50,
+            text1: '로그인 성공!',
+            text2: '홈 화면으로 이동합니다.',
+          });
           logIn(confirmSecret);
         }
       } else {

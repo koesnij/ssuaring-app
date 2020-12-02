@@ -15,8 +15,9 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import { CREATE_ACCOUNT } from './AuthQueries';
-import { useMutation } from "react-apollo-hooks";
+import { useMutation } from 'react-apollo-hooks';
 import { useLogIn } from '../../AuthContext';
+import Toast from 'react-native-toast-message';
 
 const View = styled.View`
   justify-content: center;
@@ -72,6 +73,11 @@ export default ({ route }) => {
         if (createAccount === false) {
           Alert.alert('중복되는 항목이 있습니다.');
         } else {
+          Toast.show({
+            topOffset: 50,
+            text1: '회원가입 성공!',
+            text2: '홈 화면으로 이동합니다.',
+          });
           logIn(createAccount);
         }
       } else {

@@ -1,22 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { AsyncStorage } from "react-native";
+import React, { useState, useEffect } from 'react';
+import { AsyncStorage } from 'react-native';
 
-import { AppLoading } from "expo";
-import * as Font from "expo-font";
-import { Asset } from "expo-asset";
-import { Ionicons } from "@expo/vector-icons";
+import { AppLoading } from 'expo';
+import * as Font from 'expo-font';
+import { Asset } from 'expo-asset';
+import { Ionicons } from '@expo/vector-icons';
 
 import { ApolloClient } from 'apollo-client';
 //import  ApolloClient  from "apollo-boost";
-import { persistCache } from "apollo-cache-persist";
+import { persistCache } from 'apollo-cache-persist';
 //import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloProvider } from 'react-apollo-hooks';
 //import { ApolloProvider } from "@apollo/react-hooks";
 
-import {cache, options} from "./apollo";
+import { cache, options } from './apollo';
 
-import { AuthProvider } from "./AuthContext";
-import NavController from "./components/NavController";
+import { AuthProvider } from './AuthContext';
+import NavController from './components/NavController';
+import Toast from 'react-native-toast-message';
 
 export default function App() {
   const [loaded, setLoaded] = useState(false);
@@ -49,11 +50,11 @@ export default function App() {
         },
         ...apolloClientOptions,
         cache*/
-        ...options
+        ...options,
       });
       setClient(client);
-      const isLoggedIn = await AsyncStorage.getItem("isLoggedIn");
-      if (!isLoggedIn || isLoggedIn === "false") {
+      const isLoggedIn = await AsyncStorage.getItem('isLoggedIn');
+      if (!isLoggedIn || isLoggedIn === 'false') {
         setIsLoggedIn(false);
       } else {
         setIsLoggedIn(true);
@@ -74,6 +75,7 @@ export default function App() {
     <ApolloProvider client={client}>
       <AuthProvider isLoggedIn={isLoggedIn}>
         <NavController />
+        <Toast ref={(ref) => Toast.setRef(ref)} />
       </AuthProvider>
     </ApolloProvider>
   ) : (
