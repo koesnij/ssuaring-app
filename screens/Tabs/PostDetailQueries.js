@@ -15,11 +15,26 @@ export const SEEFULLPOST = gql`
         name
         avatar
         nickname
+        posts {
+          id
+          files {
+            id
+            url
+          }
+          title
+          price
+          period
+          area
+        }
       }
       files {
         id
         url
       }
+      isMine
+      isLiked
+      likeCount
+      reservationCount
       updatedAt
       createdAt
     }
@@ -42,7 +57,7 @@ export const SEARCHPOST = gql`
 `;
 
 export const SEEALLPOST = gql`
-  query seeAllPost {
+  {
     seeAllPost {
       id
       area
@@ -62,6 +77,15 @@ export const EDIT_PROFILE = gql`
   mutation editUser($id: String!, $name: String!, $nickname: String!) {
     editUser(id: $id, name: $name, nickname: $nickname) {
       name
+    }
+  }
+`;
+
+export const MYAREA = gql`
+  {
+    me {
+      id
+      area
     }
   }
 `;
