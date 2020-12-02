@@ -31,12 +31,24 @@ export const SEEFULLPOST = gql`
         id
         url
       }
+      reservations {
+        id
+        review {
+          id
+          borrower {
+            id
+            avatar
+            nickname
+          }
+          text
+          updatedAt
+        }
+      }
       isMine
       isLiked
       likeCount
       reservationCount
       updatedAt
-      createdAt
     }
   }
 `;

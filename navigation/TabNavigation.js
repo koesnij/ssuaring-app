@@ -47,7 +47,7 @@ const HomeStackScreen = ({ navigation, route }) => {
       <HomeStack.Screen
         name="Home"
         component={Home}
-        options={{ title: '내 지역a', headerTitle: '동작구' }}
+        options={{ title: '홈' }}
       />
       <HomeStack.Screen
         name="Filter"
@@ -66,11 +66,15 @@ const HomeStackScreen = ({ navigation, route }) => {
         component={ReservationReq}
         options={{ title: '예약 신청' }}
       />
-
       <HomeStack.Screen
         name="Map"
         component={Map}
         options={{ title: '지도' }}
+      />
+      <MyPageStack.Screen
+        name="Report"
+        component={Report}
+        options={{ title: '신고하기' }}
       />
     </HomeStack.Navigator>
   );
@@ -174,11 +178,6 @@ const MyPageStackScreen = () => (
       name="EditProfile"
       component={EditProfile}
       options={{ title: '프로필 수정' }}
-    />
-    <MyPageStack.Screen
-      name="Report"
-      component={Report}
-      options={{ title: '신고하기' }}
     />
   </MyPageStack.Navigator>
 );
