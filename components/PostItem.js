@@ -1,7 +1,6 @@
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Image, View } from 'react-native';
-import { withNavigation } from 'react-navigation';
+import { Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components';
 import styles from '../styles';
 
@@ -40,16 +39,19 @@ const Price = styled.Text`
   font-weight: 600;
 `;
 
-const PostItem = ({ item: { id, files, title, price, period, area } }) => {
+const PostItem = ({
+  item: { id, files, title, price, period, area },
+  size = 110,
+}) => {
   const navigation = useNavigation();
   console.log(id, files, title);
   return (
     <Touchable
-      onPress={() => {
-        navigation.navigate('PostDetail', {
+      onPress={() =>
+        navigation.push('PostDetail', {
           otherParams: { id, files, title, price, period, area },
-        });
-      }}
+        })
+      }
     >
       <Image
         source={{ uri: files[0].url }}
@@ -60,6 +62,7 @@ const PostItem = ({ item: { id, files, title, price, period, area } }) => {
           borderWidth: 0.5,
           borderRadius: 10,
           borderColor: styles.lightGreyColor,
+          backgroundColor: styles.lightGreyColor,
         }}
       />
       <Column>
