@@ -230,7 +230,9 @@ export default ({ route, navigation }) => {
               <PostMainArea>
                 <PostTitle>{title}</PostTitle>
                 <PostMeta>
-                  <PostMetaText>{data.seeFullPost.category}</PostMetaText>
+                  <PostMetaText>
+                    {data.seeFullPost.category_string}
+                  </PostMetaText>
                   <PostMetaText> ・ </PostMetaText>
                   <PostMetaText>{data.seeFullPost.updatedAt}</PostMetaText>
                 </PostMeta>
@@ -278,7 +280,7 @@ export default ({ route, navigation }) => {
                     <TabIcon name={isLiked ? 'heart' : 'heart-empty'} c />
                   </Like>
                   <Price>
-                    <PriceText>{data.seeFullPost.period} 당</PriceText>
+                    <PriceText>{data.seeFullPost.period_string} 당</PriceText>
                     <PriceText>{data.seeFullPost.price} 원</PriceText>
                   </Price>
                   <Button

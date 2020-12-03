@@ -7,9 +7,9 @@ export const SEEFULLPOST = gql`
       area
       title
       caption
-      category
+      category_string
       price
-      period
+      period_string
       user {
         id
         name
@@ -23,7 +23,7 @@ export const SEEFULLPOST = gql`
           }
           title
           price
-          period
+          period_string
           area
         }
       }
@@ -75,7 +75,7 @@ export const SEEALLPOST = gql`
       area
       title
       caption
-      period
+      period_string
       price
       files {
         id

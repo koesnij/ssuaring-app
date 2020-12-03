@@ -40,7 +40,7 @@ const Price = styled.Text`
 `;
 
 const PostItem = ({
-  item: { id, files, title, price, period, area },
+  item: { id, files, title, price, period_string, area },
   size = 110,
 }) => {
   const navigation = useNavigation();
@@ -49,7 +49,7 @@ const PostItem = ({
     <Touchable
       onPress={() =>
         navigation.push('PostDetail', {
-          otherParams: { id, files, title, price, period, area },
+          otherParams: { id, files, title, price, period_string, area },
         })
       }
     >
@@ -68,7 +68,7 @@ const PostItem = ({
       <Column>
         <Title>{title}</Title>
         <Location>{area}</Location>
-        <Price>{`${period} 당 ${price}원`}</Price>
+        <Price>{`${period_string} 당 ${price}원`}</Price>
       </Column>
     </Touchable>
   );
