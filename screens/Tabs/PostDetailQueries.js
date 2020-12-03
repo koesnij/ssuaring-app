@@ -9,6 +9,7 @@ export const SEEFULLPOST = gql`
       caption
       category_string
       price
+      period
       period_string
       user {
         id
@@ -102,4 +103,19 @@ export const MYAREA = gql`
   }
 `;
 
+export const APPLY_RESERVATION = gql`
+  mutation applyReservation(
+    $postId: String!
+    $startDate: String!
+    $endDate: String!
+  ) {
+    applyReservation(
+      postId: $postId
+      startDate: $startDate
+      endDate: $endDate
+    ) {
+      id
+    }
+  }
+`;
 ////////// post detail 쿼리용

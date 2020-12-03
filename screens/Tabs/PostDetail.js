@@ -18,7 +18,7 @@ const View = styled.View`
   flex: 1;
 `;
 
-const UserArea = styled.View`
+const UserArea = styled.TouchableOpacity`
   flex-direction: row;
   padding: 10px;
   align-items: center;
@@ -145,6 +145,7 @@ export default ({ route, navigation }) => {
     variables: { id },
     fetchPolicy: 'network-only',
   });
+  console.log('datadata', data);
 
   /** 찜 관련 */
   const [isLiked, setIsLiked] = useState(false);
@@ -209,7 +210,13 @@ export default ({ route, navigation }) => {
                 }}
                 source={{ uri: files[0].url }}
               />
-              <UserArea>
+              <UserArea
+                onPress={() =>
+                  navigation.navigate('UserProfile', {
+                    otherParams: { user: data.seeFullPost.user },
+                  })
+                }
+              >
                 <Image
                   style={{
                     borderRadius: 25,
@@ -224,7 +231,7 @@ export default ({ route, navigation }) => {
                   <Area>{area}</Area>
                 </Column>
                 <Column>
-                  <Rating>별점</Rating>
+                  <Rating></Rating>
                 </Column>
               </UserArea>
               <PostMainArea>
@@ -250,12 +257,16 @@ export default ({ route, navigation }) => {
                 {data.seeFullPost.reservations.length === 0 ? (
                   <Text>아직 후기가 없습니다.</Text>
                 ) : (
-                  data.seeFullPost.reservations.map((item) => (
-                    <PriceText>
-                      {item.review.borrower.avatar}{' '}
-                      {item.review.borrower.nickname}
-                    </PriceText>
-                  ))
+                  data.seeFullPost.reservations.map((item) => {
+                    item.review.length === 1 ? (
+                      <PriceText>
+                        {item.review.borrower.avatar}{' '}
+                        {item.review.borrower.nickname}
+                      </PriceText>
+                    ) : (
+                      <></>
+                    );
+                  })
                 )}
               </ReviewArea>
               <OtherPostsArea>
@@ -277,11 +288,11 @@ export default ({ route, navigation }) => {
               ) : (
                 <>
                   <Like onPress={toggleLike}>
-                    <TabIcon name={isLiked ? 'heart' : 'heart-empty'} c />
+                    <TabIcon name={isLiked ? 'heart' : 'heart-empty'} />
                   </Like>
                   <Price>
                     <PriceText>{data.seeFullPost.period_string} 당</PriceText>
-                    <PriceText>{data.seeFullPost.price} 원</PriceText>
+                    <PriceText>{data.seeFullPost.price}원</PriceText>
                   </Price>
                   <Button
                     text="예약 하기"
