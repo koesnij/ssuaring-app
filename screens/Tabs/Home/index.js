@@ -31,20 +31,6 @@ export default ({ navigation }) => {
       ) : (
         myArea.data && myArea.data.me && myArea.data.me.area
       ),
-      headerRight: () => {
-        return (
-          <Header>
-            <HeaderLink
-              str={'필터'}
-              onPress={() => navigation.navigate('Filter')}
-            />
-            <HeaderLink
-              str={'지도'}
-              onPress={() => navigation.navigate('Map')}
-            />
-          </Header>
-        );
-      },
     });
   }, [navigation, myArea]);
 
