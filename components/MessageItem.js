@@ -48,8 +48,9 @@ const TimeText = styled.Text`
   font-size: 10;
 `;
 
-export default ({ me, from, text }) => {
+export default ({ me, from, text, createdAt }) => {
   const { nickname, avatar } = from;
+  const time = createdAt.match(/\d\d:\d\d/)[0];
   return (
     <Container me={me}>
       {me && (
@@ -73,11 +74,11 @@ export default ({ me, from, text }) => {
               <TextContainer>
                 <Text>{text}</Text>
               </TextContainer>
-              <TimeText>16:28</TimeText>
+              <TimeText>{time}</TimeText>
             </>
           ) : (
             <>
-              <TimeText>16:28</TimeText>
+              <TimeText>{time}</TimeText>
               <TextContainer>
                 <Text>{text}</Text>
               </TextContainer>
