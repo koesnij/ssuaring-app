@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const ME = gql`
   {
@@ -20,21 +20,23 @@ export const ME = gql`
           url
         }
       }
-      likes{
-        post{
+      likes {
+        post {
           id
           title
           price
-          files{
+          files {
             id
             url
           }
         }
       }
-     
       postsCount
       likesCount
       createdAt
+      myReservation {
+        id
+      }
     }
   }
 `;
@@ -46,4 +48,3 @@ export const EDIT_PROFILE = gql`
     }
   }
 `;
-

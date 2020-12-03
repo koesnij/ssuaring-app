@@ -1,16 +1,15 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Image, ScrollView } from 'react-native';
 import Toast from 'react-native-toast-message';
 import Button from '../../components/Button';
-import { Calendar, CalendarList, Agenda } from 'react-native-calendars';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import ButtonMore from '../../components/ButtonMore';
-import useInput from '../../hooks/useInput';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
 import Loader from '../../components/Loader';
 import constants from '../../constants';
 import styles from '../../styles';
+import { useMutation } from 'react-apollo-hooks';
+import { APPLY_RESERVATION } from './PostDetailQueries';
 
 const View = styled.View`
   background-color: white;
@@ -28,6 +27,40 @@ const PostTitle = styled.Text`
   font-size: 22;
   font-weight: bold;
 `;
+const DateArea = styled.View`
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 0px;
+`;
+const Touchable = styled.TouchableOpacity`
+  margin-right: 30px;
+`;
+const SelectDateText = styled.Text`
+  font-size: 17;
+  margin-right: 20px;
+`;
+const TimeButton = styled.TouchableOpacity`
+  height: 30px;
+  width: 30px;
+  margin: 0px 5px;
+  padding-bottom: 2px;
+  border-radius: 15px;
+  justify-content: center;
+  align-items: center;
+  background-color: ${styles.blueColor};
+`;
+const TimeButtonText = styled.Text`
+  font-size: 18;
+  font-weight: bold;
+  color: white;
+`;
+const TimeText = styled.Text`
+  font-size: 17;
+  font-weight: bold;
+  color: ${styles.blueColor};
+`;
+
 const Period = styled.View`
   padding: 3px;
   align-items: center;
@@ -47,9 +80,12 @@ const ReservationMeta = styled.View`
   border-bottom-color: ${styles.lightGreyColor};
 `;
 const MetaTitle = styled.Text`
-  font-size: 17;
+  font-size: 16;
   font-weight: 600;
+  color: ${styles.blackColor}
   padding: 12px;
+  padding-right: 0px;
+  width: 110px;
 `;
 const MetaContent = styled.Text`
   font-size: 16;
@@ -72,178 +108,182 @@ const Footer = styled.View`
 
 const Text = styled.Text``;
 
+const getDate = (date) => {
+  if (date === null) return null;
+  const month = 1 + date.getMonth();
+  const day = date.getDate();
+  const hr = date.getHours();
+  const min = date.getMinutes();
+  return `${month}월 ${day}일 ${hr}시 ${min}분`;
+};
+
 export default ({ route, navigation }) => {
   const {
-    otherParams: { title, area, caption, price, files },
+    otherParams: {
+      id,
+      title,
+      area,
+      caption,
+      price,
+      files,
+      period,
+      period_string,
+    },
   } = route.params;
 
-  const captionInput = useInput('');
-  const priceInput = useInput('');
+  const [startTime, setStartTime] = useState(null);
+  const [endTime, setEndTime] = useState(null);
+  const [totalPeriod, setTotalPeriod] = useState(0);
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    //setShow(Platform.OS === 'ios');
-    if (event.type == 'set') {
-      setShow(false);
-      if (btntype == 'startingDay') {
-        startingDay = selectedDate;
+  const [applyReservationMutation] = useMutation(APPLY_RESERVATION, {
+    variables: { postId: id, startDate: startTime, endDate: endTime },
+  });
+  const [loading, setLoading] = useState(false);
+  const handleReserve = async () => {
+    try {
+      setLoading(true);
+      const {
+        data: { applyReservation },
+      } = await applyReservationMutation({
+        variables: {
+          postId: id,
+          startDate: String(startTime.getTime()),
+          endDate: String(endTime.getTime()),
+        },
+      });
+      if (applyReservation) {
+        Toast.show({ topOffset: 50, text1: '예약 신청이 완료되었습니다.' });
+        navigation.pop();
       }
-    } else if (event.type == 'dismissed') {
-      setShow(true);
-    } else {
-      setDate(currentDate);
+    } catch (e) {
+      console.warn(e);
+    } finally {
+      setLoading(false);
     }
-    //setShow(false);
-    //changeText(selectedDate);
-    console.log(selectedDate);
-    console.log(event);
-  };
-  const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
-
-  var startingDay = '11-21 (목)';
-  var startingTime = '10:00';
-  var endingDay = '11-21 (목)';
-  var endingTime = '10:00';
-  var btntype = '';
-
-  const showMode = (currentMode) => {
-    setShow(true);
-    setMode(currentMode);
   };
 
-  const showDatepicker = () => {
-    showMode('date');
+  const handlePlusMinus = (mode) => {
+    if (totalPeriod != 0) {
+      if (mode === '-') {
+        if (totalPeriod > period) {
+          setTotalPeriod(totalPeriod - period);
+          setEndTime(new Date(endTime.getTime() - 60000 * 30 * period));
+        }
+      } else {
+        setTotalPeriod(totalPeriod + period);
+        setEndTime(new Date(endTime.getTime() + 60000 * 30 * period));
+      }
+    }
   };
 
-  const showTimepicker = () => {
-    showMode('time');
+  const getPeriod = () => {
+    const day = Math.floor(totalPeriod / 48);
+    const hour = (totalPeriod % 48) / 2;
+    return { day, hour };
   };
 
-  const loading = false;
-
-  const handleReserve = () => {
-    Toast.show({ topOffset: 50, text1: '예약 신청이 완료되었습니다.' });
+  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  const showDatePicker = () => setDatePickerVisibility(true);
+  const hideDatePicker = () => setDatePickerVisibility(false);
+  const handleConfirm = (date) => {
+    console.warn('A date has been picked: ', date);
+    setStartTime(date);
+    setTotalPeriod(period);
+    setEndTime(new Date(date.getTime() + 60000 * 30 * period));
+    hideDatePicker();
   };
+
   return (
-    <View>
-      {loading ? (
-        <Loader />
-      ) : (
-        <>
-          <ScrollView>
-            <Image
-              style={{
-                height: constants.width,
-                width: '100%',
-                resizeMode: 'cover',
-                backgroundColor: styles.lightGreyColor,
-              }}
-              source={{ uri: files[0].url }}
-            />
-            <ReservationMainArea>
-              <PostTitle>{title}</PostTitle>
-              <Calendar
-                markingType={'period'}
-                markedDates={{
-                  '2020-11-15': { marked: true, dotColor: '#50cebb' },
-                  '2020-11-16': { marked: true, dotColor: '#50cebb' },
-                  '2020-11-21': {
-                    startingDay: true,
-                    color: '#50cebb',
-                    textColor: 'white',
-                  },
-                  '2020-11-22': { color: '#70d7c7', textColor: 'white' },
-                  '2020-11-23': {
-                    color: '#70d7c7',
-                    textColor: 'white',
-                    marked: true,
-                    dotColor: 'white',
-                  },
-                  '2020-11-24': { color: '#70d7c7', textColor: 'white' },
-                  '2020-11-25': {
-                    endingDay: true,
-                    color: '#50cebb',
-                    textColor: 'white',
-                  },
+    <>
+      <View>
+        {loading ? (
+          <Loader />
+        ) : (
+          <>
+            <ScrollView>
+              <Image
+                style={{
+                  height: constants.width,
+                  width: '100%',
+                  resizeMode: 'cover',
+                  backgroundColor: styles.lightGreyColor,
                 }}
-                style={{ marginLeft: 80, height: 330, width: '65%' }}
+                source={{ uri: files[0].url }}
               />
-              <View style={{ flexDirection: 'row' }}>
-                <ButtonMore
-                  onPress={() => {
-                    showDatepicker(), (btntype = 'startingDay');
-                  }}
-                  style={{ align: 'center' }}
-                  text={startingDay}
-                />
-                <Text
-                  style={{ marginTop: 10, marginLeft: 140, fontSize: 17 }}
-                ></Text>
-                <ButtonMore
-                  onPress={() => {
-                    showDatepicker(), (btntype = 'endingDay');
-                  }}
-                  style={{ align: 'center' }}
-                  text={endingDay}
-                />
-              </View>
+              <ReservationMainArea>
+                <PostTitle>{title}</PostTitle>
+                <DateArea>
+                  <Touchable onPress={showDatePicker}>
+                    <TimeText>시작 시간 선택</TimeText>
+                  </Touchable>
+                  <TimeButton onPress={() => handlePlusMinus('-')}>
+                    <TimeButtonText>-</TimeButtonText>
+                  </TimeButton>
+                  <TimeText>{period_string}</TimeText>
+                  <TimeButton onPress={() => handlePlusMinus('+')}>
+                    <TimeButtonText>+</TimeButtonText>
+                  </TimeButton>
+                </DateArea>
+                {startTime !== null && (
+                  <>
+                    <ReservationMeta>
+                      <MetaTitle>대여 시작 시간</MetaTitle>
+                      <MetaContent>{getDate(startTime)}</MetaContent>
+                    </ReservationMeta>
+                    <ReservationMeta>
+                      <MetaTitle>대여 종료 시간</MetaTitle>
+                      <MetaContent>{getDate(endTime)}</MetaContent>
+                    </ReservationMeta>
+                    <ReservationMeta>
+                      <MetaTitle>예상 가격</MetaTitle>
+                      <MetaContent>
+                        {(price * totalPeriod) / period} 원
+                      </MetaContent>
+                    </ReservationMeta>
+                    <ReservationMeta>
+                      <MetaTitle>대여 지역</MetaTitle>
+                      <MetaContent>{area}</MetaContent>
+                    </ReservationMeta>
+                    <Period>
+                      <PeriodText>
+                        {getPeriod().day > 0
+                          ? `총 ${getPeriod().day}일 ${
+                              getPeriod().hour
+                            }시간 사용`
+                          : `총 ${getPeriod().hour}시간 사용`}
+                      </PeriodText>
+                    </Period>
+                  </>
+                )}
+              </ReservationMainArea>
 
-              <View style={{ flexDirection: 'row' }}>
-                <ButtonMore
-                  onPress={() => {
-                    showTimepicker(), (btntype = 'startingTime');
-                  }}
-                  style={{ align: 'center' }}
-                  text={startingTime}
-                />
-                <Text
-                  style={{ marginTop: 0, marginLeft: 140, fontSize: 17 }}
-                ></Text>
-                <ButtonMore
-                  onPress={() => {
-                    showTimepicker(), (btntype = 'endingTime');
-                  }}
-                  style={{ align: 'center' }}
-                  text={endingTime}
-                />
-              </View>
-              <Period>
-                <PeriodText>총 3일 사용</PeriodText>
-              </Period>
-            </ReservationMainArea>
-            <ReservationMeta>
-              <MetaTitle>예상 가격</MetaTitle>
-              <MetaContent>{price} 원</MetaContent>
-            </ReservationMeta>
-            <ReservationMeta>
-              <MetaTitle>대여 지역</MetaTitle>
-              <MetaContent>{area}</MetaContent>
-            </ReservationMeta>
-            <ReservationMeta type="column">
-              <MetaTitle>대여 주의사항</MetaTitle>
-              <MetaContent>{caption}</MetaContent>
-              <Space />
-            </ReservationMeta>
-            <View>
-              {show && (
-                <DateTimePicker
-                  testID="dateTimePicker"
-                  value={date}
-                  mode={mode}
-                  is24Hour={true}
-                  display="default"
-                  onChange={onChange}
-                />
-              )}
-            </View>
-          </ScrollView>
-          <Footer>
-            <Button onPress={handleReserve} text="예약 신청" size={340} />
-          </Footer>
-        </>
-      )}
-    </View>
+              <ReservationMeta type="column">
+                <MetaTitle>대여 주의사항</MetaTitle>
+                <MetaContent>{caption}</MetaContent>
+                <Space />
+              </ReservationMeta>
+            </ScrollView>
+            <Footer>
+              <Button
+                loading={loading}
+                disabled={totalPeriod === 0}
+                onPress={handleReserve}
+                text="예약 신청"
+                size={340}
+              />
+            </Footer>
+          </>
+        )}
+      </View>
+
+      <DateTimePickerModal
+        isVisible={isDatePickerVisible}
+        mode="datetime"
+        minuteInterval={15}
+        isDarkModeEnabled={false}
+        onConfirm={handleConfirm}
+        onCancel={hideDatePicker}
+      />
+    </>
   );
 };

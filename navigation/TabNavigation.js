@@ -58,7 +58,7 @@ const HomeStackScreen = ({ navigation, route }) => {
       <HomeStack.Screen
         name="PostDetail"
         component={PostDetail}
-        options={{ title: '대여 상세 정보' }}
+        options={{ title: '게시물 상세' }}
       />
 
       <HomeStack.Screen
@@ -71,10 +71,15 @@ const HomeStackScreen = ({ navigation, route }) => {
         component={Map}
         options={{ title: '지도' }}
       />
-      <MyPageStack.Screen
+      <HomeStack.Screen
         name="Report"
         component={Report}
         options={{ title: '신고하기' }}
+      />
+      <HomeStack.Screen
+        name="UserProfile"
+        component={MyProfile}
+        options={{ title: '프로필' }}
       />
     </HomeStack.Navigator>
   );
