@@ -578,6 +578,7 @@ export default ({ route, navigation, updatedUser }) => {
           text="예약 하기"
           onPress={() => navigation.navigate('ReservationReq')}
         />
+        
       </View>
     </View>
   );

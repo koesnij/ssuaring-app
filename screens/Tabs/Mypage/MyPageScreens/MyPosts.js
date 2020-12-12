@@ -1,8 +1,9 @@
 import React, { useEffect } from "react";
 import styled from "styled-components";
-import { ScrollView } from "react-native";
+import { ScrollView, FlatList } from "react-native";
 import { Image } from "react-native";
 import { defaultimage } from "../../../../constants";
+import PostEditItem from "../../../../components/PostEditItem";
 
 export const Text = styled.Text`
   font-size: 12px;
@@ -21,46 +22,31 @@ export const Container = styled.TouchableOpacity`
   border: 1px solid rgba(0, 0, 0, 0.2);
   height: ${(props) => (props ? props.height : 100)};
 `;
-export const TextContainer = styled.TouchableOpacity`
-  flex: 1;
-  flex-direction: column;
-`;
 
+const ScrollViewTest = styled(ScrollView)`
+  flex: 1;
+  background-color: white;
+`;
 export default ({ route, navigation }) => {
   const {
     otherParams: { user },
   } = route.params;
   const { posts } = user;
   return (
-    <ScrollView>
+    <ScrollViewTest>
       {posts ? (
-        posts.map((tomato) => (
-          <Container height={100}>
-            {tomato.files[0] ? (
-              <Image
-                style={{ width: 100, height: 100 }}
-                source={{ uri: tomato.files[0].url }}
-              />
-            ) : (
-              <Image
-                style={{ width: 100, height: 100 }}
-                source={{
-                  uri: defaultimage,
-                }}
-              />
-            )}
-            <TextContainer>
-              <TitleText>{tomato.title}</TitleText>
-              <Text>{user.area}</Text>
-              <Text>기간당{tomato.price}원</Text>
-            </TextContainer>
-          </Container>
-        ))
+        <FlatList
+          data={posts}
+          refreshControl
+          renderItem={({ item }) => <PostEditItem item={item} />}
+        />
       ) : (
         <Container>
-          <Text>nothing</Text>
+          <Text>아직 게시글을 안 쓰셨군요</Text>
         </Container>
       )}
-    </ScrollView>
+    </ScrollViewTest>
+   
   );
 };
+////PostEditItem을 이용해서 출력.

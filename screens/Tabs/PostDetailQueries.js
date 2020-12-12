@@ -47,7 +47,6 @@ export const SEEALLPOST = gql`
       area
       title
       caption
-      period
       price
       files {
         id

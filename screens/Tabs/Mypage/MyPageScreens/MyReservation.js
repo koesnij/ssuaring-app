@@ -6,11 +6,14 @@ import ReservationItem from "../../../../components/ReservationItem";
 const View = styled.View`
   justify-content: center;
   align-items: center;
-  flex: 1;
+  flex: 0.5;
   flex-direction: row;
-  background-color:white;
 `;
-
+const Wrapper = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
 const Text = styled.Text``;
 const ScrollViewTest = styled(ScrollView)`
   flex: 1;
@@ -19,28 +22,30 @@ const ScrollViewTest = styled(ScrollView)`
 export default ({ route, navigation }) => {
   const {
     otherParams: {
-      user: { tradeHistory, myReservation },
+      user: {  myReservation },
     },
   } = route.params;
   return (
     <>
-      {tradeHistory ? (
+      {myReservation ? (
         <ScrollViewTest>
           <FlatList
-            data={tradeHistory}
+            data={myReservation}
             refreshControl
             renderItem={({ item }) => (
               <ReservationItem
                 key={item.id}
                 item={item.post}
-                reservation={tradeHistory}
+                borrower={item.borrower}
+                status={item.status}
+                reservationId={item.id}
               />
             )}
           />
         </ScrollViewTest>
       ) : (
         <View>
-          <Text>아직 신청내역이 없으시군요😞</Text>
+          <Text>나에게 온 거래신청이 아직 없으시군요😞</Text>
         </View>
       )}
     </>

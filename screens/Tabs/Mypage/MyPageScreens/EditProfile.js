@@ -38,14 +38,12 @@ export default ({ route, navigation }) => {
     refetchQueries: ()=>[{query:ME}],
   });
 
-  useEffect(() => {
-  }, [nameInput]); ///useEffect로 변할때마다 확인
+
   const editProfileCheckOut = async () => {
     try {
       const {
         data: { editUser },
       } = await editUserMutation();
-      console.log(editUserMutation())
       if (editUser ) {
         navigation.navigate("MyPage");
       }

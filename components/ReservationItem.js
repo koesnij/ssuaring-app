@@ -1,9 +1,9 @@
-import { useNavigation } from '@react-navigation/native';
-import React from 'react';
-import { Image, View } from 'react-native';
-import { withNavigation } from 'react-navigation';
-import styled from 'styled-components';
-import styles from '../styles';
+import { useNavigation } from "@react-navigation/native";
+import React from "react";
+import { Image,  View } from "react-native";
+import { withNavigation } from "react-navigation";
+import styled from "styled-components";
+import styles from "../styles";
 
 const Touchable = styled.TouchableOpacity`
   flex-direction: row;
@@ -39,15 +39,17 @@ const Price = styled.Text`
   color: ${styles.blackColor};
   font-weight: 600;
 `;
-
-export default ({ item: { id, files, title, price, period, area } }) => {
+const Text = styled.Text`
+    font-size:10px;
+`;
+export default ({ item: { id, files, title, area }, borrower, status,reservationId }) => {
   const navigation = useNavigation();
-  
+
   return (
     <Touchable
       onPress={() => {
-        navigation.navigate('PostDetail', {
-          otherParams: { id },
+        navigation.navigate("MyReservationDetail", {
+          otherParams: { id,title,borrower,status,reservationId },
         });
       }}
     >
@@ -56,7 +58,7 @@ export default ({ item: { id, files, title, price, period, area } }) => {
         style={{
           width: 110,
           height: 110,
-          resizeMode: 'cover',
+          resizeMode: "cover",
           borderWidth: 0.5,
           borderRadius: 10,
           borderColor: styles.lightGreyColor,
@@ -64,10 +66,9 @@ export default ({ item: { id, files, title, price, period, area } }) => {
       />
       <Column>
         <Title>{title}</Title>
-        <Location>{area}</Location>
-        <Price>{`${period} 당 ${price}원`}</Price>
+        <Location>{status}</Location>
+        <Price>{borrower.name}<Text>님의 대여신청입니다</Text></Price>
       </Column>
     </Touchable>
   );
 };
-
