@@ -1,7 +1,6 @@
-import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Image, View } from 'react-native';
-import { withNavigation } from 'react-navigation';
+import { Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components';
 import styles from '../styles';
 
@@ -21,35 +20,38 @@ const Column = styled.View`
 `;
 
 const Title = styled.Text`
-  font-size: 18;
+  font-size: 17;
   font-weight: 400;
   color: ${styles.blackColor};
 `;
 
 const Location = styled.Text`
-  padding-top: 6px;
+  padding-top: 8px;
   font-size: 12;
   font-weight: 600;
   color: ${styles.darkGreyColor};
 `;
 
 const Price = styled.Text`
-  padding-top: 35;
+  padding-top: 30;
   font-size: 14;
   color: ${styles.blackColor};
   font-weight: 600;
 `;
 
-export default ({ item: { id, files, title, price, period, area } }) => {
+export default ({
+  item: { id, files, title, price, period_string, area },
+  size = 110,
+}) => {
   const navigation = useNavigation();
-  
+
   return (
     <Touchable
-      onPress={() => {
-        navigation.navigate('PostDetail', {
-          otherParams: { id },
-        });
-      }}
+      onPress={() =>
+        navigation.push('PostDetail', {
+          otherParams: { id, files, title, price, period_string, area },
+        })
+      }
     >
       <Image
         source={{ uri: files[0].url }}
@@ -60,14 +62,14 @@ export default ({ item: { id, files, title, price, period, area } }) => {
           borderWidth: 0.5,
           borderRadius: 10,
           borderColor: styles.lightGreyColor,
+          backgroundColor: styles.lightGreyColor,
         }}
       />
       <Column>
         <Title>{title}</Title>
         <Location>{area}</Location>
-        <Price>{`${period} 당 ${price}원`}</Price>
+        <Price>{`${period_string} 당 ${price}원`}</Price>
       </Column>
     </Touchable>
   );
 };
-

@@ -14,7 +14,7 @@ import * as ImagePicker from 'expo-image-picker';
 
 import axios from 'axios';
 import { gql } from 'apollo-boost';
-import { useMutation } from 'react-apollo-hooks';
+import { useMutation, useQuery } from 'react-apollo-hooks';
 
 import styles from '../../../styles';
 import options, { ServerURI } from '../../../apollo';
@@ -24,6 +24,7 @@ import usePicker from '../../../hooks/usePicker';
 import { categoryConfig, periodConfig } from './pickerConfig';
 import { Header, HeaderLink } from '../../../components/HeaderItem';
 import { SEEALLPOST } from '../PostDetailQueries';
+import Toast from 'react-native-toast-message';
 
 const MainArea = styled.ScrollView`
   flex: 10;
@@ -100,7 +101,16 @@ const UPLOAD_POST = gql`
   }
 `;
 
+const MYAREA = gql`
+  {
+    me {
+      area
+    }
+  }
+`;
+
 export default ({ navigation }) => {
+  const { loading, data } = useQuery(MYAREA, { fetchPolicy: 'network-only' });
   const titleInput = useInput('');
   const priceInput = useInput('');
   const captionInput = useInput('');
@@ -114,6 +124,8 @@ export default ({ navigation }) => {
   const [uploadPostMutation] = useMutation(UPLOAD_POST, {
     refetchQueries: () => [{ query: SEEALLPOST }],
   });
+
+  console.log(data);
 
   const pickImage = async () => {
     try {
@@ -209,7 +221,7 @@ export default ({ navigation }) => {
           data: { uploadPost },
         } = await uploadPostMutation({
           variables: {
-            area: '서울',
+            area: '서울 양천구',
             title: titleInput.value,
             category: Number(categoryPicker.value),
             caption: captionInput.value,
@@ -219,6 +231,7 @@ export default ({ navigation }) => {
           },
         });
         if (uploadPost.id) {
+          Toast.show({ topOffset: 50, text1: '작성 완료!' });
           navigation.navigate('TabNavigation');
         }
         console.log(uploadPost);
@@ -248,7 +261,7 @@ export default ({ navigation }) => {
     navigation.setOptions({
       headerRight: () => (
         <Header>
-          {submitLoading ? (
+          {submitLoading || loading ? (
             <ActivityIndicator />
           ) : (
             <HeaderLink str={'완료'} onPress={handleSubmit} />
@@ -259,6 +272,7 @@ export default ({ navigation }) => {
   }, [
     navigation,
     img,
+    loading,
     submitLoading,
     titleInput.value,
     priceInput.value,

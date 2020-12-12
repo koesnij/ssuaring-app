@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
-import { FlatList, ScrollView } from "react-native";
-import styled from "styled-components";
-import ReservationItem from "../../../../components/ReservationItem";
+import React, { useEffect } from 'react';
+import { FlatList, ScrollView } from 'react-native';
+import styled from 'styled-components';
+import ReservationItem from '../../../../components/ReservationItem';
 
 const View = styled.View`
   justify-content: center;
@@ -22,9 +22,10 @@ const ScrollViewTest = styled(ScrollView)`
 export default ({ route, navigation }) => {
   const {
     otherParams: {
-      user: {  myReservation },
+      user: { myReservation },
     },
   } = route.params;
+  console.log('myReservation', myReservation);
   return (
     <>
       {myReservation ? (
@@ -35,10 +36,12 @@ export default ({ route, navigation }) => {
             renderItem={({ item }) => (
               <ReservationItem
                 key={item.id}
-                item={item.post}
+                post={item.post}
                 borrower={item.borrower}
                 status={item.status}
                 reservationId={item.id}
+                startDate={item.startDate}
+                endDate={item.endDate}
               />
             )}
           />

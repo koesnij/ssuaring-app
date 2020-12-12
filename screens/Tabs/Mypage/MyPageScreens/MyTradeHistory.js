@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
-import { FlatList, ScrollView } from "react-native";
-import styled from "styled-components";
-import ReservationItem from "../../../../components/ReservationItem";
+import React, { useEffect } from 'react';
+import { FlatList, ScrollView } from 'react-native';
+import styled from 'styled-components';
+import ReservationItem from '../../../../components/ReservationItem';
 
 const View = styled.View`
   justify-content: center;
   align-items: center;
   flex: 1;
   flex-direction: row;
-  background-color:white;
+  background-color: white;
 `;
 
 const Text = styled.Text``;
@@ -22,6 +22,7 @@ export default ({ route, navigation }) => {
       user: { tradeHistory, myReservation },
     },
   } = route.params;
+  console.log('TRADEHISTORY', tradeHistory);
   return (
     <>
       {tradeHistory ? (

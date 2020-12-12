@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
-import { useMutation } from "react-apollo-hooks";
+import { useMutation } from 'react-apollo-hooks';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import useInput from '../../hooks/useInput';
 import { LOG_IN } from './AuthQueries';
+import Toast from 'react-native-toast-message';
 
 const View = styled.View`
   justify-content: center;
@@ -29,7 +30,7 @@ const Text = styled.Text`
 `;
 
 export default ({ navigation }) => {
-  const phoneInput = useInput('01020867353');
+  const phoneInput = useInput('');
   const [loading, setLoading] = useState(false);
   const [requestSecretMutation] = useMutation(LOG_IN, {
     variables: { phoneNumber: phoneInput.value },
@@ -43,6 +44,11 @@ export default ({ navigation }) => {
         data: { requestSecret },
       } = await requestSecretMutation();
       if (requestSecret) {
+        Toast.show({
+          topOffset: 50,
+          text1: '인증번호 전송 완료!',
+          text2: '메시지함을 확인해주세요.',
+        });
         navigation.navigate('Confirm', { phoneNumber: value });
         return;
       }

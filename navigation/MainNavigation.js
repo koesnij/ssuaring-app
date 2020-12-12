@@ -5,6 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import styles from '../styles';
 import TabNavigation from './TabNavigation';
 import NewPost from '../screens/Tabs/NewPost';
+import MyArea from '../screens/Tabs/Mypage/MyPageScreens/MyArea';
+import EditArea from '../screens/Tabs/Mypage/MyPageScreens/EditArea';
 
 const Stack = createStackNavigator();
 

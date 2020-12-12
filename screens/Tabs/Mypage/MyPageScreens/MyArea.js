@@ -1,12 +1,13 @@
 import gql from 'graphql-tag';
 import { useMutation, useQuery } from 'react-apollo-hooks';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { ActivityIndicator, Alert } from 'react-native';
 
 import styled from 'styled-components';
 import { getLocation } from '../../../../utils';
 import Loader from '../../../../components/Loader';
 import styles from '../../../../styles';
+import { HeaderLink } from '../../../../components/HeaderItem';
 
 const View = styled.View`
   justify-content: flex-start;
@@ -73,17 +74,28 @@ export default ({ route, navigation }) => {
   useEffect(() => {
     console.log('data', data);
     if (data && data.me) {
-      if (data.me.area === '-') {
-        Alert.alert('내 지역 설정 필요', '내 지역 설정 화면으로 이동합니다.', [
-          {
-            text: '승인',
-            onPress: async () => navigation.navigate('EditArea'),
-          },
-        ]);
-      }
+      // if (data.me.area === '-') {
+      //   Alert.alert('내 지역 설정 필요', '내 지역 설정 화면으로 이동합니다.', [
+      //     {
+      //       text: '승인',
+      //       onPress: async () => navigation.navigate('EditArea'),
+      //     },
+      //   ]);
+      // }
       setAreaAuth(data.me.areaAuth);
     }
   });
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <HeaderLink
+          str={'      '}
+          onPress={() => navigation.navigate('TabNavigation')}
+        />
+      ),
+    });
+  }, [navigation]);
 
   const [authLoading, setAuthLoading] = useState(false);
   const [areaAuth, setAreaAuth] = useState(false);

@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import styled from "styled-components";
-import { ScrollView, FlatList } from "react-native";
-import { Image } from "react-native";
-import { defaultimage } from "../../../../constants";
-import PostEditItem from "../../../../components/PostEditItem";
+import React, { useEffect } from 'react';
+import styled from 'styled-components';
+import { ScrollView, FlatList } from 'react-native';
+import { Image } from 'react-native';
+import { defaultimage } from '../../../../constants';
+import PostItem from '../../../../components/PostItem';
 
 export const Text = styled.Text`
   font-size: 12px;
@@ -38,7 +38,7 @@ export default ({ route, navigation }) => {
         <FlatList
           data={posts}
           refreshControl
-          renderItem={({ item }) => <PostEditItem item={item} />}
+          renderItem={({ item }) => <PostItem item={item} />}
         />
       ) : (
         <Container>
@@ -46,7 +46,6 @@ export default ({ route, navigation }) => {
         </Container>
       )}
     </ScrollViewTest>
-   
   );
 };
 ////PostEditItem을 이용해서 출력.

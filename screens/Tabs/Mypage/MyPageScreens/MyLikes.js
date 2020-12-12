@@ -1,11 +1,9 @@
-import React, { useEffect } from "react";
-import { FlatList, Image, ScrollView, StyleSheet } from "react-native";
-import styled from "styled-components";
-import { defaultimage } from "../../../../constants";
-import {
-  TextContainer,
-} from "../MyPageScreens/MyPosts";
-import PostItem from "../../../../components/PostItem"
+import React, { useEffect } from 'react';
+import { FlatList, Image, ScrollView, StyleSheet } from 'react-native';
+import styled from 'styled-components';
+import { defaultimage } from '../../../../constants';
+import { TextContainer } from '../MyPageScreens/MyPosts';
+import PostItem from '../../../../components/PostItem';
 
 export const Text = styled.Text`
   font-size: 12px;

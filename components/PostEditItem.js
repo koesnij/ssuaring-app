@@ -40,13 +40,15 @@ const Price = styled.Text`
   font-weight: 600;
 `;
 
-export default ({ item: { id, files, title, price,category,caption, period, area } }) => {
+export default ({
+  item: { id, files, title, price, category, caption, period, area },
+}) => {
   const navigation = useNavigation();
   return (
     <Touchable
       onPress={() => {
         navigation.navigate('PostEditDetail', {
-          otherParams: { id,title,price,period,category,caption },
+          otherParams: { id, title, price, period, category, caption },
         });
       }}
     >
@@ -70,8 +72,5 @@ export default ({ item: { id, files, title, price,category,caption, period, area
   );
 };
 
-
-
-
-////내 게시물에서 게시물누르면 수정버튼이 생긴 포스트 디테일로 이동한다 
+////내 게시물에서 게시물누르면 수정버튼이 생긴 포스트 디테일로 이동한다
 ////PostEditDetail임

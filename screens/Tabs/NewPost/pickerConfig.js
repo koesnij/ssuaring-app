@@ -32,10 +32,10 @@ export const periodConfig = {
   items: [
     { label: '30분', value: 1 },
     { label: '1시간', value: 2 },
-    { label: '2시간', value: 3 },
-    { label: '3시간', value: 4 },
-    { label: '5시간', value: 5 },
-    { label: '1일', value: 6 },
+    { label: '2시간', value: 4 },
+    { label: '3시간', value: 6 },
+    { label: '5시간', value: 10 },
+    { label: '1일', value: 48 },
   ],
 };
 

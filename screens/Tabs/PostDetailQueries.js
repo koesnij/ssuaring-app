@@ -1,26 +1,59 @@
-import { gql } from "apollo-boost";
+import { gql } from 'apollo-boost';
 
 export const SEEFULLPOST = gql`
   query seeFullPost($id: String!) {
-    postdetail {
+    seeFullPost(id: $id) {
       id
       area
       title
       caption
-      category
+      category_string
       price
       period
+      period_string
       user {
         id
         name
+        avatar
         nickname
+        posts {
+          id
+          files {
+            id
+            url
+          }
+          title
+          price
+          period_string
+          area
+        }
+        isSelf
+        areaAuth
+        createdAt
+        postsCount
       }
       files {
         id
         url
       }
+      reservations {
+        id
+        review {
+          id
+          borrower {
+            id
+            avatar
+            nickname
+          }
+          text
+          updatedAt
+        }
+      }
+      isMine
+      isLiked
+      likeCount
+      reservationCount
       updatedAt
-      createdAt
     }
   }
 `;
@@ -41,12 +74,13 @@ export const SEARCHPOST = gql`
 `;
 
 export const SEEALLPOST = gql`
-  query seeAllPost {
+  {
     seeAllPost {
       id
       area
       title
       caption
+      period_string
       price
       files {
         id
@@ -64,4 +98,28 @@ export const EDIT_PROFILE = gql`
   }
 `;
 
+export const MYAREA = gql`
+  {
+    me {
+      id
+      area
+    }
+  }
+`;
+
+export const APPLY_RESERVATION = gql`
+  mutation applyReservation(
+    $postId: String!
+    $startDate: String!
+    $endDate: String!
+  ) {
+    applyReservation(
+      postId: $postId
+      startDate: $startDate
+      endDate: $endDate
+    ) {
+      id
+    }
+  }
+`;
 ////////// post detail 쿼리용

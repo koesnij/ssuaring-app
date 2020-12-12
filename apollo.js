@@ -9,7 +9,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { AsyncStorage } from 'react-native';
 
 export const cache = new InMemoryCache();
-
+//
 const httpLink = new HttpLink({
   uri: `http://${Constants.manifest.debuggerHost.split(':').shift()}:4000`,
 });

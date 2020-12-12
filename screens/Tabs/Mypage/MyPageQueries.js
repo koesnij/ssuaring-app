@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const ME = gql`
   {
@@ -14,23 +14,25 @@ export const ME = gql`
       posts {
         id
         title
+        area
         price
         period
+        period_string
         category
-
         files {
           id
           url
         }
         caption
       }
-
+      isSelf
       likes {
         post {
           id
           title
           price
           period
+          period_string
           category
           files {
             id
@@ -44,11 +46,13 @@ export const ME = gql`
         borrower {
           id
           name
+          nickname
         }
         post {
           id
           title
           price
+          area
           period
           category
           files {
@@ -67,6 +71,9 @@ export const ME = gql`
       postsCount
       likesCount
       createdAt
+      myReservation {
+        id
+      }
     }
   }
 `;
