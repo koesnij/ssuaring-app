@@ -1,9 +1,9 @@
-import { useNavigation } from "@react-navigation/native";
-import React from "react";
-import { Image,  View } from "react-native";
-import { withNavigation } from "react-navigation";
-import styled from "styled-components";
-import styles from "../styles";
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { Image, View } from 'react-native';
+import { withNavigation } from 'react-navigation';
+import styled from 'styled-components';
+import styles from '../styles';
 
 const Touchable = styled.TouchableOpacity`
   flex-direction: row;
@@ -40,16 +40,34 @@ const Price = styled.Text`
   font-weight: 600;
 `;
 const Text = styled.Text`
-    font-size:10px;
+  font-size: 12px;
 `;
-export default ({ item: { id, files, title, area }, borrower, status,reservationId }) => {
+export default ({
+  post: { id, files, title, area, caption },
+  borrower,
+  status,
+  reservationId,
+  startDate,
+  endDate,
+}) => {
   const navigation = useNavigation();
 
   return (
     <Touchable
       onPress={() => {
-        navigation.navigate("MyReservationDetail", {
-          otherParams: { id,title,borrower,status,reservationId },
+        navigation.navigate('MyReservationDetail', {
+          otherParams: {
+            id,
+            title,
+            files,
+            borrower,
+            status,
+            area,
+
+            reservationId,
+            startDate,
+            endDate,
+          },
         });
       }}
     >
@@ -58,7 +76,7 @@ export default ({ item: { id, files, title, area }, borrower, status,reservation
         style={{
           width: 110,
           height: 110,
-          resizeMode: "cover",
+          resizeMode: 'cover',
           borderWidth: 0.5,
           borderRadius: 10,
           borderColor: styles.lightGreyColor,
@@ -66,8 +84,11 @@ export default ({ item: { id, files, title, area }, borrower, status,reservation
       />
       <Column>
         <Title>{title}</Title>
-        <Location>{status}</Location>
-        <Price>{borrower.name}<Text>님의 대여신청입니다</Text></Price>
+        <Location>{status == 'apply' ? '예약 전' : '예약 완료'}</Location>
+        <Price>
+          {borrower.name}
+          <Text>님의 대여신청입니다</Text>
+        </Price>
       </Column>
     </Touchable>
   );

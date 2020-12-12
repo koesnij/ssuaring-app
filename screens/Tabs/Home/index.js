@@ -21,7 +21,6 @@ export default ({ navigation }) => {
     fetchPolicy: 'network-only',
   });
 
-  console.log('MYAREA', myArea);
   const [headerTitle, setHeaderTitle] = useState('');
 
   useLayoutEffect(() => {

@@ -125,6 +125,8 @@ export default ({ navigation }) => {
     refetchQueries: () => [{ query: SEEALLPOST }],
   });
 
+  console.log(data);
+
   const pickImage = async () => {
     try {
       setImgLoading(true);
@@ -219,7 +221,7 @@ export default ({ navigation }) => {
           data: { uploadPost },
         } = await uploadPostMutation({
           variables: {
-            area: data.me.area,
+            area: '서울 양천구',
             title: titleInput.value,
             category: Number(categoryPicker.value),
             caption: captionInput.value,

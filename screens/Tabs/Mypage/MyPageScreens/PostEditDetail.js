@@ -192,8 +192,8 @@
 
 //////////////////////이거수정할거임
 
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import styled from "styled-components";
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import styled from 'styled-components';
 import {
   StyleSheet,
   Image,
@@ -202,13 +202,13 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   ToastAndroid,
-} from "react-native";
-import { Divider, Icon } from "react-native-elements";
-import { useQuery } from "react-apollo-hooks";
-import { gql } from "apollo-boost";
-import { SEEFULLPOST } from "./../../PostDetailQueries";
-import Button from "../../../../components/Button";
-import ButtonMore from "../../../../components/ButtonMore";
+} from 'react-native';
+import { Divider, Icon } from 'react-native-elements';
+import { useQuery } from 'react-apollo-hooks';
+import { gql } from 'apollo-boost';
+import { SEEFULLPOST } from './../../PostDetailQueries';
+import Button from '../../../../components/Button';
+import ButtonMore from '../../../../components/ButtonMore';
 
 const View = styled.View`
   justify-content: center;
@@ -231,9 +231,9 @@ const styles = StyleSheet.create({
   },
 
   Footer: {
-    height: "100%",
-    width: "100%",
-    backgroundColor: "#ff0000",
+    height: '100%',
+    width: '100%',
+    backgroundColor: '#ff0000',
   },
   item: {
     padding: 10,
@@ -245,33 +245,33 @@ const styles = StyleSheet.create({
     height: 58,
   },
   itemView: {
-    flexDirection: "row",
+    flexDirection: 'row',
     borderWidth: 0.6,
     borderRadius: 4,
     padding: 8,
     marginBottom: 12,
   },
   itemImg: {
-    resizeMode: "stretch",
+    resizeMode: 'stretch',
     width: 120,
     height: 100,
-    resizeMode: "cover",
+    resizeMode: 'cover',
     marginRight: 8,
   },
   itemName: {
     fontSize: 24,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   itemMsg: {
     fontSize: 16,
-    fontStyle: "italic",
+    fontStyle: 'italic',
   },
 });
 
 export default ({ route, navigation, updatedUser }) => {
   const [refreshing, setRefreshing] = useState(false);
   const {
-    otherParams: { id, title, price,caption, period, category },
+    otherParams: { id, title, price, caption, period, category },
   } = route.params;
   const showToast = () => {
     ToastAndroid.show(String(id), ToastAndroid.SHORT);
@@ -279,18 +279,22 @@ export default ({ route, navigation, updatedUser }) => {
   return (
     <View>
       <Button
-        style={{ width: 50, height: 50, align: "center" }}
+        style={{ width: 50, height: 50, align: 'center' }}
         text="수정 하기"
-        onPress={() => navigation.navigate('EditPost',{
-          otherParams:{id,title,price,period,category,caption}
-        })}
+        onPress={() =>
+          navigation.navigate('EditPost', {
+            otherParams: { id, title, price, period, category, caption },
+          })
+        }
       />
       <Button
-        style={{ width: 50, height: 50, align: "center" }}
+        style={{ width: 50, height: 50, align: 'center' }}
         text="테스트버튼"
-        onPress={() => navigation.navigate('EditPostTest',{
-          otherParams:{id,title,price,period,category,caption}
-        })}
+        onPress={() =>
+          navigation.navigate('EditPostTest', {
+            otherParams: { id, title, price, period, category, caption },
+          })
+        }
       />
     </View>
   );

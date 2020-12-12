@@ -9,7 +9,6 @@ import Chats from '../screens/Tabs/Chats';
 import Mypage from '../screens/Tabs/Mypage';
 import TabIcon from '../components/TabIcon';
 import Filter from '../screens/Tabs/Home/Filter';
-import Map from '../screens/Tabs/Home/Map';
 import styles from '../styles';
 import MyProfile from '../screens/Tabs/Mypage/MyPageScreens/MyProfile';
 import MyLikes from '../screens/Tabs/Mypage/MyPageScreens/MyLikes';
@@ -58,22 +57,15 @@ const HomeStackScreen = ({ navigation, route }) => {
         component={Filter}
         options={{ title: '필터' }}
       />
-
       <HomeStack.Screen
         name="PostDetail"
         component={PostDetail}
         options={{ title: '게시물 상세' }}
       />
-
       <HomeStack.Screen
         name="ReservationReq"
         component={ReservationReq}
         options={{ title: '예약 신청' }}
-      />
-      <HomeStack.Screen
-        name="Map"
-        component={Map}
-        options={{ title: '지도' }}
       />
       <HomeStack.Screen
         name="Report"
@@ -84,6 +76,16 @@ const HomeStackScreen = ({ navigation, route }) => {
         name="UserProfile"
         component={MyProfile}
         options={{ title: '프로필' }}
+      />
+      <HomeStack.Screen
+        name="EditPostTest"
+        component={EditPostTest}
+        options={{ title: '게시물 수정' }}
+      />
+      <HomeStack.Screen
+        name="Chatting"
+        component={Chatting}
+        options={{ title: '채팅화면' }}
       />
     </HomeStack.Navigator>
   );
@@ -131,102 +133,97 @@ const ChatStackScreen = ({ navigation, route }) => {
   );
 };
 
-const MyPageStackScreen = () => (
-  <MyPageStack.Navigator
-    screenOptions={{
-      headerBackTitle: ' ',
-      headerTintColor: styles.blackColor,
-    }}
-  >
-    <MyPageStack.Screen
-      name="MyPage"
-      component={Mypage}
-      options={{ title: '내 정보' }}
-    />
-    <MyPageStack.Screen
-      name="MyProfile"
-      component={MyProfile}
-      options={{ title: '프로필' }}
-    />
-    <MyPageStack.Screen
-      name="MyLikes"
-      component={MyLikes}
-      options={{ title: '찜 목록' }}
-    />
-    <MyPageStack.Screen
-      name="MyArea"
-      component={MyArea}
-      options={{ title: '내 지역' }}
-    />
-    <MyPageStack.Screen
-      name="MyPosts"
-      component={MyPosts}
-      options={{ title: '내 게시물' }}
-    />
-
-    <MyPageStack.Screen
-      name="EditArea"
-      component={EditArea}
-      options={{ title: '지역 변경하기' }}
-    />
-    <MyPageStack.Screen
-      name="MyTradeHistory"
-      component={MyTradeHistory}
-      options={{ title: '내 거래내역' }}
-    />
-    <MyPageStack.Screen
-      name="MyReservation"
-      component={MyReservation}
-      options={{ title: '내게온 대여신청' }}
-    />
-    <MyPageStack.Screen
-      name="MyReservationDetail"
-      component={MyReservationDetail}
-      options={{ title: '내게온 신청' }}
-    />
-    <MyPageStack.Screen
-      name="Setting"
-      component={Setting}
-      options={{ title: '설정' }}
-    />
-    <MyPageStack.Screen
-      name="MyReviews"
-      component={MyReviews}
-      options={{ title: '리뷰' }}
-    />
-    <MyPageStack.Screen
-      name="EditProfile"
-      component={EditProfile}
-      options={{ title: '프로필 수정' }}
-    />
-    <MyPageStack.Screen
-      name="Report"
-      component={Report}
-      options={{ title: '신고하기' }}
-    />
-
-    <MyPageStack.Screen
-      name="PostEditDetail"
-      component={PostEditDetail}
-      options={{ title: '내 게시물 정보' }}
-    />
-    <MyPageStack.Screen
-      name="EditPost"
-      component={EditPost}
-      options={{ title: '게시물 수정' }}
-    />
-    <MyPageStack.Screen
-      name="PostDetail"
-      component={PostDetail}
-      options={{ title: '대여 상세 정보' }}
-    />
-    <MyPageStack.Screen
-      name="EditPostTest"
-      component={EditPostTest}
-      options={{ title: '게시물 수정' }}
-    />
-  </MyPageStack.Navigator>
-);
+const MyPageStackScreen = ({ navigation, route }) => {
+  if (route.state && route.state.index > 1) {
+    navigation.setOptions({ tabBarVisible: false });
+  } else {
+    navigation.setOptions({ tabBarVisible: true });
+  }
+  return (
+    <MyPageStack.Navigator
+      screenOptions={{
+        headerBackTitle: ' ',
+        headerTintColor: styles.blackColor,
+      }}
+    >
+      <MyPageStack.Screen
+        name="MyPage"
+        component={Mypage}
+        options={{ title: '내 정보' }}
+      />
+      <MyPageStack.Screen
+        name="MyProfile"
+        component={MyProfile}
+        options={{ title: '프로필' }}
+      />
+      <MyPageStack.Screen
+        name="MyLikes"
+        component={MyLikes}
+        options={{ title: '찜 목록' }}
+      />
+      <MyPageStack.Screen
+        name="MyArea"
+        component={MyArea}
+        options={{ title: '내 지역' }}
+      />
+      <MyPageStack.Screen
+        name="MyPosts"
+        component={MyPosts}
+        options={{ title: '내 게시물' }}
+      />
+      <MyPageStack.Screen
+        name="EditArea"
+        component={EditArea}
+        options={{ title: '지역 변경하기' }}
+      />
+      <MyPageStack.Screen
+        name="MyTradeHistory"
+        component={MyTradeHistory}
+        options={{ title: '내 거래내역' }}
+      />
+      <MyPageStack.Screen
+        name="MyReservation"
+        component={MyReservation}
+        options={{ title: '내게 온 대여신청' }}
+      />
+      <MyPageStack.Screen
+        name="MyReservationDetail"
+        component={MyReservationDetail}
+        options={{ title: '내게 온 신청' }}
+      />
+      <MyPageStack.Screen
+        name="Setting"
+        component={Setting}
+        options={{ title: '설정' }}
+      />
+      <MyPageStack.Screen
+        name="MyReviews"
+        component={MyReviews}
+        options={{ title: '리뷰' }}
+      />
+      <MyPageStack.Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{ title: '프로필 수정' }}
+      />
+      <MyPageStack.Screen
+        name="Report"
+        component={Report}
+        options={{ title: '신고하기' }}
+      />
+      <MyPageStack.Screen
+        name="EditPostTest"
+        component={EditPostTest}
+        options={{ title: '게시물 수정' }}
+      />
+      <MyPageStack.Screen
+        name="PostDetail"
+        component={PostDetail}
+        options={{ title: '게시물 상세 정보' }}
+      />
+    </MyPageStack.Navigator>
+  );
+};
 const Tab = createBottomTabNavigator();
 
 export default ({ navigation }) => (

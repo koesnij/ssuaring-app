@@ -30,7 +30,7 @@ const Text = styled.Text`
 `;
 
 export default ({ navigation }) => {
-  const phoneInput = useInput('01020867353');
+  const phoneInput = useInput('');
   const [loading, setLoading] = useState(false);
   const [requestSecretMutation] = useMutation(LOG_IN, {
     variables: { phoneNumber: phoneInput.value },

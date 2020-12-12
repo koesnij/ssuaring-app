@@ -1,14 +1,15 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
-import styled from "styled-components";
-import Button from "../../../components/Button";
-import { useLogOut } from "../../../AuthContext";
-import { Header, HeaderLink } from "../../../components/HeaderItem";
-import { Image, ScrollView } from "react-native";
-import { useQuery } from "react-apollo-hooks";
-import { gql } from "apollo-boost";
-import { USER_FRAGMENT } from "../../../fragment";
-import { ME } from "./MyPageQueries";
-import Loader from "../../../components/Loader";
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import styled from 'styled-components';
+import Button from '../../../components/Button';
+import { useLogOut } from '../../../AuthContext';
+import { Header, HeaderLink } from '../../../components/HeaderItem';
+import { Image, ScrollView } from 'react-native';
+import { useQuery } from 'react-apollo-hooks';
+import { gql } from 'apollo-boost';
+import { USER_FRAGMENT } from '../../../fragment';
+import { ME } from './MyPageQueries';
+import Loader from '../../../components/Loader';
+import styles from '../../../styles';
 
 const View = styled.View`
   align-items: center;
@@ -20,10 +21,11 @@ const ScrollViewTest = styled(ScrollView)`
 `;
 const Container = styled.TouchableOpacity`
   width: 100%;
+  padding: 20px;
   flex: 0.1;
   justify-content: center;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  height: ${(props) => props.height};
+  border-bottom-width: 1px;
+  border-bottom-color: ${styles.lightGreyColor};
 `;
 const Text = styled.Text``;
 const NameText = styled.Text`
@@ -37,20 +39,25 @@ const TextButtonContainer = styled.View`
 `;
 const ProfileContainer = styled.View`
   width: 100%;
-  flex: 0.1;
   justify-content: center;
   align-items: center;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  height: 100;
+  border-bottom-width: 1px;
+  border-bottom-color: ${styles.lightGreyColor};
+  padding: 20px;
   flex-direction: row;
 `;
 const ButtonContainer = styled.View`
   flex: 1;
   flex-direction: row;
+  justify-content: space-between;
 `;
 export default ({ navigation, updatedUser }) => {
-  const { loading, data, refetch } = useQuery(ME, {});
+  const { loading, data, refetch } = useQuery(ME, {
+    fetchPolicy: 'network-only',
+  });
   const [refreshing, setRefreshing] = useState(false);
+
+  console.log(data);
 
   const logOut = useLogOut();
   const handler = () => {
@@ -58,21 +65,9 @@ export default ({ navigation, updatedUser }) => {
   };
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerTitle: "내 프로필",
+      headerTitle: '내 프로필',
     });
-  }, [navigation]); //refreshing 코드(새로고침)
-  /*const onRefresh = async()=>{
-    try{
-      setRefreshing(true);
-      await refetch();
-    }catch(error){
-      console.log(error);
-    }finally{
-      setRefreshing(false);
-    }
-  }
-  
-  */
+  }, [navigation]);
   useEffect(() => {
     refetch();
   }, []);
@@ -87,25 +82,30 @@ export default ({ navigation, updatedUser }) => {
             <View>
               <ProfileContainer>
                 <Image
-                  style={{ width: 100, height: 90, borderRadius: 100 }}
+                  style={{
+                    width: 80,
+                    height: 80,
+                    borderRadius: 40,
+                    marginRight: 20,
+                  }}
                   source={{ uri: data.me.avatar }}
                 />
                 <TextButtonContainer>
                   <NameText>{data.me.name}</NameText>
                   <ButtonContainer>
                     <Button
-                      size={100}
+                      size={110}
                       onPress={() =>
-                        navigation.navigate("MyProfile", {
+                        navigation.navigate('MyProfile', {
                           otherParams: { user: data.me },
                         })
                       }
                       text="프로필 보기"
                     />
                     <Button
-                      size={100}
+                      size={110}
                       onPress={() =>
-                        navigation.navigate("EditProfile", {
+                        navigation.navigate('EditProfile', {
                           otherParams: { user: data.me },
                         })
                       }
@@ -115,9 +115,8 @@ export default ({ navigation, updatedUser }) => {
                 </TextButtonContainer>
               </ProfileContainer>
               <Container
-                height={50}
                 onPress={() =>
-                  navigation.navigate("MyLikes", {
+                  navigation.navigate('MyLikes', {
                     otherParams: { user: data.me },
                   })
                 }
@@ -125,9 +124,8 @@ export default ({ navigation, updatedUser }) => {
                 <Text>내 찜 목록</Text>
               </Container>
               <Container
-                height={50}
                 onPress={() =>
-                  navigation.navigate("MyPosts", {
+                  navigation.navigate('MyPosts', {
                     otherParams: { user: data.me },
                   })
                 }
@@ -135,9 +133,8 @@ export default ({ navigation, updatedUser }) => {
                 <Text>내 게시물</Text>
               </Container>
               <Container
-                height={50}
                 onPress={() =>
-                  navigation.navigate("MyArea", {
+                  navigation.navigate('MyArea', {
                     otherParams: { user: data.me },
                   })
                 }
@@ -145,9 +142,8 @@ export default ({ navigation, updatedUser }) => {
                 <Text>내 지역</Text>
               </Container>
               <Container
-                height={50}
                 onPress={() =>
-                  navigation.navigate("MyTradeHistory", {
+                  navigation.navigate('MyTradeHistory', {
                     otherParams: { user: data.me },
                   })
                 }
@@ -155,9 +151,8 @@ export default ({ navigation, updatedUser }) => {
                 <Text>나의 대여 요청</Text>
               </Container>
               <Container
-                height={50}
                 onPress={() =>
-                  navigation.navigate("MyReservation", {
+                  navigation.navigate('MyReservation', {
                     otherParams: { user: data.me },
                   })
                 }
@@ -165,16 +160,15 @@ export default ({ navigation, updatedUser }) => {
                 <Text>내게 온 대여 요청</Text>
               </Container>
               <Container
-                height={50}
                 onPress={() =>
-                  navigation.navigate("Setting", {
+                  navigation.navigate('Setting', {
                     otherParams: { user: data.me },
                   })
                 }
               >
                 <Text>설정</Text>
               </Container>
-              <Container height={50} onPress={handler}>
+              <Container onPress={handler}>
                 <Text>로그아웃</Text>
               </Container>
             </View>

@@ -20,6 +20,8 @@ import NavController from './components/NavController';
 import Toast from 'react-native-toast-message';
 
 export default function App() {
+  console.disableYellowBox = true;
+
   const [loaded, setLoaded] = useState(false);
   const [client, setClient] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(null); // true: in / false: out / null: not checked

@@ -27,6 +27,10 @@ export const SEEFULLPOST = gql`
           period_string
           area
         }
+        isSelf
+        areaAuth
+        createdAt
+        postsCount
       }
       files {
         id

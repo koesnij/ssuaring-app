@@ -1,16 +1,16 @@
-import { useQuery } from "@apollo/client";
-import React from "react";
-import { ScrollView } from "react-native";
-import styled from "styled-components";
-import { defaultimage } from "../../../../constants";
-import { SEARCH } from "../SearchQueries";
-import { Image } from "react-native";
+import { useQuery } from 'react-apollo-hooks';
+import React, { useState } from 'react';
+import { RefreshControl, ScrollView, FlatList } from 'react-native';
+import styled from 'styled-components';
+import { defaultimage } from '../../../../constants';
+import { SEARCH } from '../SearchQueries';
+import { Image } from 'react-native';
+import Loader from '../../../../components/Loader';
+import PostItem from '../../../../components/PostItem';
 
 const View = styled.View`
-  justify-content: center;
-  align-items: center;
   flex: 1;
-  border: 1px solid black;
+  background-color: white;
 `;
 const TitleText = styled.Text`
   font-size: 24px;
@@ -21,9 +21,7 @@ const Text = styled.Text`
   font-weight: 500;
   height: 25%;
 `;
-const LoadingText=styled.Text`
-
-`;
+const LoadingText = styled.Text``;
 const TextContainer = styled.TouchableOpacity`
   flex: 1;
   flex-direction: column;
@@ -34,7 +32,7 @@ const Container = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: center;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  height: ${(props) => props.height};
+  height: ${(props) => props.height || 100};
 `;
 export default ({ route, navigation }) => {
   const {
@@ -45,44 +43,73 @@ export default ({ route, navigation }) => {
     variables: {
       term: term,
     },
-    fetchPolicy:"network-only"
+    fetchPolicy: 'network-only',
   });
-  console.log(data);
+  console.log('SEARCHPAGE', data);
+
+  const [refreshing, setRefreshing] = useState(false);
+  const onRefresh = async () => {
+    try {
+      setRefreshing(true);
+      await refetch();
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setRefreshing(false);
+    }
+  };
   return (
-    <ScrollView>
+    <View>
       {loading ? (
-        <View>
-          <LoadingText>loading</LoadingText>
-        </View>
-      ) : data && data.searchPost ? (
-        data.searchPost.map((tomato) => (
-          <Container>
-            {tomato.files[0] ? (
-              <Image
-                style={{ width: 100, height: 100 }}
-                source={{ uri: tomato.files[0].url }}
-              />
-            ) : (
-              <Image
-                style={{ width: 100, height: 100 }}
-                source={{
-                  uri: defaultimage,
-                }}
-              />
-            )}
-            <TextContainer>
-              <Text>{tomato.title}</Text>
-              <Text>{tomato.area}</Text>
-              <Text>{tomato.period}기간당{tomato.price}원</Text>
-              <Text>{tomato.caption}</Text>
-            </TextContainer>
-          </Container>
-        ))
+        <Loader />
       ) : (
-        <View>
-          <Text>검색 결과를 찾을 수 없습니다.</Text>
-        </View>
+        data &&
+        data.searchPost && (
+          <FlatList
+            data={data.searchPost}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+            }
+            renderItem={({ item }) => <PostItem key={item.id} item={item} />}
+          />
+        )
       )}
-    </ScrollView>
+    </View>
+
+    //   <ScrollView>
+    //     {loading ? (
+    //       <Loader />
+    //     ) : data && data.searchPost ? (
+    //       data.searchPost.map((tomato) => (
+    //         <Container>
+    //           {tomato.files[0] ? (
+    //             <Image
+    //               style={{ width: 100, height: 100 }}
+    //               source={{ uri: tomato.files[0].url }}
+    //             />
+    //           ) : (
+    //             <Image
+    //               style={{ width: 100, height: 100 }}
+    //               source={{
+    //                 uri: defaultimage,
+    //               }}
+    //             />
+    //           )}
+    //           <TextContainer>
+    //             <Text>{tomato.title}</Text>
+    //             <Text>{tomato.area}</Text>
+    //             <Text>
+    //               {tomato.period}기간당{tomato.price}원
+    //             </Text>
+    //             <Text>{tomato.caption}</Text>
+    //           </TextContainer>
+    //         </Container>
+    //       ))
+    //     ) : (
+    //       <View>
+    //         <Text>검색 결과를 찾을 수 없습니다.</Text>
+    //       </View>
+    //     )}
+    //   </ScrollView>
   );
 };

@@ -115,6 +115,21 @@ const Text = styled.Text`
   padding: 20px;
   padding-top: 10px;
 `;
+
+const ReviewItem = styled.View`
+  flex-direction: row;
+  padding: 10px;
+  align-items: center;
+  /* border-bottom-width: 1px; */
+  border-bottom-color: ${styles.lightGreyColor};
+`;
+
+const ReviewText = styled.Text`
+  padding-top: 5px;
+  font-size: 14px;
+  font-weight: 400;
+`;
+
 const TOGGLE_LIKE = gql`
   mutation toggleLike($postId: String!) {
     toggleLike(postId: $postId)
@@ -146,7 +161,9 @@ export default ({ route, navigation }) => {
     fetchPolicy: 'network-only',
   });
   console.log('datadata', data);
-
+  if (data && data.seeFullPost && data.seeFullPost.reservations) {
+    console.log('DATA!!', data.seeFullPost.reservations[0].review.length);
+  }
   /** 찜 관련 */
   const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
@@ -257,16 +274,63 @@ export default ({ route, navigation }) => {
                 {data.seeFullPost.reservations.length === 0 ? (
                   <Text>아직 후기가 없습니다.</Text>
                 ) : (
-                  data.seeFullPost.reservations.map((item) => {
-                    item.review.length === 1 ? (
-                      <PriceText>
-                        {item.review.borrower.avatar}{' '}
-                        {item.review.borrower.nickname}
-                      </PriceText>
-                    ) : (
-                      <></>
-                    );
-                  })
+                  <ReviewItem>
+                    <Image
+                      style={{
+                        borderRadius: 25,
+                        height: 50,
+                        width: 50,
+                        resizeMode: 'cover',
+                      }}
+                      source={{ uri: data.seeFullPost.user.avatar }}
+                    />
+                    <Column>
+                      <Nick>juunzzi</Nick>
+                      <ReviewText>정말 친절해요 !</ReviewText>
+                    </Column>
+                    {/* {reservation.review[0].borrower.avatar}{' '} */}
+                    {/* {reservation.review[0].borrower.nickname} */}
+                  </ReviewItem>
+                  // data.seeFullPost.reservations.map((reservation) => {
+                  //   console.log('reviewlen', reservation.review.length > 0);
+                  //   reservation.review.length > 0 ? (
+                  // <ReviewItem>
+                  //   <Image
+                  //     style={{
+                  //       borderRadius: 25,
+                  //       height: 50,
+                  //       width: 50,
+                  //       resizeMode: 'cover',
+                  //     }}
+                  //     source={{ uri: data.seeFullPost.user.avatar }}
+                  //   />
+                  //   <Column>
+                  //     <Nick>aaa</Nick>
+                  //     <ReviewText>리뷰있음</ReviewText>
+                  //   </Column>
+                  //   {/* {reservation.review[0].borrower.avatar}{' '} */}
+                  //   {/* {reservation.review[0].borrower.nickname} */}
+                  // </ReviewItem>
+                  //   ) : (
+                  //     <ReviewItem>
+                  //       <Image
+                  //         style={{
+                  //           borderRadius: 25,
+                  //           height: 50,
+                  //           width: 50,
+                  //           resizeMode: 'cover',
+                  //         }}
+                  //         source={{ uri: data.seeFullPost.user.avatar }}
+                  //       />
+                  //       <Column>
+                  //         <Nick>aaa</Nick>
+                  //         <ReviewText>리뷰있음</ReviewText>
+                  //       </Column>
+                  //       {/* {reservation.review[0].borrower.avatar}{' '} */}
+                  //       {/* {reservation.review[0].borrower.nickname} */}
+                  //     </ReviewItem>
+                  //   );
+                  // })
                 )}
               </ReviewArea>
               <OtherPostsArea>
@@ -283,7 +347,18 @@ export default ({ route, navigation }) => {
                 <Button
                   text="수정하기"
                   size={340}
-                  // onPress={() => navigation.navigate('')}
+                  onPress={() =>
+                    navigation.navigate('EditPostTest', {
+                      otherParams: {
+                        id: data.seeFullPost.id,
+                        title: data.seeFullPost.title,
+                        price: data.seeFullPost.price,
+                        period: data.seeFullPost.period,
+                        category: data.seeFullPost.category,
+                        caption: data.seeFullPost.caption,
+                      },
+                    })
+                  }
                 />
               ) : (
                 <>

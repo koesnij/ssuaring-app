@@ -39,7 +39,7 @@ const Price = styled.Text`
   font-weight: 600;
 `;
 
-const PostItem = ({
+export default ({
   item: { id, files, title, price, period_string, area },
   size = 110,
 }) => {

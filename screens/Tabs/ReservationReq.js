@@ -10,6 +10,7 @@ import constants from '../../constants';
 import styles from '../../styles';
 import { useMutation } from 'react-apollo-hooks';
 import { APPLY_RESERVATION } from './PostDetailQueries';
+import { SEND_MESSAGE } from './Chats/ChatQueries';
 
 const View = styled.View`
   background-color: white;
@@ -120,6 +121,7 @@ const getDate = (date) => {
 export default ({ route, navigation }) => {
   const {
     otherParams: {
+      user: { id: userId },
       id,
       title,
       area,
@@ -138,6 +140,13 @@ export default ({ route, navigation }) => {
   const [applyReservationMutation] = useMutation(APPLY_RESERVATION, {
     variables: { postId: id, startDate: startTime, endDate: endTime },
   });
+  console.log('RESREQ', userId);
+  const [sendMessageMutation] = useMutation(SEND_MESSAGE, {
+    variables: {
+      text: '예약 요청입니다.',
+      toId: userId,
+    },
+  });
   const [loading, setLoading] = useState(false);
   const handleReserve = async () => {
     try {
@@ -151,6 +160,7 @@ export default ({ route, navigation }) => {
           endDate: String(endTime.getTime()),
         },
       });
+      await sendMessageMutation();
       if (applyReservation) {
         Toast.show({ topOffset: 50, text1: '예약 신청이 완료되었습니다.' });
         navigation.pop();

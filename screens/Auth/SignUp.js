@@ -44,10 +44,10 @@ export default ({ route }) => {
   const phoneNumber = route.params?.phoneNumber;
 
   const phoneInput = useInput(phoneNumber);
-  const nameInput = useInput('문진석');
-  const nicknameInput = useInput('moonzzin');
-  const emailInput = useInput('m_jinseok@naver.com');
-  const areaInput = useInput('서울');
+  const nameInput = useInput('');
+  const nicknameInput = useInput('');
+  const emailInput = useInput('');
+  const areaInput = useInput('');
 
   const [loading, setLoading] = useState(false);
 
@@ -76,7 +76,7 @@ export default ({ route }) => {
           Toast.show({
             topOffset: 50,
             text1: '회원가입 성공!',
-            text2: '홈 화면으로 이동합니다.',
+            text2: '지역 설정 화면으로 이동합니다.',
           });
           logIn(createAccount);
         }
