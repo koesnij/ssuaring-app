@@ -25,7 +25,11 @@ import PostDetail from '../screens/Tabs/PostDetail';
 import ReservationReq from '../screens/Tabs/ReservationReq';
 import EditArea from '../screens/Tabs/Mypage/MyPageScreens/EditArea';
 import Report from '../screens/Report/Report';
-
+import PostEditDetail from '../screens/Tabs/Mypage/MyPageScreens/PostEditDetail';
+import EditPost from '../screens/Tabs/Mypage/MyPageScreens/EditPost';
+import EditPostTest from '../screens/Tabs/Mypage/MyPageScreens/EditPostTest';
+import MyReservation from '../screens/Tabs/Mypage/MyPageScreens/MyReservation';
+import MyReservationDetail from '../screens/Tabs/Mypage/MyPageScreens/MyReservationDetail';
 const HomeStack = createStackNavigator();
 const MyPageStack = createStackNavigator();
 const SearchStack = createStackNavigator();
@@ -159,6 +163,7 @@ const MyPageStackScreen = () => (
       component={MyPosts}
       options={{ title: '내 게시물' }}
     />
+
     <MyPageStack.Screen
       name="EditArea"
       component={EditArea}
@@ -168,6 +173,16 @@ const MyPageStackScreen = () => (
       name="MyTradeHistory"
       component={MyTradeHistory}
       options={{ title: '내 거래내역' }}
+    />
+    <MyPageStack.Screen
+      name="MyReservation"
+      component={MyReservation}
+      options={{ title: '내게온 대여신청' }}
+    />
+    <MyPageStack.Screen
+      name="MyReservationDetail"
+      component={MyReservationDetail}
+      options={{ title: '내게온 신청' }}
     />
     <MyPageStack.Screen
       name="Setting"
@@ -183,6 +198,32 @@ const MyPageStackScreen = () => (
       name="EditProfile"
       component={EditProfile}
       options={{ title: '프로필 수정' }}
+    />
+    <MyPageStack.Screen
+      name="Report"
+      component={Report}
+      options={{ title: '신고하기' }}
+    />
+
+    <MyPageStack.Screen
+      name="PostEditDetail"
+      component={PostEditDetail}
+      options={{ title: '내 게시물 정보' }}
+    />
+    <MyPageStack.Screen
+      name="EditPost"
+      component={EditPost}
+      options={{ title: '게시물 수정' }}
+    />
+    <MyPageStack.Screen
+      name="PostDetail"
+      component={PostDetail}
+      options={{ title: '대여 상세 정보' }}
+    />
+    <MyPageStack.Screen
+      name="EditPostTest"
+      component={EditPostTest}
+      options={{ title: '게시물 수정' }}
     />
   </MyPageStack.Navigator>
 );

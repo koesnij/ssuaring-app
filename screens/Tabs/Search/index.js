@@ -57,7 +57,7 @@ export default ({ navigation }) => {
 
         <Text>title</Text>
         <Text>text</Text>
-        <Text>gay</Text>
+        <Text>아이패드</Text>
       </View>
       <View>
         <TitleText>인기 검색어</TitleText>
